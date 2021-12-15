@@ -3,10 +3,10 @@
 
     <item
         android:id="@+id/alertFragment"
-        android:title="Alert"
+        android:title="@string/alert"
         android:icon="@drawable/ic_alert"/>
     <item
         android:id="@+id/trackingFragment"
-        android:title="Track It"
+        android:title="@string/track_menstruation"
         android:icon="@drawable/ic_calender"/>
 </menu>
