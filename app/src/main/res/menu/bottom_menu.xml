@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/alertFragment"
+        android:title="@string/alert"
+        android:icon="@drawable/ic_alert"/>
+    <item
+        android:id="@+id/trackingFragment"
+        android:title="@string/track_menstruation"
+        android:icon="@drawable/ic_calender"/>
+</menu>
