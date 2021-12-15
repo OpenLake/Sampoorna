@@ -8,11 +8,11 @@
     <fragment
         android:id="@+id/alertFragment"
         android:name="org.openlake.sampoorna.ui.fragments.AlertFragment"
-        android:label="Safety SOS"
+        android:label="@string/safety_sos"
         tools:layout="@layout/fragment_alert" />
     <fragment
         android:id="@+id/trackingFragment"
         android:name="org.openlake.sampoorna.ui.fragments.TrackingFragment"
-        android:label="Track Menstrual Cycle"
+        android:label="@string/track_menstrual_cycle"
         tools:layout="@layout/fragment_tracking" />
 </navigation>

@@ -2,4 +2,6 @@
     <string name="app_name">Sampoorna</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="track_menstrual_cycle">Track Menstrual Cycle</string>
+    <string name="safety_sos">Safety SOS</string>
 </resources>

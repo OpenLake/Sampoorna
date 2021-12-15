@@ -24,7 +24,7 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAlertBinding.inflate(inflater,container,false)
         val view = binding.root
         return view
