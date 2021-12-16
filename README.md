@@ -13,7 +13,7 @@ We came up with an Android app solution named **Sampoorna** especially designed 
 2. We will be adding features of blogs and health tracking to detect existing symptoms in the updated versions.
 3. We want to promote Sampoorna to a much larger extent. Every single girl & woman should know about women safety, its precautions, and their health issues and their cures through this Application. 
 
-## Maintainers
+## Contributors
 
 - 👤 **Akshat Tiwari** [@akshaaatt](https://github.com/akshaaatt)
 - 👤 **Sunit Roy** [@SunitRoy2703](https://github.com/SunitRoy2703)
