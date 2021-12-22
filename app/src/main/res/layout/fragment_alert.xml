@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/frameLayout"
+    android:id="@+id/alertlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/_15sdp"
     tools:context=".ui.fragments.AlertFragment">
 
     <TextView
@@ -12,46 +13,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hellotext"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/_30sdp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageButton
         android:id="@+id/ic_contacts"
         android:layout_marginTop="@dimen/_50sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/ic_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/hellouser"
         android:background="@drawable/ic_sos_contacts"
+        app:layout_constraintTop_toBottomOf="@id/hellouser"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ic_message"
         app:layout_constraintBottom_toTopOf="@id/sosbutton"/>
 
     <ImageButton
         android:id="@+id/ic_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_edit_sos_message"
         android:layout_marginTop="@dimen/_50sdp"
         app:layout_constraintTop_toBottomOf="@id/hellouser"
         app:layout_constraintStart_toEndOf="@id/ic_contacts"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/ic_edit_sos_message"
-        app:layout_constraintBottom_toTopOf="@id/sosbutton"/>
+        app:layout_constraintBottom_toTopOf="@id/sosbutton"
+        />
 
     <ImageButton
         android:id="@+id/sosbutton"
-        android:layout_marginTop="@dimen/_100sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_sos_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ic_message" />
+        app:layout_constraintTop_toTopOf="@id/ic_message"
+        android:layout_marginTop="@dimen/_100sdp"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
