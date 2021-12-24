@@ -7,4 +7,6 @@
     <string name="alert">Alert</string>
     <string name="track_menstruation">Track Menstruation</string>
     <string name="hellotext">Hello,</string>
+    <string name="sample_text">Sample Text</string>
+    <string name="contacts">Contacts</string>
 </resources>
