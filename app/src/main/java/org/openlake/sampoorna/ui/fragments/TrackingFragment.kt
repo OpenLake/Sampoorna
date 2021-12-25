@@ -1,4 +1,4 @@
-package com.example.myperiodtracker
+package org.openlake.sampoorna
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
