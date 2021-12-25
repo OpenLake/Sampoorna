@@ -22,13 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //View Model
-        viewModel = ViewModelProvider(this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application))[ContactsViewModel::class.java]
-        viewModel.allContacts.observe(this, Observer {
-
-        })
-
 
         //Implementing bottom navigation view
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)

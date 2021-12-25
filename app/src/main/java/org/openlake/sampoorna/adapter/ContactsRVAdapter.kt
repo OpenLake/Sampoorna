@@ -17,7 +17,6 @@ class ContactsRVAdapter(val context:Context, val listener: Listeners):RecyclerVi
 
     inner class ContactsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val contactName = itemView.findViewById<TextView>(R.id.contact_name)
-        val contactImage = itemView.findViewById<ImageView>(R.id.contact_pfp)
         val contactNumber = itemView.findViewById<TextView>(R.id.contact_number)
         val contactDelete=itemView.findViewById<ImageView>(R.id.contact_delete)
     }
@@ -40,6 +39,12 @@ class ContactsRVAdapter(val context:Context, val listener: Listeners):RecyclerVi
 
     override fun getItemCount(): Int {
         return allContacts.size
+    }
+
+    fun updateContacts(newContactsList:List<Contacts>){
+        allContacts.clear()
+        allContacts.addAll(newContactsList)
+        notifyDataSetChanged()
     }
 }
 interface Listeners{
