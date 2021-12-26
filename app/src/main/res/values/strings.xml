@@ -6,7 +6,7 @@
     <string name="safety_sos">Safety SOS</string>
     <string name="alert">Alert</string>
     <string name="track_menstruation">Track Menstruation</string>
+    <string name="hellotext">Hello,</string>
     <string name="track_menstruation">Choose the Last Date</string>
     <string name="track_menstruation">Days Left</string>
-
 </resources>
