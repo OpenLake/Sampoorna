@@ -1,4 +1,4 @@
-package org.openlake.sampoorna
+package org.openlake.sampoorna.ui.fragments
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
