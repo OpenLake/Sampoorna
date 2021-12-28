@@ -8,12 +8,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.openlake.sampoorna.models.Contacts
 import org.openlake.sampoorna.models.ContactsDatabase
-import org.openlake.sampoorna.models.ContactsRepository
+import org.openlake.sampoorna.data.repository.ContactsRepository
 
 class ContactsViewModel(application: Application) :AndroidViewModel(application) {
 
     val allContacts: LiveData<List<Contacts>>
-    private lateinit var repository:ContactsRepository
+    private lateinit var repository: ContactsRepository
 
     init{
         val dao = ContactsDatabase.getDatabase(application).getContactsDao()
