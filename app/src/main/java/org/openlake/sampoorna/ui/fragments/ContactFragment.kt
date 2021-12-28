@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.adapter.ContactsRVAdapter
 import org.openlake.sampoorna.adapter.Listeners
@@ -20,6 +21,7 @@ import org.openlake.sampoorna.models.Contacts
 import org.openlake.sampoorna.ui.MainActivity
 import org.openlake.sampoorna.viewmodel.ContactsViewModel
 
+@AndroidEntryPoint
 class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
         lateinit var viewModel: ContactsViewModel
         private var _binding:FragmentContactBinding? = null
