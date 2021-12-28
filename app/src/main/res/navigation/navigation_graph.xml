@@ -9,10 +9,19 @@
         android:id="@+id/alertFragment"
         android:name="org.openlake.sampoorna.ui.fragments.AlertFragment"
         android:label="@string/safety_sos"
-        tools:layout="@layout/fragment_alert" />
+        tools:layout="@layout/fragment_alert" >
+        <action
+            android:id="@+id/action_alertFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
+    </fragment>
     <fragment
         android:id="@+id/trackingFragment"
         android:name="org.openlake.sampoorna.ui.fragments.TrackingFragment"
         android:label="@string/track_menstrual_cycle"
         tools:layout="@layout/fragment_tracking" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="org.openlake.sampoorna.ui.fragments.ContactFragment"
+        android:label="@string/contacts"
+        tools:layout="@layout/fragment_contact" />
 </navigation>
