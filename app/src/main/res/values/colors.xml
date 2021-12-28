@@ -12,9 +12,12 @@
     <color name="Black_Nero1">#201E1E</color>
     <color name="Black_Mitsubishi_Black_Matt">#070707</color>
     <color name="Harmonies">#B58E8E</color>
-    <color name="Red_Light">#DFD2D2</color>
-    <color name="Red_1">#7C6262</color>
-    
+    <color name="Timberwolf">#DFD2D2</color>
+    <color name="Deep_Taupe">#7C6262</color>
+    <color name="Queen_Pink">#EAD2D2</color>
+    <color name="Platinum">#ECDEE9</color>
+    <color name="Lavender_Gray">#C4B6DC</color>
+    <color name="Very_Light_Blue">#6C60F5</color>
 
 
 </resources>
