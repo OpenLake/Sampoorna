@@ -9,4 +9,7 @@
     <string name="hellotext">Hello,</string>
     <string name="sample_text">Sample Text</string>
     <string name="contacts">Contacts</string>
+    <string name="Date_Selection">Choose the Last Date</string>
+    <string name="Countdown">Days Left</string>
 </resources>
+

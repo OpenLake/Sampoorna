@@ -8,4 +8,13 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="constrained_height_0dp">0dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="ProgressBar_horizontal_margin">158dp</dimen>
+    <dimen name="ProgressBar_vertical_margin">133dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="Calendar_horizontal_margin">230dp</dimen>
+    <dimen name="Calendar_vertical_margin">215dp</dimen>
+    <!-- Standard dimension numbers. -->
+    <dimen name="textsize_24sp">24sp</dimen>
+
 </resources>
