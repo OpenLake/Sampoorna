@@ -1,39 +1,35 @@
 package org.openlake.sampoorna.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.openlake.sampoorna.models.Contacts
-import org.openlake.sampoorna.models.ContactsDatabase
+import org.openlake.sampoorna.data.di.Transformer
 import org.openlake.sampoorna.data.repository.ContactsRepository
-import org.openlake.sampoorna.data.repository.ContactsRepositoryImpl
+import org.openlake.sampoorna.models.Contacts
+import org.openlake.sampoorna.models.ContactsEntity
+import org.openlake.sampoorna.util.Resource
 import javax.inject.Inject
 
 @HiltViewModel
-class ContactsViewModel @Inject constructor(val repository: ContactsRepositoryImpl, application: Application) : ViewModel() {
+class ContactsViewModel @Inject constructor(val repository: ContactsRepository) : ViewModel() {
 
-     lateinit var allContacts: LiveData<List<Contacts>>
+    var allContacts = Transformations.map(repository.fetchAllContacts()) { list ->
 
-    init{
-        val dao = ContactsDatabase.getDatabase(application).getContactsDao()
-        val repository= ContactsRepositoryImpl(dao)
-
+        val temp = list.map {
+            Transformer.convertContactEntityToContactModel(it)
+        }
+        if (temp.isNullOrEmpty()) {
+            Resource.failure<String>()
+        } else {
+            temp
+        }
     }
 
-    fun deleteContact(contacts: Contacts)=viewModelScope.launch(Dispatchers.IO) {
+    fun deleteContact(contacts: Contacts) {
         repository.delete(contacts)
     }
 
-    fun insertContact(contact:Contacts)=viewModelScope.launch(Dispatchers.IO){
+    fun insertContact(contact:Contacts) {
         repository.insert(contact)
-    }
-
-    fun fetchC(allContacts: LiveData<List<Contacts>>)=viewModelScope.launch(Dispatchers.IO){
-        repository.fetchAllContacts(allContacts)
     }
 }

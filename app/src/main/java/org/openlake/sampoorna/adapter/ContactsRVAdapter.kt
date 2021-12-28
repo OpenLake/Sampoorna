@@ -1,7 +1,6 @@
 package org.openlake.sampoorna.adapter
 
 import android.content.Context
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.models.Contacts
 
-class ContactsRVAdapter(val context:Context, val listener: Listeners):RecyclerView.Adapter<ContactsRVAdapter.ContactsViewHolder>() {
+class ContactsRVAdapter(val context:Context, private val listener: Listeners):RecyclerView.Adapter<ContactsRVAdapter.ContactsViewHolder>() {
 
-    val allContacts = ArrayList<Contacts>()
+    private val allContacts = ArrayList<Contacts>()
 
     inner class ContactsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val contactName = itemView.findViewById<TextView>(R.id.contact_name)
-        val contactNumber = itemView.findViewById<TextView>(R.id.contact_number)
-        val contactDelete=itemView.findViewById<ImageView>(R.id.contact_delete)
+        val contactName: TextView = itemView.findViewById(R.id.contact_name)
+        val contactNumber: TextView = itemView.findViewById(R.id.contact_number)
+        val contactDelete: ImageView = itemView.findViewById(R.id.contact_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
@@ -33,8 +32,6 @@ class ContactsRVAdapter(val context:Context, val listener: Listeners):RecyclerVi
         val contact = allContacts[position]
         holder.contactName.text = contact.name
         holder.contactNumber.text = contact.contact.toString()
-
-
     }
 
     override fun getItemCount(): Int {
@@ -48,5 +45,5 @@ class ContactsRVAdapter(val context:Context, val listener: Listeners):RecyclerVi
     }
 }
 interface Listeners{
-    fun onItemClicked(contact:Contacts)
+    fun onItemClicked(contact: Contacts)
 }
