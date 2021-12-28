@@ -7,4 +7,6 @@
     <string name="alert">Alert</string>
     <string name="track_menstruation">Track Menstruation</string>
     <string name="hellotext">Hello,</string>
+    <string name="Date_Selection">Choose the Last Date</string>
+    <string name="Countdown">Days Left</string>
 </resources>
