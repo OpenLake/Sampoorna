@@ -19,13 +19,9 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         super.onCreate(savedInstanceState)
         exitTransition = MaterialFadeThrough()
         enterTransition = MaterialFadeThrough()
-       }
+    }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAlertBinding.inflate(inflater,container,false)
         val view = binding.root
         val gotoContacts = binding.icContacts
