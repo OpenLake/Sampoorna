@@ -1,4 +1,4 @@
-package org.openlake.sampoorna.ui.fragments
+package org.openlake.sampoorna.presentation.features.periodtracker
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

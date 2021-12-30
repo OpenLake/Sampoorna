@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_15sdp"
-    tools:context=".ui.fragments.AlertFragment">
+    tools:context=".presentation.features.sos_alert.AlertFragment">
 
     <TextView
         android:id="@+id/hellouser"

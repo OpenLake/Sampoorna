@@ -1,4 +1,4 @@
-package org.openlake.sampoorna.models
+package org.openlake.sampoorna.data.sources.entities
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Contacts(
     val name: String?,
-    val contact: Int?
+    val contact: String?
 ):Parcelable

@@ -1,4 +1,4 @@
-package org.openlake.sampoorna.adapter
+package org.openlake.sampoorna.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.openlake.sampoorna.R
-import org.openlake.sampoorna.models.Contacts
+import org.openlake.sampoorna.data.sources.entities.Contacts
 
 class ContactsRVAdapter(val context:Context, private val listener: Listeners):RecyclerView.Adapter<ContactsRVAdapter.ContactsViewHolder>() {
 

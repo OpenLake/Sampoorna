@@ -1,10 +1,7 @@
-package org.openlake.sampoorna.ui
+package org.openlake.sampoorna.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -13,7 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.ActivityMainBinding
-import org.openlake.sampoorna.viewmodel.ContactsViewModel
+import org.openlake.sampoorna.presentation.features.contacts.ContactsViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

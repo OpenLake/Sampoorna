@@ -1,7 +1,7 @@
 package org.openlake.sampoorna.data.di
 
-import org.openlake.sampoorna.models.Contacts
-import org.openlake.sampoorna.models.ContactsEntity
+import org.openlake.sampoorna.data.sources.entities.Contacts
+import org.openlake.sampoorna.data.sources.entities.ContactsEntity
 
 /*
 * This is a transformer class

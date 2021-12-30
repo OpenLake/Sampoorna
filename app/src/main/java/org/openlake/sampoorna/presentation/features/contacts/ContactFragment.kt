@@ -1,4 +1,4 @@
-package org.openlake.sampoorna.ui.fragments
+package org.openlake.sampoorna.presentation.features.contacts
 
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
-import org.openlake.sampoorna.adapter.ContactsRVAdapter
-import org.openlake.sampoorna.adapter.Listeners
+import org.openlake.sampoorna.presentation.adapter.ContactsRVAdapter
+import org.openlake.sampoorna.presentation.adapter.Listeners
 import org.openlake.sampoorna.databinding.FragmentContactBinding
-import org.openlake.sampoorna.models.Contacts
-import org.openlake.sampoorna.viewmodel.ContactsViewModel
+import org.openlake.sampoorna.data.sources.entities.Contacts
 
 @AndroidEntryPoint
 class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
@@ -36,16 +35,18 @@ class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
 
         //ViewModel instantiating
         viewModel = ViewModelProvider(this)[ContactsViewModel::class.java]
-        viewModel.allContacts.observe(viewLifecycleOwner, { it->
-            it?.let{
-               // adapter.updateContacts(it)
-            }
+        viewModel.allContacts.observe(viewLifecycleOwner, {
+
+                    adapter.updateContacts(viewModel.sharedViewModelContacts)
+
         })
 
         //fab actions
+        val addContactsFragment= AddContactBottomSheet()
         val addContactBtn = view.findViewById<FloatingActionButton>(R.id.contacts_add)
         addContactBtn.setOnClickListener {
-            Log.d("FAB","works")
+            addContactsFragment.show(parentFragmentManager,"addContactBottomSheet")
+
         }
         return view
     }

@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.ContactFragment">
+    tools:context=".presentation.features.contacts.ContactFragment">
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/contacts_add"
         android:src="@drawable/ic_add"

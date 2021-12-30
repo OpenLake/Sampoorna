@@ -11,5 +11,10 @@
     <string name="contacts">Contacts</string>
     <string name="Date_Selection">Choose the Last Date</string>
     <string name="Countdown">Days Left</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone">Phone</string>
+    <string name="save">Save</string>
 </resources>
 
