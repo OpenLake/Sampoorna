@@ -43,6 +43,7 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
     ): View {
         // Inflate the layout for this fragment
         val binding = FragmentTrackingBinding.inflate(inflater,container,false)
+        
         val view = binding.root
         dateText = getView()?.findViewById(R.id.date_text)
         getView()?.findViewById<View>(R.id.show_dialog)?.setOnClickListener { showDatePickerDialog() }
