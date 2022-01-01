@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import org.openlake.sampoorna.presentation.adapter.ContactsRVAdapter
 import org.openlake.sampoorna.presentation.adapter.Listeners
 import org.openlake.sampoorna.databinding.FragmentContactBinding
 import org.openlake.sampoorna.data.sources.entities.Contacts
+import org.openlake.sampoorna.data.sources.entities.ContactsEntity
 
 @AndroidEntryPoint
 class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
@@ -35,10 +37,9 @@ class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
 
         //ViewModel instantiating
         viewModel = ViewModelProvider(this)[ContactsViewModel::class.java]
-        viewModel.allContacts.observe(viewLifecycleOwner, {
-
-                    adapter.updateContacts(viewModel.sharedViewModelContacts)
-
+        viewModel.allContacts.observe(viewLifecycleOwner,{
+                adapter.updateContacts(viewModel.getContacts())
+            Log.d("adapter updataion??","${adapter.itemCount} ${viewModel.getContacts()}")
         })
 
         //fab actions

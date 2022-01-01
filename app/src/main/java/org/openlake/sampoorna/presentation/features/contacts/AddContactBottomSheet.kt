@@ -41,7 +41,6 @@ class AddContactBottomSheet: BottomSheetDialogFragment() {
             if( contact_last_name.text?.isEmpty()!!){
                 contact_last_name.setText("")
 
-
             }
             if (contact_phone_number.text?.isEmpty()!! or !Patterns.PHONE.matcher(contact_phone_number.text.toString()).matches()){
                 contact_phone_number.error="Please enter phone number correctly"
@@ -50,7 +49,8 @@ class AddContactBottomSheet: BottomSheetDialogFragment() {
             }
             val contact= Contacts(contact_first_name.text.toString()+contact_last_name.toString(),contact_phone_number.text.toString())
             contactSharedViewModel.insertContact(contact)
-            contactSharedViewModel.passContact(contact)
+            contactSharedViewModel.passContacts(contact)
+
             dismiss()
         }
 

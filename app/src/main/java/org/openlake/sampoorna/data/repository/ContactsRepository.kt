@@ -6,6 +6,6 @@ import org.openlake.sampoorna.data.sources.entities.ContactsEntity
 
 interface ContactsRepository {
      fun fetchAllContacts() : LiveData<List<ContactsEntity>>
-    suspend fun insert(contact: Contacts)
+     suspend fun insert(contact: Contacts)
      fun delete(contact: Contacts)
 }

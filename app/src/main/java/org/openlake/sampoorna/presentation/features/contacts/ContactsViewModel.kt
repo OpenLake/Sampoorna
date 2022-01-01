@@ -1,5 +1,6 @@
 package org.openlake.sampoorna.presentation.features.contacts
 
+import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -12,8 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ContactsViewModel @Inject constructor(val repository: ContactsRepository) : ViewModel() {
-    var sharedViewModelContacts = ArrayList<Contacts>()
-    var allContacts = Transformations.map(repository.fetchAllContacts()) { list ->
+    var numcontacts = arrayListOf<Contacts>()
+
+    var allContacts= Transformations.map(repository.fetchAllContacts()) { list ->
 
         val temp = list.map {
             Transformer.convertContactEntityToContactModel(it)
@@ -29,11 +31,17 @@ class ContactsViewModel @Inject constructor(val repository: ContactsRepository) 
         repository.delete(contacts)
     }
 
-    fun passContact(contact: Contacts){
-        sharedViewModelContacts.add(contact)
+    fun passContacts(contact: Contacts){
+        numcontacts.add(contact)
+        Log.d("passContacts working??","${numcontacts}")
+    }
+    fun getContacts():ArrayList<Contacts>{
+        Log.d("getContacts??","${numcontacts}")
+        return numcontacts
     }
 
     fun insertContact(contact: Contacts)=viewModelScope.launch(Dispatchers.IO) {
+        Log.d("insertContact??","${contact}")
         repository.insert(contact)
     }
 }

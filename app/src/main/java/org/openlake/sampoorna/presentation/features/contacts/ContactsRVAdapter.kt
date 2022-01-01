@@ -38,7 +38,7 @@ class ContactsRVAdapter(val context:Context, private val listener: Listeners):Re
         return allContacts.size
     }
 
-    fun updateContacts(newContactsList:List<Contacts>){
+    fun updateContacts(newContactsList:ArrayList<Contacts>){
         allContacts.clear()
         allContacts.addAll(newContactsList)
         notifyDataSetChanged()
