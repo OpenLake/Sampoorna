@@ -13,17 +13,18 @@ import androidx.fragment.app.Fragment
 import org.openlake.sampoorna.databinding.FragmentTrackingBinding
 import java.util.*
 
-class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener {
+
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+
+
+class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener,
+    View.OnClickListener {
     private var dateText: TextView? = null
-    //private var context: Context? = null
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //setContentView(R.layout.fragment_tracking)
-        dateText = findViewById(R.id.date_text)
-        findViewById<View>(R.id.show_dialog).setOnClickListener { showDatePickerDialog() }
-    }*/
+
 
     private fun showDatePickerDialog() {
+
         val datePickerDialog = this.context?.let {
             DatePickerDialog(
                 it,
@@ -37,27 +38,66 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
             datePickerDialog.show()
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val binding = FragmentTrackingBinding.inflate(inflater,container,false)
-        
-        val view = binding.root
-        dateText = getView()?.findViewById(R.id.date_text)
-        getView()?.findViewById<View>(R.id.show_dialog)?.setOnClickListener { showDatePickerDialog() }
-        return view
+        //val binding = FragmentTrackingBinding.inflate(inflater,container,false)
+
+        //val view = binding.root
+        val cl = inflater.inflate(R.layout.fragment_tracking, container, false) as ConstraintLayout
+
+        dateText = cl.findViewById(R.id.date_text)
+
+
+        val button = cl.findViewById<View>(R.id.show_dialog)
+        button?.setOnClickListener(this)
+
+        return cl
     }
 
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
-        //val calendar = Calendar.getInstance()
-        //System.out.println("Current Calendar's Day: " + calendar.get(Calendar.DATE));
+        val calendar = Calendar.getInstance()
+        val nowDate = calendar.get(Calendar.DATE)
+        val nowMonth = calendar.get(Calendar.MONTH)
+        var temp = month
+        var daysleft = 0
+        var f = 0
+
+        var finaldate = dayOfMonth + 28
+        if (month == 2 || month == 4 || month == 6 || month == 9 || month == 11) {
+            if (finaldate > 30) {
+                finaldate = finaldate - 30
+                temp = temp + 1
+            }
+        }
+        else {
+            if (finaldate > 31) {
+                finaldate = finaldate - 31
+                temp = temp + 1
+            }
+        }
 
 
-        //int finaldate=dayOfMonth+28-dayy;
-        val date = "month/day/year: " + (month + 1) + "/" + dayOfMonth + "/" + year
-        this.dateText!!.text = date
+
+        if (nowMonth >= month && finaldate >= nowDate) {
+            daysleft = finaldate - nowDate
+            f = 1
+        }
+
+
+        if (f == 1)
+            this.dateText!!.text = daysleft.toString()
+        else
+            this.dateText!!.text = "Invalid Date"
+
+    }
+
+    override fun onClick(p0: View?) {
+
+        showDatePickerDialog()
     }
 }

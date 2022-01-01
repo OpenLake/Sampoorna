@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/show_dialog"
-        android:text="show dialog"
+        android:text="@string/show_dialog"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -51,15 +51,15 @@
 
 
     <TextView
+        android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/date_text"
+        android:textColor="#000"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_dialog"
-        android:textColor="#000"
-        android:textSize="24sp"/>
+        app:layout_constraintTop_toBottomOf="@+id/show_dialog" />
 
 
 
