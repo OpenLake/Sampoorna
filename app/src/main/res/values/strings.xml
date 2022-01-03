@@ -11,5 +11,6 @@
     <string name="contacts">Contacts</string>
     <string name="Date_Selection">Choose the Last Date</string>
     <string name="Countdown">Days Left</string>
+    <string name="show_dialog">Show Calendar</string>
 </resources>
 
