@@ -1,6 +1,7 @@
 package org.openlake.sampoorna.presentation.features.contacts
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import org.openlake.sampoorna.App
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.sources.entities.Contacts
 import java.util.regex.Pattern
@@ -49,11 +51,12 @@ class AddContactBottomSheet: BottomSheetDialogFragment() {
             }
             val contact= Contacts(contact_first_name.text.toString()+contact_last_name.toString(),contact_phone_number.text.toString())
             contactSharedViewModel.insertContact(contact)
-            contactSharedViewModel.passContacts(contact)
 
             dismiss()
         }
 
     }
+
+
 
 }

@@ -11,10 +11,10 @@ import org.openlake.sampoorna.data.sources.entities.Contacts
 import org.openlake.sampoorna.util.Resource
 import javax.inject.Inject
 
+
+
 @HiltViewModel
 class ContactsViewModel @Inject constructor(val repository: ContactsRepository) : ViewModel() {
-    var numcontacts = arrayListOf<Contacts>()
-
     var allContacts= Transformations.map(repository.fetchAllContacts()) { list ->
 
         val temp = list.map {
@@ -27,21 +27,12 @@ class ContactsViewModel @Inject constructor(val repository: ContactsRepository) 
         }
     }
 
+
     fun deleteContact(contacts: Contacts) {
         repository.delete(contacts)
     }
 
-    fun passContacts(contact: Contacts){
-        numcontacts.add(contact)
-        Log.d("passContacts working??","${numcontacts}")
-    }
-    fun getContacts():ArrayList<Contacts>{
-        Log.d("getContacts??","${numcontacts}")
-        return numcontacts
-    }
-
     fun insertContact(contact: Contacts)=viewModelScope.launch(Dispatchers.IO) {
-        Log.d("insertContact??","${contact}")
         repository.insert(contact)
     }
 }

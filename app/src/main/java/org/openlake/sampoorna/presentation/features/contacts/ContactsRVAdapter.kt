@@ -9,10 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.sources.entities.Contacts
+import javax.inject.Inject
 
-class ContactsRVAdapter(val context:Context, private val listener: Listeners):RecyclerView.Adapter<ContactsRVAdapter.ContactsViewHolder>() {
+class ContactsRVAdapter @Inject constructor(val context:Context, private val listener: Listeners):RecyclerView.Adapter<ContactsRVAdapter.ContactsViewHolder>() {
 
-    private val allContacts = ArrayList<Contacts>()
+    private var allContacts =ArrayList<Contacts>()
 
     inner class ContactsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val contactName: TextView = itemView.findViewById(R.id.contact_name)
@@ -38,11 +39,12 @@ class ContactsRVAdapter(val context:Context, private val listener: Listeners):Re
         return allContacts.size
     }
 
-    fun updateContacts(newContactsList:ArrayList<Contacts>){
+    fun updateContacts(listofContacts:ArrayList<Contacts>){
         allContacts.clear()
-        allContacts.addAll(newContactsList)
+        allContacts.addAll(listofContacts)
         notifyDataSetChanged()
     }
+
 }
 interface Listeners{
     fun onItemClicked(contact: Contacts)
