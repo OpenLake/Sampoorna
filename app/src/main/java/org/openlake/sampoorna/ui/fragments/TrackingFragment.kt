@@ -62,37 +62,53 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
     override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
         val calendar = Calendar.getInstance()
         val nowDate = calendar.get(Calendar.DATE)
-        val nowMonth = calendar.get(Calendar.MONTH)
-        var temp = month
+        val nowMonth = calendar.get(Calendar.MONTH)+1;
+        var temp = month+1
         var daysleft = 0
         var f = 0
+
 
         var finaldate = dayOfMonth + 28
         if (month == 2 || month == 4 || month == 6 || month == 9 || month == 11) {
             if (finaldate > 30) {
                 finaldate = finaldate - 30
-                temp = temp + 1
+
             }
         }
         else {
             if (finaldate > 31) {
                 finaldate = finaldate - 31
-                temp = temp + 1
+
             }
         }
 
 
 
-        if (nowMonth >= month && finaldate >= nowDate) {
-            daysleft = finaldate - nowDate
-            f = 1
-        }
+          if(nowMonth==1 && temp==12 && finaldate>=nowDate) {
+              System.out.println("heyy")
+              f = 1;
+              daysleft = finaldate - nowDate
+          }
+          else if(nowMonth==temp &&  dayOfMonth<=nowDate){
+              f = 1;
+              daysleft = finaldate - nowDate
+          }
+
+          else if(temp<nowMonth && finaldate>=nowDate){
+              f = 1;
+              daysleft = finaldate - nowDate
+          }
 
 
-        if (f == 1)
+
+
+
+            if(f==1)
+
             this.dateText!!.text = daysleft.toString()
-        else
-            this.dateText!!.text = "Invalid Date"
+            else 
+
+                this.dateText!!.text = "Invalid"
 
     }
 
