@@ -1,26 +1,27 @@
 package org.openlake.sampoorna.ui.fragments
 
-import org.openlake.sampoorna.R
-import android.view.LayoutInflater
+
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.android.material.transition.MaterialFadeThrough
+import org.openlake.sampoorna.R
+import org.openlake.sampoorna.databinding.FragmentTrackingBinding
 import java.util.*
 
 
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.transition.MaterialFadeThrough
-
-
 class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener {
-    lateinit var dateText: TextView
     private val menstrualCycle: Int = 28
-
+    private var _binding: FragmentTrackingBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var dateText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,20 +34,22 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        //val binding = FragmentTrackingBinding.inflate(inflater,container,false)
-
-        //val view = binding.root
-        val cl = inflater.inflate(R.layout.fragment_tracking, container, false) as ConstraintLayout
-
-        dateText = cl.findViewById(R.id.date_text)
+        _binding = FragmentTrackingBinding.inflate(inflater,container,false)
 
 
-        val button = cl.findViewById<View>(R.id.show_dialog)
-        button?.setOnClickListener { showDatePickerDialog() }
+        dateText = binding.dateText
 
-        return cl
+        val button: Button = binding.showDialog
+        button.setOnClickListener { showDatePickerDialog() }
+
+        return binding.root
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, date: Int) {
 
@@ -72,9 +75,9 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
         val daysLeft = hoursLeft / 24
 
         if (timeLeft > 0)
-            this.dateText!!.text = daysLeft.toString()
+            this.dateText.text = daysLeft.toString()
         else
-            this.dateText!!.text = "Invalid Date"
+            this.dateText.text = "Invalid Date"
 
     }
 
