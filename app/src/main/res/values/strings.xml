@@ -20,5 +20,6 @@
     <string name="enable_gps">Enable GPS</string>
     <string name="required_for_this_app">Required For this feature</string>
     <string name="enable_now">Enable Now</string>
+    <string name="show_dialog">Show Calendar</string>
 </resources>
 

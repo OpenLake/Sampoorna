@@ -14,7 +14,7 @@
         android:text="@string/Date_Selection"
         android:textColor="@color/Black_Nero"
         android:textColorHint="@color/Black"
-        android:textSize="@dimen/textsize_24sp"
+        android:textSize="@dimen/_24ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -30,7 +30,7 @@
         android:text="@string/Countdown"
         android:textColor="@color/Black_Nero1"
         android:textColorHint="@color/Black_Mitsubishi_Black_Matt"
-        android:textSize="@dimen/textsize_24sp"
+        android:textSize="@dimen/_24ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -38,34 +38,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.915" />
 
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="@dimen/Calendar_horizontal_margin"
-            android:layout_height="@dimen/Calendar_vertical_margin"
-            android:background="@color/Lavender_Gray"
-            android:backgroundTint="@color/Platinum"
-            android:focusedMonthDateColor="@color/Queen_Pink"
-            android:foregroundTint="@color/Harmonies"
-            android:selectedWeekBackgroundColor="@color/Timberwolf"
-            android:unfocusedMonthDateColor="@color/Deep_Taupe"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.491"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.335" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="@dimen/ProgressBar_horizontal_margin"
-            android:layout_height="@dimen/ProgressBar_vertical_margin"
-            android:indeterminateTint="@color/Very_Light_Blue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.486"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.826" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/show_dialog"
+        android:text="@string/show_dialog"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/date_text"/>
+
+
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="@dimen/_34ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_dialog" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
