@@ -8,13 +8,17 @@
     <string name="track_menstruation">Track Menstruation</string>
     <string name="hellotext">Hello,</string>
     <string name="sample_text">Sample Text</string>
-    <string name="contacts">Contacts</string>
+    <string name="contacts">Contacts list</string>
     <string name="Date_Selection">Choose the Last Date</string>
     <string name="Countdown">Days Left</string>
-    <string name="add_contact">Add Contact</string>
+    <string name="add_contact">+ Add Contact</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="phone">Phone</string>
     <string name="save">Save</string>
+    <string name="go_back_to_alert_menu">Go back to Alert Menu</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="required_for_this_app">Required For this feature</string>
+    <string name="enable_now">Enable Now</string>
 </resources>
 

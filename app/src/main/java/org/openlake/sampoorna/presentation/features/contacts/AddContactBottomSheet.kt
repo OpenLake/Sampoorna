@@ -6,6 +6,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -24,15 +25,14 @@ class AddContactBottomSheet: BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.bottomsheet_add_contacts, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val btn_save_contact:MaterialButton=view.findViewById(R.id.btn_add_contact)
-        val contact_first_name:TextInputEditText=view.findViewById(R.id.first_name_input)
-        val contact_last_name:TextInputEditText=view.findViewById(R.id.last_name_input)
+        val contact_first_name:EditText=view.findViewById(R.id.first_name_input)
+        val contact_last_name:EditText=view.findViewById(R.id.last_name_input)
         val contact_phone_number:TextInputEditText=view.findViewById(R.id.contact_number_add)
         btn_save_contact.setOnClickListener {
             if(contact_first_name.text?.isEmpty()!!  ){
@@ -49,14 +49,11 @@ class AddContactBottomSheet: BottomSheetDialogFragment() {
                 contact_phone_number.requestFocus()
                 return@setOnClickListener
             }
-            val contact= Contacts(contact_first_name.text.toString()+contact_last_name.toString(),contact_phone_number.text.toString())
+            val contact= Contacts(contact_first_name.text.toString()+" "+contact_last_name.text.toString(),contact_phone_number.text.toString())
             contactSharedViewModel.insertContact(contact)
-
             dismiss()
         }
 
     }
-
-
 
 }

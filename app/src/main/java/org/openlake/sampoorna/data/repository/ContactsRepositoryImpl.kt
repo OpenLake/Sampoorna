@@ -1,5 +1,6 @@
 package org.openlake.sampoorna.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import org.openlake.sampoorna.data.di.Transformer
 import org.openlake.sampoorna.data.sources.AppDatabase
@@ -19,7 +20,7 @@ class ContactsRepositoryImpl @Inject constructor(val appDatabase: AppDatabase): 
         appDatabase.contactsDao().insert(Transformer.convertContactModelToContactEntity(contact))
     }
 
-    override fun delete(contact: Contacts) {
+    override suspend fun delete(contact: Contacts) {
         appDatabase.contactsDao().delete(Transformer.convertContactModelToContactEntity(contact))
     }
 }

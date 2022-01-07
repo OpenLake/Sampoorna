@@ -11,11 +11,9 @@ import org.openlake.sampoorna.data.sources.entities.Contacts
 import org.openlake.sampoorna.util.Resource
 import javax.inject.Inject
 
-
-
 @HiltViewModel
 class ContactsViewModel @Inject constructor(val repository: ContactsRepository) : ViewModel() {
-    var allContacts= Transformations.map(repository.fetchAllContacts()) { list ->
+    var allContacts = Transformations.map(repository.fetchAllContacts()) { list ->
 
         val temp = list.map {
             Transformer.convertContactEntityToContactModel(it)
@@ -26,10 +24,9 @@ class ContactsViewModel @Inject constructor(val repository: ContactsRepository) 
             temp
         }
     }
-
-
-    fun deleteContact(contacts: Contacts) {
-        repository.delete(contacts)
+    fun deleteContact(contact: Contacts)=viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(contact)
+        Log.d("deleteVM Coroutine","${contact}")
     }
 
     fun insertContact(contact: Contacts)=viewModelScope.launch(Dispatchers.IO) {

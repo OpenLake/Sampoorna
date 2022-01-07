@@ -1,6 +1,7 @@
-package org.openlake.sampoorna.presentation.adapter
+package org.openlake.sampoorna.presentation.features.contacts
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,8 +31,8 @@ class ContactsRVAdapter @Inject constructor(val context:Context, private val lis
     }
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
-        val contact = allContacts[position]
-        holder.contactName.text = contact.name
+        val contact=allContacts[position]
+        holder.contactName.text = contact.name.toString()
         holder.contactNumber.text = contact.contact.toString()
     }
 
@@ -40,11 +41,14 @@ class ContactsRVAdapter @Inject constructor(val context:Context, private val lis
     }
 
     fun updateContacts(listofContacts:ArrayList<Contacts>){
+        if (allContacts.isEmpty()){
+            allContacts.addAll(listofContacts)
+        }
         allContacts.clear()
         allContacts.addAll(listofContacts)
+        Log.d("ListofC","${allContacts.size}")
         notifyDataSetChanged()
     }
-
 }
 interface Listeners{
     fun onItemClicked(contact: Contacts)

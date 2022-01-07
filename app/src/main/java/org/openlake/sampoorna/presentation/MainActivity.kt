@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         //Implementing bottom navigation view
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController = findNavController(R.id.fragmentContainerView)
-        //using AppBarConfiguration because sibiling screens are not hierarchically related
+        //using AppBarConfiguration because sibling screens are not hierarchically related
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.alertFragment,R.id.trackingFragment))
         setupActionBarWithNavController(navController,appBarConfiguration)
         bottomNavigationView.setupWithNavController(navController)

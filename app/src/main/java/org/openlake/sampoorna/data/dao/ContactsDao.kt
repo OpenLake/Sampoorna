@@ -11,7 +11,7 @@ interface ContactsDao {
     fun insert(contact: ContactsEntity)
 
     @Delete
-    fun delete(note: ContactsEntity)
+    fun delete(contact: ContactsEntity)
 
     @Query("Select * from contacts order by id ASC")
     fun getAllContacts(): LiveData<List<ContactsEntity>>

@@ -23,7 +23,11 @@
         android:id="@+id/contactFragment"
         android:name="org.openlake.sampoorna.presentation.features.contacts.ContactFragment"
         android:label="@string/contacts"
-        tools:layout="@layout/fragment_contact" />
+        tools:layout="@layout/fragment_contact" >
+        <action
+            android:id="@+id/action_contactFragment_to_alertFragment"
+            app:destination="@id/alertFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addContactBottomSheet2"
         android:name="org.openlake.sampoorna.presentation.features.contacts.AddContactBottomSheet"

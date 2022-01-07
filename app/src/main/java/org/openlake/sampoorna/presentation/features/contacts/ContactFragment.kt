@@ -2,21 +2,22 @@ package org.openlake.sampoorna.presentation.features.contacts
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import org.openlake.sampoorna.App
 import org.openlake.sampoorna.R
-import org.openlake.sampoorna.presentation.adapter.ContactsRVAdapter
-import org.openlake.sampoorna.presentation.adapter.Listeners
 import org.openlake.sampoorna.databinding.FragmentContactBinding
 import org.openlake.sampoorna.data.sources.entities.Contacts
+import org.openlake.sampoorna.presentation.MainActivity
 
 @AndroidEntryPoint
 class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
@@ -27,6 +28,8 @@ class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentContactBinding.inflate(inflater,container,false)
         val view = binding.root
+        val act = activity as MainActivity
+        act.setTheme(R.style.AppTheme)
 
         //Implementing Recycler View settings
         val contactsRV = view.findViewById<RecyclerView>(R.id.contacts_rv)
@@ -37,20 +40,26 @@ class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
         //ViewModel instantiating
         viewModel = ViewModelProvider(this)[ContactsViewModel::class.java]
         viewModel.allContacts.observe(viewLifecycleOwner,{
-                adapter.updateContacts(it)
-        })
+                //adapter.updateContacts(it as ArrayList<Contacts>)
+
+        }
+        )
 
         //fab actions
         val addContactsFragment= AddContactBottomSheet()
         val addContactBtn = view.findViewById<FloatingActionButton>(R.id.contacts_add)
         addContactBtn.setOnClickListener {
             addContactsFragment.show(parentFragmentManager,"addContactBottomSheet")
-
+        }
+        val contactsTopAppBar = view.findViewById<MaterialToolbar>(R.id.topAppBar)
+        contactsTopAppBar.setNavigationOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_contactFragment_to_alertFragment)
         }
         return view
     }
 
     override fun onItemClicked(contact: Contacts) {
         viewModel.deleteContact(contact)
+
     }
 }
