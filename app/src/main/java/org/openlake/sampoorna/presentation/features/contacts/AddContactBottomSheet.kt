@@ -1,21 +1,17 @@
 package org.openlake.sampoorna.presentation.features.contacts
 
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import org.openlake.sampoorna.App
 import org.openlake.sampoorna.R
-import org.openlake.sampoorna.data.sources.entities.Contacts
-import java.util.regex.Pattern
+import org.openlake.sampoorna.data.sources.entities.Contact
 
 class AddContactBottomSheet: BottomSheetDialogFragment() {
     private val contactSharedViewModel: ContactsViewModel by activityViewModels()
@@ -49,7 +45,7 @@ class AddContactBottomSheet: BottomSheetDialogFragment() {
                 contact_phone_number.requestFocus()
                 return@setOnClickListener
             }
-            val contact= Contacts(contact_first_name.text.toString()+" "+contact_last_name.text.toString(),contact_phone_number.text.toString())
+            val contact= Contact(contact_first_name.text.toString()+" "+contact_last_name.text.toString(),contact_phone_number.text.toString())
             contactSharedViewModel.insertContact(contact)
             dismiss()
         }

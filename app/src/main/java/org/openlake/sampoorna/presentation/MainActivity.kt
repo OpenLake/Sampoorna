@@ -2,6 +2,7 @@ package org.openlake.sampoorna.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         //Implementing bottom navigation view
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController = findNavController(R.id.fragmentContainerView)
@@ -31,5 +34,16 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
+        return when (item.itemId){
+            android.R.id.home->{
+                onBackPressed()
+                true
+            }
+            else ->{
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
 }

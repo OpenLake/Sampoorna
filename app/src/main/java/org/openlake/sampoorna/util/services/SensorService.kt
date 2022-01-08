@@ -1,19 +1,22 @@
 package org.openlake.sampoorna.util.services
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.telephony.SmsManager
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import dagger.hilt.android.qualifiers.ApplicationContext
-import org.openlake.sampoorna.App
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import org.openlake.sampoorna.R
+import org.openlake.sampoorna.data.sources.entities.Contact
+import org.openlake.sampoorna.presentation.features.contacts.ContactsViewModel
+import javax.inject.Inject
 
-public class SensorService: Service() {
+class SensorService @Inject constructor(val viewModel: ContactsViewModel) : Service() ,PowerButtonListener.OnDoubleClickListener{
     override fun onBind(intent: Intent?): IBinder? {
         throw UnsupportedOperationException()
     }
@@ -27,17 +30,12 @@ public class SensorService: Service() {
         super.onCreate()
 
         //Starting the foreground service
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startNewForegroundService()
-        }
-        else{
+        } else {
             startForeground(1, Notification())
         }
-    //Init PowerButtonListener
-        val clickListener = PowerButtonListener()
-
-
-        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun startNewForegroundService() {
@@ -57,6 +55,34 @@ public class SensorService: Service() {
             .build()
         startForeground(2,notification)
 
+    }
+
+    override fun onClick(count: Int) {
+        TODO("Not yet implemented")
+    }
+
+    @SuppressLint("MissingPermission")
+    fun sosFeature() {
+
+
+        val fusedLocationProviderClient: FusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(applicationContext)
+        val contactsList = viewModel.allContacts.value as ArrayList<Contact>
+        val smsManager: SmsManager = SmsManager.getDefault()
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+            val lat = it.latitude
+            val long = it.longitude
+            if (contactsList != null) {
+                for (contact in contactsList){
+                    val message="oops dummy ${contact.name} $lat $long"
+                    smsManager.sendTextMessage(contact.contact,null,message,null,null)
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
 }

@@ -9,25 +9,28 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.openlake.sampoorna.R
-import org.openlake.sampoorna.data.sources.entities.Contacts
+import org.openlake.sampoorna.data.sources.entities.Contact
 import javax.inject.Inject
 
 class ContactsRVAdapter @Inject constructor(val context:Context, private val listener: Listeners):RecyclerView.Adapter<ContactsRVAdapter.ContactsViewHolder>() {
 
-    private var allContacts =ArrayList<Contacts>()
+    private var allContacts =ArrayList<Contact>()
 
     inner class ContactsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val contactName: TextView = itemView.findViewById(R.id.contact_name)
         val contactNumber: TextView = itemView.findViewById(R.id.contact_number)
         val contactDelete: ImageView = itemView.findViewById(R.id.contact_delete)
+        init {
+            contactDelete.setOnClickListener {
+                listener.onItemClicked(allContacts[adapterPosition])
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
-        val viewHolder = ContactsViewHolder(LayoutInflater.from(context).inflate(R.layout.item_contacts,parent, false))
-        viewHolder.contactDelete.setOnClickListener {
-            listener.onItemClicked(allContacts[viewHolder.adapterPosition])
-        }
-        return viewHolder
+        return ContactsViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.item_contacts, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
@@ -40,7 +43,7 @@ class ContactsRVAdapter @Inject constructor(val context:Context, private val lis
         return allContacts.size
     }
 
-    fun updateContacts(listofContacts:ArrayList<Contacts>){
+    fun updateContacts(listofContacts:ArrayList<Contact>){
         if (allContacts.isEmpty()){
             allContacts.addAll(listofContacts)
         }
@@ -51,5 +54,5 @@ class ContactsRVAdapter @Inject constructor(val context:Context, private val lis
     }
 }
 interface Listeners{
-    fun onItemClicked(contact: Contacts)
+    fun onItemClicked(contact: Contact)
 }

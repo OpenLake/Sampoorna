@@ -1,7 +1,7 @@
 package org.openlake.sampoorna.data.di
 
-import org.openlake.sampoorna.data.sources.entities.Contacts
-import org.openlake.sampoorna.data.sources.entities.ContactsEntity
+import org.openlake.sampoorna.data.sources.entities.Contact
+import org.openlake.sampoorna.data.sources.entities.ContactEntity
 
 /*
 * This is a transformer class
@@ -11,17 +11,19 @@ import org.openlake.sampoorna.data.sources.entities.ContactsEntity
 * */
 object Transformer {
 
-    fun convertContactModelToContactEntity(contact: Contacts): ContactsEntity {
-        return ContactsEntity(
+    fun convertContactModelToContactEntity(contact: Contact): ContactEntity {
+        return ContactEntity(
             name = contact.name,
-            contact = contact.contact
+            contact = contact.contact,
+            id = contact.id
         )
     }
 
-    fun convertContactEntityToContactModel(contactEntity: ContactsEntity): Contacts {
-        return Contacts(
+    fun convertContactEntityToContactModel(contactEntity: ContactEntity): Contact {
+        return Contact(
             name = contactEntity.name,
-            contact = contactEntity.contact
+            contact = contactEntity.contact,
+            id = contactEntity.id
         )
     }
 }
