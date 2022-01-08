@@ -1,11 +1,11 @@
-package org.openlake.sampoorna.models
+package org.openlake.sampoorna.data.sources.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "CONTACTS")
-data class ContactsEntity(
+data class ContactEntity(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     val name: String?,
-    val contact: Int?,
+    val contact: String?,
 )

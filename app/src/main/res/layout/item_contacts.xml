@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/_58sdp"
     android:layout_margin="@dimen/_10sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/contact_card"
@@ -13,9 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:cardCornerRadius="@dimen/_40sdp"
         android:backgroundTint="@color/iceblue"
-
         >
         <ImageView
             android:id="@+id/contact_pfp"
@@ -49,7 +46,6 @@
             android:src="@drawable/ic_delete"
             android:layout_gravity="end|center"
             android:paddingEnd="@dimen/_8sdp"/>
-
 
     </androidx.cardview.widget.CardView>
 

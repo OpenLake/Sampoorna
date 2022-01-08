@@ -1,10 +1,8 @@
-package org.openlake.sampoorna.ui.fragments
+package org.openlake.sampoorna.presentation.features.contacts
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,11 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
-import org.openlake.sampoorna.adapter.ContactsRVAdapter
-import org.openlake.sampoorna.adapter.Listeners
 import org.openlake.sampoorna.databinding.FragmentContactBinding
-import org.openlake.sampoorna.models.Contacts
-import org.openlake.sampoorna.viewmodel.ContactsViewModel
+import org.openlake.sampoorna.data.sources.entities.Contact
 
 @AndroidEntryPoint
 class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
@@ -36,21 +31,25 @@ class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
 
         //ViewModel instantiating
         viewModel = ViewModelProvider(this)[ContactsViewModel::class.java]
-        viewModel.allContacts.observe(viewLifecycleOwner, { it->
-            it?.let{
-               // adapter.updateContacts(it)
+        viewModel.allContacts.observe(viewLifecycleOwner, {
+            //This is problematic:
+            Log.d("it", "$it")
+            if (it != null) {
+                adapter.updateContacts(it as ArrayList<Contact>)
             }
-        })
-
+        }
+        )
         //fab actions
+        val addContactsFragment= AddContactBottomSheet()
         val addContactBtn = view.findViewById<FloatingActionButton>(R.id.contacts_add)
         addContactBtn.setOnClickListener {
-            Log.d("FAB","works")
+            addContactsFragment.show(parentFragmentManager,"addContactBottomSheet")
         }
         return view
     }
 
-    override fun onItemClicked(contact: Contacts) {
+    override fun onItemClicked(contact: Contact) {
         viewModel.deleteContact(contact)
+        Log.d("is it working?","$contact")
     }
 }
