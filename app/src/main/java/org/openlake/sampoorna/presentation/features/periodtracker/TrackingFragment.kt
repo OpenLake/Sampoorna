@@ -17,6 +17,14 @@ import com.google.android.material.transition.MaterialFadeThrough
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentTrackingBinding
 import java.util.*
+import android.graphics.drawable.AnimationDrawable
+
+
+
+import androidx.constraintlayout.widget.ConstraintLayout
+
+
+
 
 
 
@@ -47,6 +55,13 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
 
         val button: Button = binding.showDialog
         button.setOnClickListener { showDatePickerDialog() }
+
+        //adding animation
+        val constraintLayout: ConstraintLayout = binding.layout
+        val animationDrawable = constraintLayout.background as AnimationDrawable
+        animationDrawable.setEnterFadeDuration(2000)
+        animationDrawable.setExitFadeDuration(4000)
+        animationDrawable.start()
 
         return binding.root
     }
