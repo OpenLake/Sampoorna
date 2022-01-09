@@ -45,6 +45,7 @@
         android:id="@+id/show_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/themePink"
         android:text="@string/show_dialog"
         app:layout_constraintBottom_toTopOf="@+id/date_text"
         app:layout_constraintHorizontal_bias="0.497"
