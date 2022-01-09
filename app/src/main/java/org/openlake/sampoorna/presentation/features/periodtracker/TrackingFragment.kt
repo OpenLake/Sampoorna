@@ -3,6 +3,8 @@ package org.openlake.sampoorna.presentation.features.periodtracker
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,10 @@ import com.google.android.material.transition.MaterialFadeThrough
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentTrackingBinding
 import java.util.*
+
+
+
+
 
 
 class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener {
@@ -74,8 +80,18 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
         val hoursLeft = minutesLeft / 60
         val daysLeft = hoursLeft / 24
 
+        //saving the result
+
+        var sharedPref : SharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+
+        sharedPref?.edit()?.putString("bla", daysLeft.toString())?.apply()
+
+        val result=sharedPref.getString("bla", "")
+
+
         if (timeLeft > 0)
-            this.dateText.text = daysLeft.toString()
+            dateText.setText(result);
+            //this.dateText.text = sharedPref.toString()
         else
             this.dateText.text = "Invalid Date"
 
