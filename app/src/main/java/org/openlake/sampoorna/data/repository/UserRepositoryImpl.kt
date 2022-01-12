@@ -10,9 +10,6 @@ import javax.inject.Singleton
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(private val userDatabase: UserDatabase):UserRepository{
-    override suspend fun fetchMessage(): String {
-        return userDatabase.userDao().getSosMessage()
-    }
 
     override suspend fun insertUser(user: User) {
         userDatabase.userDao().insert(Transformer.convertUserModelToUserEntity(user))
@@ -24,10 +21,6 @@ class UserRepositoryImpl @Inject constructor(private val userDatabase: UserDatab
 
     override suspend fun updateLocation(location: String) {
         userDatabase.userDao().updateLocation(location)
-    }
-
-    override suspend fun fetchLocation(): String {
-        return userDatabase.userDao().getLocation()
     }
 
     override fun getUserDetails(): LiveData<List<UserEntity>> {

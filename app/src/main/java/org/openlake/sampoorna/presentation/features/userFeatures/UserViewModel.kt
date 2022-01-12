@@ -11,7 +11,6 @@ import org.openlake.sampoorna.data.di.Transformer
 import org.openlake.sampoorna.data.repository.ContactsRepository
 import org.openlake.sampoorna.data.repository.UserRepository
 import org.openlake.sampoorna.data.sources.entities.User
-import org.openlake.sampoorna.data.sources.entities.UserEntity
 import javax.inject.Inject
 
 
@@ -22,12 +21,6 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
     }
     fun updateSOSMessage(message:String) = viewModelScope.launch(Dispatchers.IO){
         userRepository.updateMessage(message)
-    }
-    fun userSOSMessage()=viewModelScope.launch(Dispatchers.IO){
-        userRepository.fetchMessage()
-    }
-    fun updateLocation(location:String) = viewModelScope.launch(Dispatchers.IO) {
-        userRepository.updateLocation(location)
     }
     val userDetails = Transformations.map(userRepository.getUserDetails()){ map->
         val user = map.map {

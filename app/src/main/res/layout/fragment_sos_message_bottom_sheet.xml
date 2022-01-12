@@ -7,24 +7,42 @@
     android:layout_height="match_parent"
     tools:context=".presentation.features.sos_message.SosMessageBottomSheet">
 
-    <EditText
-        android:id="@+id/message"
+    <TextView
+        android:id="@+id/sos_heading"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_300sdp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/save_sos_message"
-        android:layout_margin="@dimen/_25sdp" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/edit_your_sos_message_here"
+        android:layout_margin="@dimen/_10sdp"
+        android:textSize="@dimen/_20sdp"/>
 
-    <Button
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/messageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:layout_margin="@dimen/_25sdp"
+        app:layout_constraintTop_toBottomOf="@id/sos_heading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/save_sos_message">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/message"
+            android:gravity="start|top"
+            android:inputType="textMultiLine|textCapSentences"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/save_sos_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save"
         android:layout_margin="@dimen/_25sdp"
-        app:layout_constraintTop_toBottomOf="@id/message"
+        app:layout_constraintTop_toBottomOf="@id/messageLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.AppCompat.Button.Colored"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

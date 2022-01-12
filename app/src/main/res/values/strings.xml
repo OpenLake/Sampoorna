@@ -6,7 +6,7 @@
     <string name="safety_sos">Safety SOS</string>
     <string name="alert">Alert</string>
     <string name="track_menstruation">Track Menstruation</string>
-    <string name="hellotext">Hello,</string>
+    <string name="helloUser">Hello,User</string>
     <string name="sample_text">Sample Text</string>
     <string name="contacts">Contacts list</string>
     <string name="Date_Selection">Choose the Last Date</string>
@@ -25,5 +25,6 @@
     <string name="permission_required">Permission Required</string>
     <string name="ok">OK</string>
     <string name="location_access_required">Location Access Required</string>
+    <string name="edit_your_sos_message_here">Edit your SOS message here:</string>
 </resources>
 
