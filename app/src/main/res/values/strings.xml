@@ -21,5 +21,9 @@
     <string name="required_for_this_app">Required For this feature</string>
     <string name="enable_now">Enable Now</string>
     <string name="show_dialog">Show Calendar</string>
+    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="ok">OK</string>
+    <string name="location_access_required">Location Access Required</string>
 </resources>
 

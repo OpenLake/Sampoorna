@@ -6,6 +6,6 @@ import org.openlake.sampoorna.data.dao.ContactsDao
 import org.openlake.sampoorna.data.sources.entities.ContactEntity
 
 @Database(entities = [ContactEntity::class], version = 1, exportSchema = false)
-abstract class AppDatabase :RoomDatabase() {
+abstract class ContactDatabase :RoomDatabase() {
     abstract fun contactsDao(): ContactsDao
 }

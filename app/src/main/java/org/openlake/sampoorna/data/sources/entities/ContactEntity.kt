@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class ContactEntity(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     val name: String?,
-    val contact: String?,
+    val contact: String?
 )
