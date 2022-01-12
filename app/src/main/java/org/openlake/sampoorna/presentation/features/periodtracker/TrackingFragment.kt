@@ -44,27 +44,35 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
         sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         dateText = binding.dateText
 
-
         val button: Button = binding.showDialog
         button.setOnClickListener { showDatePickerDialog() }
 
-        if (sharedPref.contains("futureDate")) {
-            val futureDate = sharedPref.getLong("futureDate", 0)
+        //checking expected
+        checkExpectedDate()
+
+        //adding animation
+        addAnimation()
+
+        return binding.root
+    }
+
+    private fun checkExpectedDate() {
+        if (sharedPref.contains("expectedDate")) {
+            val futureDate = sharedPref.getLong("expectedDate", 0)
             // Calculating left days
             val daysLeft = calculateDaysLeft(futureDate)
             showDaysLeft(daysLeft)
         } else {
-            dateText.text = "Please enter the last date of /n the menstrual period"
+            dateText.text = "Please enter the last date of \nthe menstrual period"
         }
+    }
 
-        //adding animation
+    private fun addAnimation() {
         val constraintLayout: ConstraintLayout = binding.layout
         val animationDrawable = constraintLayout.background as AnimationDrawable
         animationDrawable.setEnterFadeDuration(2000)
         animationDrawable.setExitFadeDuration(4000)
         animationDrawable.start()
-
-        return binding.root
     }
 
 
@@ -92,15 +100,16 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
         showDaysLeft(daysLeft)
 
         //saving the result
-        sharedPref.edit()?.putLong("futureDate", futureDate.time)?.apply()
+        sharedPref.edit()?.putLong("expectedDate", futureDate.time)?.apply()
     }
 
     private fun showDaysLeft(daysLeft: Long) {
 
         if (daysLeft > 0)
             dateText.text = "$daysLeft Days Left";
-        else
+        else {
             this.dateText.text = "Please enter a valid Date"
+        }
 
     }
 
@@ -133,3 +142,4 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
         }?.show()
     }
 }
+
