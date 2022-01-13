@@ -43,6 +43,9 @@ class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
         val addContactsFragment= AddContactBottomSheet()
         val addContactBtn = view.findViewById<FloatingActionButton>(R.id.contacts_add)
         addContactBtn.setOnClickListener {
+            if(addContactsFragment.isAdded){
+                return@setOnClickListener
+            }
             addContactsFragment.show(parentFragmentManager,"addContactBottomSheet")
         }
         return view

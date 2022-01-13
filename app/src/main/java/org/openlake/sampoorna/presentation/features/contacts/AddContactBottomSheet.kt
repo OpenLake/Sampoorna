@@ -8,14 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.sources.entities.Contact
 
@@ -32,7 +29,7 @@ class AddContactBottomSheet: BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btn_save_contact:MaterialButton=view.findViewById(R.id.btn_add_contact)
+        val btn_save_contact: MaterialButton =view.findViewById(R.id.btn_add_contact)
         val contact_first_name:TextInputEditText=view.findViewById(R.id.first_name_input)
         val contact_last_name:TextInputEditText=view.findViewById(R.id.last_name_input)
         val contact_phone_number:TextInputEditText=view.findViewById(R.id.contact_number_add)

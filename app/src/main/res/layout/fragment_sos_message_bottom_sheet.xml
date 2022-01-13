@@ -14,6 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
         android:text="@string/edit_your_sos_message_here"
         android:layout_margin="@dimen/_10sdp"
         android:textSize="@dimen/_20sdp"/>
@@ -21,12 +22,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/messageLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_300sdp"
+        android:layout_height="@dimen/_200sdp"
         android:layout_margin="@dimen/_25sdp"
         app:layout_constraintTop_toBottomOf="@id/sos_heading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/save_sos_message">
+        app:layout_constraintBottom_toTopOf="@id/save_sos_message"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/message"
             android:gravity="start|top"
@@ -41,8 +43,10 @@
         android:layout_height="wrap_content"
         android:text="@string/save"
         android:layout_margin="@dimen/_25sdp"
+        android:textColor="@color/text_primary"
+        android:backgroundTint="@color/secondary"
         app:layout_constraintTop_toBottomOf="@id/messageLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        style="@style/Widget.AppCompat.Button.Colored"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

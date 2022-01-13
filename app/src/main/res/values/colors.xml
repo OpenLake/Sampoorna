@@ -19,5 +19,10 @@
     <color name="Platinum">#ECDEE9</color>
     <color name="Lavender_Gray">#C3B1E1</color>
     <color name="Very_Light_Blue">#6C60F5</color>
-
+    <color name="text_primary">#000000</color>
+    <color name="background_secondary">#F2E3E3</color>
+    <color name="background_primary">#EAD2D2</color>
+    <color name="background_tertiary">#F2E3E3</color>
+    <color name="primary">#DAAFAF</color>
+    <color name="secondary">#D29E9E</color>
 </resources>
