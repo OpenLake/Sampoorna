@@ -12,24 +12,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/iceblue"
-        >
+        android:backgroundTint="@color/iceblue">
         <ImageView
             android:id="@+id/contact_pfp"
             android:src="@drawable/ic_contact_profile"
             android:layout_width="@dimen/_48sdp"
             android:layout_height="@dimen/_48sdp"
             android:layout_gravity="start|center"
-            android:padding="@dimen/_10sdp"
-            />
+            android:padding="@dimen/_10sdp" />
         <TextView
             android:id="@+id/contact_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sample_text"
             android:textSize="@dimen/_12ssp"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/contact_number"

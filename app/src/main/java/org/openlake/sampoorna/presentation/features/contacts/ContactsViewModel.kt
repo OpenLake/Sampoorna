@@ -27,4 +27,5 @@ class ContactsViewModel @Inject constructor(private val repository: ContactsRepo
     fun insertContact(contact: Contact)=viewModelScope.launch(Dispatchers.IO) {
         repository.insert(contact)
     }
+
 }
