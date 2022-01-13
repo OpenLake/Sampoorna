@@ -1,7 +1,6 @@
 package org.openlake.sampoorna.presentation.features.sos_alert
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -57,6 +56,9 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
       )
         // Edit SOS Message Click Handling
         sosMessage.setOnClickListener {
+            if (addSOSMessage.isAdded){
+                return@setOnClickListener
+            }
             addSOSMessage.show(parentFragmentManager,"addSOSMessage")
         }
         //Navigating to Contacts List

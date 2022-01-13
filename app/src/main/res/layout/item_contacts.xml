@@ -12,7 +12,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/iceblue">
+        app:cardBackgroundColor="@color/background_secondary"
+        app:cardCornerRadius="@dimen/_20sdp">
         <ImageView
             android:id="@+id/contact_pfp"
             android:src="@drawable/ic_contact_profile"

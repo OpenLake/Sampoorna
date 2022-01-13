@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="fabButton1">
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>
