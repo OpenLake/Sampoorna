@@ -7,20 +7,20 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import org.openlake.sampoorna.data.sources.ContactDatabase
+import org.openlake.sampoorna.data.sources.UserDatabase
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ContactsDatabaseModule {
+object UserDatabaseModule {
 
     @Singleton
     @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context): ContactDatabase {
+    fun provideContactDataBase(@ApplicationContext context: Context):UserDatabase{
         return Room.databaseBuilder(
             context,
-            ContactDatabase::class.java,
-            "contacts_database"
+            UserDatabase::class.java,
+            "user_database"
         ).build()
     }
 }

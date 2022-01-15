@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="iceblue">#dfe6ed</color>
+    <color name="Black_Nero">#171515</color>
+    <color name="Black">#100F0F</color>
+    <color name="Black_Nero1">#201E1E</color>
+    <color name="Black_Mitsubishi_Black_Matt">#070707</color>
+    <color name="Harmonies">#B58E8E</color>
+    <color name="Timberwolf">#DFD2D2</color>
+    <color name="Deep_Taupe">#7C6262</color>
+    <color name="Queen_Pink">#EAD2D2</color>
+    <color name="Platinum">#ECDEE9</color>
+    <color name="Lavender_Gray">#C3B1E1</color>
+    <color name="Very_Light_Blue">#6C60F5</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="background_secondary">#515151</color>
+    <color name="background_primary">#2B2B2B</color>
+    <color name="background_tertiary">#2B2B2B</color>
+    <color name="primary">#DAAFAF</color>
+    <color name="secondary">#D29E9E</color>
+</resources>
