@@ -19,7 +19,6 @@ import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentTrackingBinding
 import java.util.*
 import android.graphics.drawable.AnimationDrawable
-import androidx.constraintlayout.widget.ConstraintLayout
 
 class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener {
     private val menstrualCycle: Int = 28
