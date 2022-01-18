@@ -15,3 +15,9 @@ This feature helps women to alert others in case of emergency , by sending an SO
 As the name suggests , this features let women save their last mensuration date and track it and alert them in case the date is delayed.
 This way they can take better care of their health.
 
+## Ideas for the future 
+
+- To continuously modify both features and making them more useful and more applicable to more people.
+- Add a Covid tracker using Google and Apple's API for Exposure Notifications.
+- Add blogs feature to the app, that can help women in various aspects.
+
