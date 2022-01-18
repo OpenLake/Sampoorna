@@ -9,6 +9,7 @@ data class User(
     val bloodGroup:String?,
     val address:String? ,
     var sosMessage:String? = "",
-    var currentLocation:String?="",
+    var age:Int?,
+    var email:String?="",
     var id: Int = 0
 ):Parcelable

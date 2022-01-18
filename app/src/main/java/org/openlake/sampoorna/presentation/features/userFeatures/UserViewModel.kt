@@ -22,6 +22,21 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
     fun updateSOSMessage(message:String) = viewModelScope.launch(Dispatchers.IO){
         userRepository.updateMessage(message)
     }
+    fun updateUserName(name:String) = viewModelScope.launch(Dispatchers.IO){
+        userRepository.updateName(name)
+    }
+    fun updateAge(age:Int) = viewModelScope.launch(Dispatchers.IO){
+        userRepository.updateAge(age)
+    }
+    fun updateEmail(email:String) = viewModelScope.launch(Dispatchers.IO){
+        userRepository.updateEmail(email)
+    }
+    fun updateAddress(address:String) = viewModelScope.launch(Dispatchers.IO){
+        userRepository.updateAddress(address)
+    }
+    fun updateBloodGroup(blood :String) = viewModelScope.launch(Dispatchers.IO){
+        userRepository.updateBloodGroup(blood)
+    }
     val userDetails = Transformations.map(userRepository.getUserDetails()){ map->
         val user = map.map {
             Transformer.convertUserEntityToUserModel(it)

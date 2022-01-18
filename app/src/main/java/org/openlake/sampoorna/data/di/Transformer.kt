@@ -35,7 +35,9 @@ object Transformer {
             address = user.address,
             id = user.id,
             bloodGroup =  user.bloodGroup,
-            sosMessage = user.sosMessage
+            sosMessage = user.sosMessage,
+            age = user.age,
+            email = user.email
         )
     }
 
@@ -45,7 +47,9 @@ object Transformer {
             address = userEntity.address,
             id = userEntity.id,
             bloodGroup = userEntity.bloodGroup,
-            sosMessage = userEntity.sosMessage
+            sosMessage = userEntity.sosMessage,
+            age = userEntity.age,
+            email = userEntity.email
         )
     }
 }

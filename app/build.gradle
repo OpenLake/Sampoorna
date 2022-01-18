@@ -51,6 +51,7 @@ dependencies {
 
     //Room db
     implementation "androidx.room:room-runtime:2.4.0"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:2.4.0"
 
     //Lifecycle components
@@ -72,6 +73,7 @@ dependencies {
 
     //Location by Play Services
     implementation 'com.google.android.gms:play-services-location:19.0.1'
+
 
 
 }
