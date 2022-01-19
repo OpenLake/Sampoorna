@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.openlake.sampoorna">
-
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:name=".App"
@@ -11,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sampoorna">
+        <receiver
+            android:name=".presentation.features.periodtracker.Notifications01"
+            android:enabled="true"/>
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">

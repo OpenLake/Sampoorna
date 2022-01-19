@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "org.openlake.sampoorna"
-        minSdk 21
+        minSdk 26
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -72,6 +72,7 @@ dependencies {
 
     //Location by Play Services
     implementation 'com.google.android.gms:play-services-location:19.0.0'
+    androidTestImplementation("androidx.test:core-ktx:1.4.0")
 
 
 }
