@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "org.openlake.sampoorna"
-        minSdk 26
+        minSdk 21
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -71,8 +71,8 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     //Location by Play Services
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
 
-    implementation 'com.google.android.gms:play-services-location:19.0.1
 
 
 }
