@@ -25,4 +25,5 @@
     <color name="background_tertiary">#2B2B2B</color>
     <color name="primary">#DAAFAF</color>
     <color name="secondary">#D29E9E</color>
+    <color name="onboarding_purple">#b0afdb</color>
 </resources>

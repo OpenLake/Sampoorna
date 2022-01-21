@@ -1,5 +1,7 @@
 package org.openlake.sampoorna.presentation.features.sos_alert
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +13,6 @@ import androidx.navigation.Navigation
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
-import org.openlake.sampoorna.data.sources.entities.User
 import org.openlake.sampoorna.databinding.FragmentAlertBinding
 import org.openlake.sampoorna.presentation.features.sos_message.SosMessageBottomSheet
 import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
@@ -19,9 +20,9 @@ import org.openlake.sampoorna.util.services.SOSHelper
 
 @AndroidEntryPoint
 class AlertFragment : Fragment(R.layout.fragment_alert) {
-    val user:String = "User"
-
     private lateinit var userViewModel: UserViewModel
+    lateinit var sharedPreferences : SharedPreferences
+    val user:String = "User"
     //enabling data binding
     private var _binding: FragmentAlertBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +32,6 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         exitTransition = MaterialFadeThrough()
         enterTransition = MaterialFadeThrough()
     }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAlertBinding.inflate(inflater,container,false)
         val view = binding.root
@@ -39,11 +39,12 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         val sosMessage = binding.icMessage
         val sosButton = binding.sosbutton
         val addSOSMessage = SosMessageBottomSheet()
+        val helloUser = binding.hellouser
+        //Using SharedPreferences to get username
+        sharedPreferences = requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE)
+        helloUser.text = "Hello, " +  sharedPreferences.getString("username","")
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-
-        //This is for demo . Will implement a ui that starts once when the app starts and there will insert user
-        userViewModel.insertUser(User("Sampoorna","O+","Uttarakhand","wait","dunno"))
         userViewModel.allContacts.observe(viewLifecycleOwner,{listOfContacts->
           //SOS Button click handling
           sosButton.setOnClickListener {

@@ -19,8 +19,24 @@ class UserRepositoryImpl @Inject constructor(private val userDatabase: UserDatab
         userDatabase.userDao().update(message)
     }
 
-    override suspend fun updateLocation(location: String) {
-        userDatabase.userDao().updateLocation(location)
+    override suspend fun updateName(name: String) {
+        userDatabase.userDao().updateName(name)
+    }
+
+    override suspend fun updateBloodGroup(blood: String) {
+        userDatabase.userDao().updateBloodGroup(blood)
+    }
+
+    override suspend fun updateAddress(address: String){
+        userDatabase.userDao().updateAddress(address)
+    }
+
+    override suspend fun updateEmail(email: String) {
+        userDatabase.userDao().updateEmail(email)
+    }
+
+    override suspend fun updateAge(age: Int) {
+        userDatabase.userDao().updateAge(age)
     }
 
     override fun getUserDetails(): LiveData<List<UserEntity>> {
