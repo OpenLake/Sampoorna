@@ -11,21 +11,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.ActivityMainBinding
-import org.openlake.sampoorna.presentation.features.contacts.ContactsViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: ContactsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        //Implementing bottom navigation view
+      //  Implementing bottom navigation view
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController = findNavController(R.id.fragmentContainerView)
         //using AppBarConfiguration because sibling screens are not hierarchically related

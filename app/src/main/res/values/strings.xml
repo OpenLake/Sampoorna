@@ -6,12 +6,12 @@
     <string name="safety_sos">Safety SOS</string>
     <string name="alert">Alert</string>
     <string name="track_menstruation">Track Menstruation</string>
-    <string name="hellotext">Hello,</string>
+    <string name="helloUser">Hello, </string>
     <string name="sample_text">Sample Text</string>
     <string name="contacts">Contacts list</string>
     <string name="Date_Selection">Choose the Last Date</string>
     <string name="Countdown">Days Left</string>
-    <string name="add_contact">+ Add Contact</string>
+    <string name="add_contact">Add Contact</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="phone">Phone</string>
@@ -21,5 +21,21 @@
     <string name="required_for_this_app">Required For this feature</string>
     <string name="enable_now">Enable Now</string>
     <string name="show_dialog">Show Calendar</string>
+    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="ok">OK</string>
+    <string name="location_access_required">Location Access Required</string>
+    <string name="edit_your_sos_message_here">Edit your SOS message here:</string>
+    <string name="send_sos_text">Send SOS</string>
+    <string name="send_sos_info_content">Save Contacts \nSet a default message \nand when you feel its an emergency, send SOS to the contacts</string>
+    <string name="user_info_text">User info</string>
+    <string name="user_name_text">Name</string>
+    <string name="age_in_years">Age (in years)</string>
+    <string name="email_address_text">Email Address</string>
+    <string name="residence_address_text">Residence Address</string>
+    <string name="hii_this_is_sampoorna">Hii, This is Sampoorna,</string>
+    <string name="lets_get_started">Let\'s get started..</string>
+    <string name="period_track_text">Easy Periods Tracking</string>
+    <string name="period_track_info">Keep records of your periods easily and leave the rest on Sampoorna..</string>
 </resources>
 

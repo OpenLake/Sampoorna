@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.openlake.sampoorna">
+
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -16,10 +21,14 @@
             android:enabled="true"/>
         <activity
             android:name=".presentation.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Sampoorna"/>
+        <activity
+            android:name=".presentation.features.onboarding.OnboardingActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

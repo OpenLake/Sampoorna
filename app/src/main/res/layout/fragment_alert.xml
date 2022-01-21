@@ -6,20 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_15sdp"
+    android:background="@color/background_primary"
     tools:context=".presentation.features.sos_alert.AlertFragment">
 
     <TextView
         android:id="@+id/hellouser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hellotext"
+        android:text="@string/helloUser"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_30sdp"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/_20sdp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
         android:id="@+id/ic_contacts"
@@ -41,8 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/hellouser"
         app:layout_constraintStart_toEndOf="@id/ic_contacts"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/sosbutton"
-        />
+        app:layout_constraintBottom_toTopOf="@id/sosbutton"/>
 
     <ImageButton
         android:id="@+id/sosbutton"
@@ -53,8 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ic_message"
-        />
+        app:layout_constraintTop_toTopOf="@id/ic_message"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
