@@ -20,10 +20,7 @@ import com.google.android.material.transition.MaterialFadeThrough
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentTrackingBinding
 import java.util.*
-import android.graphics.drawable.AnimationDrawable
 import android.content.Intent
-import androidx.constraintlayout.widget.ConstraintLayout
-import android.content.Context
 import android.text.format.DateFormat
 
 
