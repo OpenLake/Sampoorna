@@ -11,6 +11,7 @@ class ScreenReceiver: BroadcastReceiver() {
     var count = 0
     private var timebuffer :Long = 0
     lateinit var currentTime: Date
+
     @SuppressLint("NewApi")
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent != null && context != null) {
@@ -36,7 +37,12 @@ class ScreenReceiver: BroadcastReceiver() {
                         count=0
                         timebuffer=0
                         SOSService.canSend.postValue(true)
+                        return
                     }
+                }
+                else{
+                    count=0
+                    timebuffer=0
                 }
             }
         }

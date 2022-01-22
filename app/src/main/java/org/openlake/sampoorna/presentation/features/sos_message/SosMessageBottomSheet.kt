@@ -1,9 +1,12 @@
 package org.openlake.sampoorna.presentation.features.sos_message
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
@@ -14,13 +17,13 @@ import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
 
 @AndroidEntryPoint
 class SosMessageBottomSheet : BottomSheetDialogFragment() {
-    lateinit var viewModel: UserViewModel
-    private var defaultMessage = "Please help I am in danger"
+    private lateinit var sosSharedPreferences : SharedPreferences
+    private lateinit var viewModel: UserViewModel
+    private var sosMessageString = " "
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_sos_message_bottom_sheet, container, false)
     }
 
@@ -29,15 +32,18 @@ class SosMessageBottomSheet : BottomSheetDialogFragment() {
         val sosMessage = view.findViewById<TextInputEditText>(R.id.message)
         val saveMessage = view.findViewById<MaterialButton>(R.id.save_sos_message)
         viewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        sosSharedPreferences = requireActivity().getSharedPreferences("sosMessage",Context.MODE_PRIVATE)
         saveMessage.setOnClickListener {
-            val sosMessageString = sosMessage.text.toString()
+            sosMessageString = sosMessage.text.toString()
             if (!sosMessage.text.isNullOrBlank()){
             viewModel.updateSOSMessage(sosMessageString)
-                defaultMessage = sosMessageString
+            val editor = sosSharedPreferences.edit()
+                editor.putString("sosMessage",sosMessageString)
+                editor.apply()
                 dismiss()
         }
             else{
-                viewModel.updateSOSMessage(defaultMessage)
+                Toast.makeText(context, "Please add sos message", Toast.LENGTH_SHORT).show()
             }
         }
     }

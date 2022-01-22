@@ -3,8 +3,8 @@ package org.openlake.sampoorna.presentation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -17,6 +17,12 @@ import org.openlake.sampoorna.util.services.ReactivateService
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    companion object{
+        var SOSSwitch = MutableLiveData<Boolean>()
+    }
+    init {
+        SOSSwitch.postValue(false)
+    }
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,23 +39,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        return when (item.itemId){
-            android.R.id.home->{
+        return when (item.itemId) {
+            android.R.id.home -> {
                 onBackPressed()
                 true
             }
-            else ->{
+            else -> {
                 super.onOptionsItemSelected(item)
             }
         }
     }
-    override fun onDestroy() {
-        val broadcastIntent = Intent()
-        broadcastIntent.action = "restartService"
-        broadcastIntent.setClass(this,ReactivateService::class.java)
-        this.sendBroadcast(broadcastIntent)
-        super.onDestroy()
-        Log.d("ashu vai main","runinnggg")
 
+    override fun onDestroy() {
+        if (SOSSwitch.value==true) {
+            val broadcastIntent = Intent()
+            broadcastIntent.action = "restart Service"
+            broadcastIntent.setClass(this, ReactivateService::class.java)
+            this.sendBroadcast(broadcastIntent)
+        }
+        super.onDestroy()
     }
 }
