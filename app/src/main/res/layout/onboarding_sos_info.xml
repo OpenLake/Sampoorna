@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/send_sos_info_content"
-        android:layout_margin="@dimen/_30sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:gravity="center"
         android:fontFamily="@font/dongle"
         android:textSize="@dimen/_28ssp"
@@ -32,10 +32,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
     <ImageView
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
         android:src="@drawable/soslogo"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintTop_toBottomOf="@id/sos_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

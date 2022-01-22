@@ -31,7 +31,7 @@
     <ImageView
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:src="@drawable/periods"
         app:layout_constraintTop_toBottomOf="@id/tv_trackPeriods_desc"
         app:layout_constraintStart_toStartOf="parent"
