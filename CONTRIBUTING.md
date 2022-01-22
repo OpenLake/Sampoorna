@@ -1,14 +1,12 @@
 # Welcome to Sampoorna contributing guide <!-- omit in toc -->
 
-Thank you for investing your time in contributing to our project! :sparkles:.
-
-## Contribution Workflow
+Thank you for investing your time in contributing to our project! :sparkles:
 
 In this guide you will get an overview of the contribution workflow from opening an issue, creating a PR, reviewing, and merging the PR.
 
-Use the table of contents icon on the top left corner of this document to get to a specific section of this guide quickly.
+Use the table of contents icon on the top left corner of this document to get to a specific section of this guide quickly 🚀
 
-## New contributor guide
+## Getting started
 
 To get an overview of the project, read the [README](README.md). Here are some resources to help you get started with open source contributions:
 
@@ -18,38 +16,69 @@ To get an overview of the project, read the [README](README.md). Here are some r
 - [Collaborating with pull requests](https://docs.github.com/en/github/collaborating-with-pull-requests)
 
 
-### Issues
-
-#### Solve an issue
+### Solve an issue
 
 Scan through our [existing issues](https://github.com/OpenLake/Sampoorna/issues) to find one that interests you. You can narrow down the search using `labels` as filters. You can even create one new issue, if you want to start working on some feature.
 
 ### Make Changes
 
-1. [Install Git LFS](https://docs.github.com/en/github/managing-large-files/versioning-large-files/installing-git-large-file-storage).
+Code contributions—bug fixes, new development, test improvement—all follow a GitHub-centered workflow. To participate in OSS development, set up a GitHub account. Then:
 
-2. Fork the repository.
-- Using GitHub Desktop:
-  - [Getting started with GitHub Desktop](https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/getting-started-with-github-desktop) will guide you through setting up Desktop.
-  - Once Desktop is set up, you can use it to [fork the repo](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/cloning-and-forking-repositories-from-github-desktop)!
+1. Fork the repo by going to the project repo page and using the Fork button. This will create a copy of the repo, under your username. (For more details on how to fork a repository see this [guide](https://docs.github.com/en/get-started/quickstart/fork-a-repo).)
 
-- Using the command line:
-  - [Fork the repo](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository) so that you can make your changes without affecting the original project until you're ready to merge them.
+2. Clone down the repo to your local system.
 
-- GitHub Codespaces:
-  - [Fork, edit, and preview](https://docs.github.com/en/free-pro-team@latest/github/developing-online-with-codespaces/creating-a-codespace) using [GitHub Codespaces](https://github.com/features/codespaces) without having to install and run the project locally.
+`$ git clone git@github.com:your-user-name/Sampoorna.git`
 
-3. Create a working branch and start with your changes!
+3. Create a new branch to hold your work.
 
-### Commit your update
+`$ git checkout -b new-branch-name`
 
-Commit the changes once you are happy with them. 
-Once your changes are ready, don't forget to self-review to speed up the review process:zap:.
+4. Work on your new code. Write and run tests.
+
+5. Commit your changes.
+
+`$ git add -A`
+
+`$ git commit -m "commit message here"`
+
+6. Push your changes to your GitHub repo.
+
+`$ git push origin branch-name`
+
+7. Open a Pull Request (PR). Go to the original project repo on GitHub. There will be a message about your recently pushed branch, asking if you would like to open a pull request. Follow the prompts, compare across repositories, and submit the PR. This will send an email to the committers. You may want to consider sending an email to the mailing list for more visibility. (For more details, see the GitHub guide on PRs.
+
+8. Maintainers and other contributors will review your PR. Please participate in the conversation, and try to make any requested changes. Once the PR is approved, the code will be merged.
+
+*Before working on your next contribution, make sure your local repository is up to date.*
+
+1. Set the upstream remote. (You only have to do this once per project, not every time.)
+
+`$ git remote add upstream git@github.com:OpenLake/Sampoorna`
+
+2. Switch to the local master branch.
+
+`$ git checkout master`
+
+3. Pull down the changes from upstream.
+
+`$ git pull upstream master`
+
+4. Push the changes to your GitHub account. (Optional, but a good practice.)
+
+`$ git push origin master`
+
+5. Create a new branch if you are starting new work.
+
+`$ git checkout -b branch-name`
+
+***Additional resources:***
+- [Git documentation](https://git-scm.com/documentation)
+- [Resolving merge conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line)
 
 ### Pull Request
 
 When you're finished with the changes, create a pull request, also known as a PR.
-- Fill the "Ready for review" template so that we can review your PR. This template helps reviewers understand your changes as well as the purpose of your pull request. 
 - Don't forget to [link PR to issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) if you are solving one.
 - Enable the checkbox to [allow maintainer edits](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/allowing-changes-to-a-pull-request-branch-created-from-a-fork) so the branch can be updated for a merge.
 Once you submit your PR, a team member will review your proposal. We may ask questions or request for additional information.
