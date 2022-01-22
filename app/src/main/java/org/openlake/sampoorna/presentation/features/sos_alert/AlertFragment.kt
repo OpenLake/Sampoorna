@@ -1,13 +1,18 @@
 package org.openlake.sampoorna.presentation.features.sos_alert
 
+import android.app.ActivityManager
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.google.android.material.transition.MaterialFadeThrough
@@ -16,12 +21,15 @@ import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentAlertBinding
 import org.openlake.sampoorna.presentation.features.sos_message.SosMessageBottomSheet
 import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
+import org.openlake.sampoorna.util.services.ReactivateService
 import org.openlake.sampoorna.util.services.SOSHelper
+import org.openlake.sampoorna.util.services.SOSService
 
 @AndroidEntryPoint
 class AlertFragment : Fragment(R.layout.fragment_alert) {
     private lateinit var userViewModel: UserViewModel
     lateinit var sharedPreferences : SharedPreferences
+    lateinit var contactsListPreferences: SharedPreferences
     val user:String = "User"
     //enabling data binding
     private var _binding: FragmentAlertBinding? = null
@@ -43,15 +51,29 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         //Using SharedPreferences to get username
         sharedPreferences = requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE)
         helloUser.text = "Hello, " +  sharedPreferences.getString("username","")
+        //Shared preferences to get contacts list
+        contactsListPreferences = requireActivity().getSharedPreferences("sosContacts",Context.MODE_PRIVATE)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         userViewModel.allContacts.observe(viewLifecycleOwner,{listOfContacts->
+
+            val setContacts = mutableSetOf<String>()
+
+            for (contact in listOfContacts){
+                contact.contact?.let { setContacts.add(it) }
+            }
+
+            val editor:SharedPreferences.Editor = contactsListPreferences.edit()
+            editor.putStringSet("contacts",setContacts)
+                .apply()
+
+
           //SOS Button click handling
           sosButton.setOnClickListener {
               if (listOfContacts.isNullOrEmpty()){
                   Toast.makeText(context, "No contacts added yet.", Toast.LENGTH_SHORT).show()
               }
-              SOSHelper.sendSms(listOfContacts,userViewModel,viewLifecycleOwner, requireActivity())
+             // SOSHelper.sendSms(listOfContacts,userViewModel,viewLifecycleOwner, requireActivity())
           }
         }
       )

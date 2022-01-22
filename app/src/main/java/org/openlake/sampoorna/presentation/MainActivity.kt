@@ -1,7 +1,9 @@
 package org.openlake.sampoorna.presentation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.ActivityMainBinding
+import org.openlake.sampoorna.util.services.ReactivateService
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -39,5 +42,14 @@ class MainActivity : AppCompatActivity() {
                 super.onOptionsItemSelected(item)
             }
         }
+    }
+    override fun onDestroy() {
+        val broadcastIntent = Intent()
+        broadcastIntent.action = "restartService"
+        broadcastIntent.setClass(this,ReactivateService::class.java)
+        this.sendBroadcast(broadcastIntent)
+        super.onDestroy()
+        Log.d("ashu vai main","runinnggg")
+
     }
 }

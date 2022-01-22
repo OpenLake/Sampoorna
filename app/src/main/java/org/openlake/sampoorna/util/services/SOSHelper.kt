@@ -45,18 +45,6 @@ object SOSHelper {
         }
     }
 
-    fun sendSms(listOfContacts:List<Contact>,viewModel:UserViewModel,viewLifecycleOwner: LifecycleOwner,activity: Activity){
-        viewModel.userDetails.observe(viewLifecycleOwner,{
-            getLastLocation(activity)
-            if (!askForPermissions(activity) && locationSettingCheck){
-                for (contact in listOfContacts){
-                    val smsManager = SmsManager.getDefault()
-                    smsManager.sendTextMessage(contact.contact,null,"${it[0].sosMessage} $latlong",null,null)
-                    Toast.makeText(activity, "SOS Sent Successfully", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-    }
     private fun askForPermissions(activity: Activity): Boolean {
         val permissionsToRequest: MutableList<String> = ArrayList()
         for (permission in PERMISSIONS) {
