@@ -1,4 +1,4 @@
-# sampoorna
+# Sampoorna
 Sampoorna is a one-in-all solution concept revolving around the women who fight one on one with various problems. With it's features encapsulating solutions for majority of the problems faced by modern day women, it is a tool one step ahead of the existing tech-based solutions to the problems.
 
 
@@ -11,14 +11,20 @@ We came up with an Android app solution named **Sampoorna** especially designed 
 # What's next for Sampoorna Android App ?✨
 1. We want to grow our community and make Sampoorna Application available to every woman in the world. To enhance accessibility of Sampoorna to rural women, we have planned to make the safety feature available offline too.
 2. We will be adding features of blogs and health tracking to detect existing symptoms in the updated versions.
-3. We want to promote Sampoorna to a much larger extent. Every single girl & woman should know about women safety, its precautions, and their health issues and their cures through this Application. 
+3. We want to promote Sampoorna to a much larger extent. Every single girl & woman should know about women safety, its precautions, and their health issues and their cures through this Application.
+
+
+## Contribution guidelines
+
+If you want to contribute to Sampoorna, be sure to review the [contribution guidelines](.CONTRIBUTING.md). This project adheres to [code of conduct](.CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ## Contributors
 
-- 👤 **Akshat Tiwari** [@akshaaatt](https://github.com/akshaaatt)
-- 👤 **Sunit Roy** [@SunitRoy2703](https://github.com/SunitRoy2703)
-- 👤 **Ashutosh Aswal** [@yellowHatpro](https://github.com/yellowHatpro)
-- 👤 **Aastha Chauhan** [@aastha01chauhan](https://github.com/aastha01chauhan)
-
----
-### <i>Hope you like it ❤️.
+- **Akshat Tiwari** ([@akshaaatt](https://github.com/akshaaatt))
+- **Sunit Roy** ([@SunitRoy2703](https://github.com/SunitRoy2703))
+- **Ashutosh Aswal** ([@yellowHatpro](https://github.com/yellowHatpro))
+- **Aastha Chauhan** ([@aastha01chauhan](https://github.com/aastha01chauhan))
+ 
+## License
+ 
+[MIT License](.LICENSE)
