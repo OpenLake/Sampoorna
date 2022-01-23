@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/animate"
+
     tools:context=".presentation.features.periodtracker.TrackingFragment">
 
 
@@ -24,11 +25,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.065" />
 
-
     <Button
         android:id="@+id/show_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:backgroundTint="@color/themePink"
         android:text="@string/show_dialog"
         app:layout_constraintBottom_toTopOf="@+id/date_text"
         app:layout_constraintHorizontal_bias="0.497"
@@ -62,6 +64,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+
+    <Button
+        android:id="@+id/buttonNotif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/themePink"
+        android:text="Enable Push Notfications"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

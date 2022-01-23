@@ -1,7 +1,8 @@
 package org.openlake.sampoorna.presentation.features.periodtracker
 
 
-import android.app.DatePickerDialog
+import android.annotation.SuppressLint
+import android.app.*
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Context
 import android.content.SharedPreferences
@@ -19,20 +20,88 @@ import com.google.android.material.transition.MaterialFadeThrough
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentTrackingBinding
 import java.util.*
+import android.content.Intent
+import android.text.format.DateFormat
 
 
 class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener {
     private val menstrualCycle: Int = 28
+    private var time: Long=0
+    private var futureDate1:  Date = TODO()
     private var _binding: FragmentTrackingBinding? = null
     private val binding get() = _binding!!
     private lateinit var dateText: TextView
     private lateinit var sharedPref: SharedPreferences
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         exitTransition = MaterialFadeThrough()
         enterTransition = MaterialFadeThrough()
+        createNotificationChannel()
+        binding.buttonNotif.setOnClickListener { scheduleNotification()}
     }
+
+    @SuppressLint("ServiceCast")
+    private fun scheduleNotification() {
+
+        val intent = Intent(activity, Notifications01::class.java)
+        startActivity(intent)
+        val title = "Hi, Girl!"
+        val message = "2 days left, get ready"
+        intent.putExtra(titleExtra, title)
+        intent.putExtra(messageExtra, message)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            activity,
+            notificationID,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager =
+            context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+
+        alarmManager?.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            time,
+            pendingIntent
+        )
+
+    }
+
+    private fun showAlert(time: Long, title: String, message: String)
+    {
+        AlertDialog.Builder(activity)
+            .setTitle("Notification Scheduled")
+            .setMessage(
+                "Title: " + title +
+                        "\nMessage: " + message +
+                        "\nAt: " + futureDate1)
+            .setPositiveButton("Okay"){_,_ ->}
+            .show()
+    }
+
+    private fun getTime(view: DatePicker, year: Int, month: Int, date: Int){
+
+        val calendar1: Calendar = Calendar.getInstance()
+        val today: Date = calendar1.time
+
+        val selectedTime1: Calendar = Calendar.getInstance()
+        selectedTime1.set(year, month, date)
+
+        val timeLeft1 = today.time
+        val secondsLeft1 = timeLeft1 / 1000
+        val minutesLeft1 = secondsLeft1 / 60
+        val hoursLeft1 = minutesLeft1 / 60
+        val daysLeft1 = hoursLeft1 / 24
+
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, date, hoursLeft1.toInt(), minutesLeft1.toInt())
+        time= calendar.timeInMillis
+
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,6 +159,8 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
         // adding menstrualCycle to selected time
         selectedTime.add(Calendar.DATE, menstrualCycle)
 
+
+
         // Expected future date
         val futureDate = selectedTime.time
 
@@ -127,6 +198,7 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
         val daysLeft = hoursLeft / 24
 
         return daysLeft
+
     }
 
     private fun showDatePickerDialog() {
@@ -141,5 +213,19 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking), OnDateSetListener
             )
         }?.show()
     }
+
+    private fun createNotificationChannel()
+    {
+        val name = "Notif Channel"
+        val desc = "A Description of the Channel"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(channelID, name, importance)
+        channel.description = desc
+        val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
 }
+
+
+
 
