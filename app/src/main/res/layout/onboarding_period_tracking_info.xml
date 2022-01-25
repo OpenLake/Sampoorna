@@ -9,12 +9,12 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/_34ssp"
         android:layout_marginTop="@dimen/_30sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/period_track_text"
         android:fontFamily="@font/dongle"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
         android:id="@+id/tv_trackPeriods_desc"
         android:layout_width="wrap_content"
@@ -22,10 +22,19 @@
         android:text="@string/period_track_info"
         android:textSize="@dimen/_28ssp"
         android:fontFamily="@font/dongle"
-        app:layout_constraintTop_toBottomOf="@id/tv_trackPeriods"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_10sdp"/>
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/tv_trackPeriods"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:src="@drawable/periods"
+        app:layout_constraintTop_toBottomOf="@id/tv_trackPeriods_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

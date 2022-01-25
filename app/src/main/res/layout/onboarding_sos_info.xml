@@ -11,24 +11,32 @@
         android:id="@+id/tv_sos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/send_sos_text"
         android:layout_marginTop="@dimen/_30sdp"
         android:textSize="@dimen/_34ssp"
         android:fontFamily="@font/dongle"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
         android:id="@+id/sos_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_sos"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/send_sos_info_content"
-        android:layout_margin="@dimen/_30sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:gravity="center"
         android:fontFamily="@font/dongle"
-        android:textSize="@dimen/_28ssp"/>
+        android:textSize="@dimen/_28ssp"
+        app:layout_constraintTop_toBottomOf="@id/tv_sos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:src="@drawable/soslogo"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@id/sos_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

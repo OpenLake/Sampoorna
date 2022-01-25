@@ -26,13 +26,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/first_name"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_16sdp"
         app:startIconDrawable="@drawable/ic_person_outline"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/materialTextView"
         app:endIconMode="clear_text"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_16sdp"
+
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/first_name_input"
@@ -45,12 +46,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/last_name"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/first_name_input_layout"
-        app:endIconMode="clear_text"
         android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/first_name_input_layout"
+        app:endIconMode="clear_text"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
     <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/last_name_input"
@@ -62,15 +63,14 @@
         android:id="@+id/contact_number_add_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconDrawable="@drawable/ic_contact_phone"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/last_name_input_layout"
-        app:endIconMode="clear_text"
-
         android:hint="@string/phone"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_30sdp"
         android:layout_marginStart="@dimen/_30sdp"
+        app:startIconDrawable="@drawable/ic_contact_phone"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/last_name_input_layout"
+        app:endIconMode="clear_text"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
     <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/contact_number_add"
@@ -86,8 +86,8 @@
         android:text="@string/save"
         android:textColor="@color/text_primary"
         android:backgroundTint="@color/secondary"
-        app:layout_constraintTop_toBottomOf="@id/contact_number_add_layout"
         android:layout_marginTop="@dimen/_30sdp"
+        app:layout_constraintTop_toBottomOf="@id/contact_number_add_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

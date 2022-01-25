@@ -1,13 +1,19 @@
 package org.openlake.sampoorna.presentation.features.sos_alert
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.google.android.material.transition.MaterialFadeThrough
@@ -16,12 +22,20 @@ import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentAlertBinding
 import org.openlake.sampoorna.presentation.features.sos_message.SosMessageBottomSheet
 import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
-import org.openlake.sampoorna.util.services.SOSHelper
+import org.openlake.sampoorna.util.services.ReactivateService
+import org.openlake.sampoorna.presentation.MainActivity.Companion.SOSSwitch
 
 @AndroidEntryPoint
 class AlertFragment : Fragment(R.layout.fragment_alert) {
     private lateinit var userViewModel: UserViewModel
     lateinit var sharedPreferences : SharedPreferences
+    lateinit var contactsListPreferences: SharedPreferences
+    private val PERMISSIONS = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.SEND_SMS
+    )
+    private val REQUEST_CODE = 101
     val user:String = "User"
     //enabling data binding
     private var _binding: FragmentAlertBinding? = null
@@ -43,16 +57,68 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         //Using SharedPreferences to get username
         sharedPreferences = requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE)
         helloUser.text = "Hello, " +  sharedPreferences.getString("username","")
+        //Shared preferences to get contacts list
+        contactsListPreferences = requireActivity().getSharedPreferences("sosContacts",Context.MODE_PRIVATE)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-        userViewModel.allContacts.observe(viewLifecycleOwner,{listOfContacts->
-          //SOS Button click handling
-          sosButton.setOnClickListener {
-              if (listOfContacts.isNullOrEmpty()){
-                  Toast.makeText(context, "No contacts added yet.", Toast.LENGTH_SHORT).show()
-              }
-              SOSHelper.sendSms(listOfContacts,userViewModel,viewLifecycleOwner, requireActivity())
-          }
+        userViewModel.allContacts.observe(viewLifecycleOwner, { listOfContacts ->
+
+            val setContacts = mutableSetOf<String>()
+
+            for (contact in listOfContacts) {
+                contact.contact?.let { setContacts.add(it) }
+            }
+            val editor: SharedPreferences.Editor = contactsListPreferences.edit()
+            editor.putStringSet("contacts", setContacts)
+                .apply()
+            //SOS Button click handling
+
+            SOSSwitch.observe(requireActivity(), { bool ->
+                sosButton.setOnClickListener {
+                    askForPermissions(requireActivity())
+                    if (bool) {
+                        Toast.makeText(context, "SOS Service Stopped", Toast.LENGTH_SHORT).show()
+                        SOSSwitch.postValue(false)
+                        val broadcastIntent = Intent()
+                        broadcastIntent.action = "restartService"
+                        broadcastIntent.setClass(
+                            requireActivity(),
+                            ReactivateService::class.java
+                        )
+                        requireActivity().sendBroadcast(broadcastIntent)
+
+                    } else {
+                        SOSSwitch.postValue(true)
+                        Toast.makeText(context, "SOS Service Started", Toast.LENGTH_SHORT).show()
+                        val locationSetting =
+                            context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                        if (locationSetting.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                            //Start SOS Service here
+                            val broadcastIntent = Intent()
+                            broadcastIntent.action = "restart Service"
+                            broadcastIntent.setClass(
+                                requireActivity(),
+                                ReactivateService::class.java
+                            )
+                            requireActivity().sendBroadcast(broadcastIntent)
+                            if (listOfContacts.isNullOrEmpty()) {
+                                Toast.makeText(
+                                    context,
+                                    "No contacts added yet.",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Please turn on location service",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            })
         }
       )
         // Edit SOS Message Click Handling
@@ -68,5 +134,21 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         }
           return view
     }
-
+    private fun askForPermissions(activity: Activity): Boolean {
+        val permissionsToRequest: MutableList<String> = ArrayList()
+        for (permission in PERMISSIONS) {
+            if (ActivityCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionsToRequest.add(permission)
+            }
+        }
+        if (permissionsToRequest.isEmpty()) {
+            return false
+        }
+        if (permissionsToRequest.isNotEmpty()) {
+            ActivityCompat.requestPermissions(activity, permissionsToRequest.toTypedArray(),
+                REQUEST_CODE
+            )
+        }
+        return true
+    }
 }

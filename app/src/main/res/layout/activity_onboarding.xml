@@ -53,11 +53,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background_tertiary"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/_10sdp"
             app:tabBackground="@drawable/indicator_selector"
             app:tabIndicator="@color/background_secondary"
-            android:layout_gravity="bottom"
-            app:tabGravity="center"
-            android:layout_marginBottom="@dimen/_10sdp">
+            app:tabGravity="center">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
