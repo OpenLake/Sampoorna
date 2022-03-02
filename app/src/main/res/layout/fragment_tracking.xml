@@ -44,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Countdown"
+        android:textAlignment="center"
         android:textColor="#000"
         android:textSize="@dimen/_30ssp"
         app:layout_constraintBottom_toBottomOf="parent"
