@@ -27,7 +27,7 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking){
     private val binding get() = _binding!!
     private lateinit var dateText: TextView
     private lateinit var sharedPref: SharedPreferences
-    lateinit var cal:Calendar
+    lateinit var calender:Calendar
     lateinit var dateSetListener:DatePickerDialog.OnDateSetListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking){
 
         sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         dateText = binding.dateText
-        cal= Calendar.getInstance()
+        calender= Calendar.getInstance()
 
         //preparing the OnDateSetListener for the datePickerDialog.
         dateSetListener=DatePickerDialog.OnDateSetListener { view, year,month, dayOfMonth ->
@@ -138,9 +138,9 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking){
        val datepickerDialog=DatePickerDialog(
            requireContext(),
            dateSetListener,
-           cal.get(Calendar.YEAR),
-           cal.get(Calendar.MONTH),
-           cal.get(Calendar.DAY_OF_MONTH)
+           calender.get(Calendar.YEAR),
+           calender.get(Calendar.MONTH),
+           calender.get(Calendar.DAY_OF_MONTH)
        )
         //constrained the datePickerDialog such that the user can select a date only before the current date.
         datepickerDialog.datePicker.maxDate=System.currentTimeMillis()
