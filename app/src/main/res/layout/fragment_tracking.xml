@@ -25,23 +25,6 @@
         app:layout_constraintVertical_bias="0.065" />
 
   
-    <TextView
-        android:id="@+id/subheading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="@string/Countdown"
-        android:textColor="@color/Black_Nero1"
-        android:textColorHint="@color/Black_Mitsubishi_Black_Matt"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.611"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432" />
-  
-  
     <Button
         android:id="@+id/show_dialog"
         android:layout_width="wrap_content"
@@ -54,17 +37,18 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.604" />
-  
+
 
     <TextView
         android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/Countdown"
+        android:textAlignment="center"
         android:textColor="#000"
         android:textSize="@dimen/_30ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
