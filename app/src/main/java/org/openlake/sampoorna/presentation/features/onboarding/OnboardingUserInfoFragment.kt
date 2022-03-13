@@ -14,10 +14,10 @@ import org.openlake.sampoorna.databinding.OnboardingUserInfoBinding
 import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
 
 @AndroidEntryPoint
-class OnboardingUserInfoFragment:Fragment(R.layout.onboarding_user_info){
+class OnboardingUserInfoFragment : Fragment(R.layout.onboarding_user_info) {
     private var _binding: OnboardingUserInfoBinding? = null
     private val binding get() = _binding!!
-    private lateinit var userViewModel:UserViewModel
+    private lateinit var userViewModel: UserViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +39,8 @@ class OnboardingUserInfoFragment:Fragment(R.layout.onboarding_user_info){
         binding.etResidence.doOnTextChanged { text, start, before, count ->
             userViewModel.updateAddress(text.toString())
         }
-        Toast.makeText(context, "Don't worry , your data will be safe with us :)", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, getText(R.string.do_not_worry_data_is_safe), Toast.LENGTH_SHORT)
+            .show()
         return binding.root
     }
 }
