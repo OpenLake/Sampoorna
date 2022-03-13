@@ -32,6 +32,9 @@ class OnboardingActivity : AppCompatActivity() {
             startActivity(Intent(this,MainActivity::class.java))
             finish()
         }
+        // As in the manifest, we have changed application theme to SplashTheme.
+        // Hence, we need to switch back to our main theme.
+        setTheme(R.style.Theme_Sampoorna)
         super.onCreate(savedInstanceState)
         //binding setup
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
