@@ -51,5 +51,6 @@
     <string name="enter_phone_number_error">Please enter phone number correctly</string>
     <string name="contact_added_sucess">Contact added successfully.</string>
     <string name="you_are_protected">You are protected</string>
+    <string name="blogs">Blogs</string>
 </resources>
 
