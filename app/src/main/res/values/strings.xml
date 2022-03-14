@@ -37,6 +37,19 @@
     <string name="lets_get_started">Let\'s get started..</string>
     <string name="period_track_text">Easy Periods Tracking</string>
     <string name="period_track_info">Keep records of your periods easily and leave the rest on Sampoorna..</string>
-    <string name="blogs">Blogs</string>
+    <string name="please_enter_sos_message">Please add sos message</string>
+    <string name="sos_service_stoped">SOS Service Stopped</string>
+    <string name="sos_service_started">SOS Service Started</string>
+    <string name="no_contacted_added">No contacts added yet.</string>
+    <string name="turn_on_location_message">Please turn on location service</string>
+    <string name="hello">Hello, </string>
+    <string name="enter_mensuration_last_date">Please enter the last date of \nthe menstrual period</string>
+    <string name="days_left">Days Left"</string>
+    <string name="enter_valid_date">Please enter a valid Date</string>
+    <string name="do_not_worry_data_is_safe">Don\'t worry , your data will be safe with us :)</string>
+    <string name="_enter_name_error">Please Enter Name Properly</string>
+    <string name="enter_phone_number_error">Please enter phone number correctly</string>
+    <string name="contact_added_sucess">Contact added successfully.</string>
+    <string name="you_are_protected">You are protected</string>
 </resources>
 

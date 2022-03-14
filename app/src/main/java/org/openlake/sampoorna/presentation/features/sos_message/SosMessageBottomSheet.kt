@@ -43,7 +43,7 @@ class SosMessageBottomSheet : BottomSheetDialogFragment() {
                 dismiss()
         }
             else{
-                Toast.makeText(context, "Please add sos message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.please_enter_sos_message), Toast.LENGTH_SHORT).show()
             }
         }
     }
