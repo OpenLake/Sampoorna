@@ -20,6 +20,11 @@
         android:label="@string/track_menstrual_cycle"
         tools:layout="@layout/fragment_tracking" />
     <fragment
+        android:id="@+id/blogsFragment"
+        android:name="org.openlake.sampoorna.presentation.features.blogs.BlogsFragment"
+        android:label="Blogs"
+        tools:layout="@layout/fragment_blogs" />
+    <fragment
         android:id="@+id/contactFragment"
         android:name="org.openlake.sampoorna.presentation.features.contacts.ContactFragment"
         android:label="@string/contacts"

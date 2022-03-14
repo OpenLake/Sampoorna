@@ -9,4 +9,8 @@
         android:id="@+id/trackingFragment"
         android:title="@string/track_menstruation"
         android:icon="@drawable/ic_calender"/>
+    <item
+        android:id="@+id/blogsFragment"
+        android:title="@string/blogs"
+        android:icon="@drawable/ic_blog"/>
 </menu>
