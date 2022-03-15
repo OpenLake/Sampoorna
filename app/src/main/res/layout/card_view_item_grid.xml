@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp"
+    app:cardPreventCornerOverlap="true">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/grid_item_self_care_icon"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/womenlogo"/>
+
+        <TextView
+            android:id="@+id/grid_item_self_care_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/grid_item_self_care_icon"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="13dp"
+            android:gravity="center"
+            android:text="Music"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
