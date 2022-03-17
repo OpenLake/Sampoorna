@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="5dp"
-    app:cardPreventCornerOverlap="true">
+    android:layout_width="@dimen/_150sdp"
+    android:layout_height="@dimen/_120sdp"
+    android:id="@+id/cardView"
+    app:cardBackgroundColor="@color/white"
+    android:clickable="true"
+    android:padding="@dimen/_10sdp"
+    android:layout_margin="@dimen/_5sdp"
+    app:cardCornerRadius="@dimen/_15sdp"
+    app:cardElevation="@dimen/_3sdp"
+    android:layout_gravity="center_horizontal"
+    android:focusable="true">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/grid_item_self_care_icon"
             android:layout_width="@dimen/_90sdp"
             android:layout_height="@dimen/_90sdp"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/womenlogo"/>
 
         <TextView
             android:id="@+id/grid_item_self_care_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/grid_item_self_care_icon"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="13dp"
             android:gravity="center"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_gravity="center"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
             android:text="Music"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/grid_item_self_care_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-
-    </RelativeLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

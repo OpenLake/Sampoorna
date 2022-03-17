@@ -12,9 +12,10 @@
         android:id="@+id/self_care_grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:columnWidth="150dp"
-        android:horizontalSpacing="15dp"
+        android:horizontalSpacing="@dimen/_15sdp"
         android:numColumns="auto_fit"
-        android:verticalSpacing="15dp" />
+        android:verticalSpacing="@dimen/_15sdp" />
 
 </LinearLayout>
