@@ -19,63 +19,71 @@
         android:textSize="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/first_name_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/first_name"
         android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        app:startIconDrawable="@drawable/ic_person_outline"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:hint="@string/first_name"
+        app:endIconMode="clear_text"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/materialTextView"
-        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_person_outline">
 
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/first_name_input"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/last_name_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/last_name"
         android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/first_name_input_layout"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:hint="@string/last_name"
         app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-    <com.google.android.material.textfield.TextInputEditText
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/first_name_input_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/last_name_input"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/contact_number_add_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/phone"
+        android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_30sdp"
-        android:layout_marginStart="@dimen/_30sdp"
-        app:startIconDrawable="@drawable/ic_contact_phone"
+        android:hint="@string/phone"
+        app:endIconMode="clear_text"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/last_name_input_layout"
-        app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-    <com.google.android.material.textfield.TextInputEditText
+        app:startIconDrawable="@drawable/ic_contact_phone">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/contact_number_add"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:digits="1234567890"
+            android:imeOptions="actionDone"
+            android:inputType="phone"
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,11 +91,11 @@
         android:id="@+id/btn_add_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:backgroundTint="@color/secondary"
         android:text="@string/save"
         android:textColor="@color/text_primary"
-        android:backgroundTint="@color/secondary"
-        android:layout_marginTop="@dimen/_30sdp"
-        app:layout_constraintTop_toBottomOf="@id/contact_number_add_layout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/contact_number_add_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
