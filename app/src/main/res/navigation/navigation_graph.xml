@@ -41,4 +41,9 @@
             android:id="@+id/action_addContactBottomSheet2_to_contactFragment"
             app:destination="@id/contactFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/selfCareFragment"
+        android:name="org.openlake.sampoorna.presentation.features.self_care.SelfCareFragment"
+        android:label="@string/self_care"
+        tools:layout="@layout/fragment_self_care" />
 </navigation>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/animate"
+    tools:context=".presentation.features.self_care.SelfCareFragment">
+
+    <GridView
+        android:id="@+id/self_care_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:columnWidth="150dp"
+        android:horizontalSpacing="@dimen/_15sdp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="@dimen/_15sdp" />
+
+</LinearLayout>

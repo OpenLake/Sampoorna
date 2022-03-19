@@ -13,4 +13,8 @@
         android:id="@+id/blogsFragment"
         android:title="@string/blogs"
         android:icon="@drawable/ic_blog"/>
+    <item
+        android:id="@+id/selfCareFragment"
+        android:title="@string/self_care"
+        android:icon="@drawable/ic_self_care"/>
 </menu>
