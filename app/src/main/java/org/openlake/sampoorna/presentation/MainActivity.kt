@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -35,6 +36,14 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.alertFragment,R.id.trackingFragment,R.id.blogsFragment,R.id.selfCareFragment))
         setupActionBarWithNavController(navController,appBarConfiguration)
         bottomNavigationView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.contactFragment) {
+                bottomNavigationView.visibility = View.GONE
+            } else {
+                bottomNavigationView.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
