@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@id/materialTextView"
         app:startIconDrawable="@drawable/ic_person_outline">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/first_name_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

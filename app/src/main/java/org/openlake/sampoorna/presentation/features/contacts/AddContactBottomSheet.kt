@@ -1,23 +1,37 @@
 package org.openlake.sampoorna.presentation.features.contacts
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.os.Bundle
+import android.provider.ContactsContract
+import android.util.Log
 import android.util.Patterns
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.SimpleCursorAdapter
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.loader.app.LoaderManager
+import androidx.loader.content.CursorLoader
+import androidx.loader.content.Loader
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.sources.entities.Contact
+import org.openlake.sampoorna.presentation.MainActivity
 
-class AddContactBottomSheet : BottomSheetDialogFragment() {
+class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCallbacks<Cursor> {
     private val contactSharedViewModel: ContactsViewModel by activityViewModels()
+    private lateinit var cursorAdapter : SimpleCursorAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,10 +44,19 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val btn_save_contact: MaterialButton = view.findViewById(R.id.btn_add_contact)
-        val contact_first_name: TextInputEditText = view.findViewById(R.id.first_name_input)
+        val contact_first_name: AutoCompleteTextView = view.findViewById(R.id.first_name_input)
         val contact_last_name: TextInputEditText = view.findViewById(R.id.last_name_input)
         val contact_phone_number: TextInputEditText = view.findViewById(R.id.contact_number_add)
 
+        if(ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.READ_CONTACTS)==PackageManager.PERMISSION_GRANTED)
+        {
+            loaderManager.initLoader(0,null,this)
+            cursorAdapter = SimpleCursorAdapter(requireContext(),android.R.layout.simple_dropdown_item_1line,null,
+                FROM_COLUMNS,
+                TO_IDS,0)
+
+            contact_first_name.setAdapter(cursorAdapter)
+        }
         //Hide Keyboard on Enter for contact_phone_number
         contact_phone_number.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
 
@@ -82,5 +105,39 @@ class AddContactBottomSheet : BottomSheetDialogFragment() {
 
     override fun getTheme(): Int {
         return R.style.CustomBottomSheetDialog
+    }
+
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
+        return CursorLoader(requireContext(),ContactsContract.Contacts.CONTENT_URI, PROJECTION,null,
+            null,null)
+    }
+
+    override fun onLoadFinished(loader: Loader<Cursor>, cursor: Cursor?) {
+        while(cursor?.moveToNext() == true)
+        {
+            val id = cursor.getLong(CONTACT_ID_INDEX)
+            val key = cursor.getString(CONTACT_KEY_INDEX)
+            val name = cursor.getString(CONTACT_NAME_INDEX)
+            val uri = ContactsContract.Contacts.getLookupUri(id,key)
+
+            Log.d("phone",cursor.getString(2))
+        }
+        cursorAdapter.swapCursor(cursor)
+    }
+
+    override fun onLoaderReset(loader: Loader<Cursor>) {
+        cursorAdapter.swapCursor(null)
+    }
+    companion object{
+        private val FROM_COLUMNS = arrayOf(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY)
+        private val TO_IDS = intArrayOf(android.R.id.text1)
+        private val PROJECTION = arrayOf(
+            ContactsContract.Contacts._ID,
+            ContactsContract.Contacts.LOOKUP_KEY,
+            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY
+        )
+        private const val CONTACT_ID_INDEX = 0
+        private const val CONTACT_KEY_INDEX = 1
+        private const val CONTACT_NAME_INDEX = 2
     }
 }

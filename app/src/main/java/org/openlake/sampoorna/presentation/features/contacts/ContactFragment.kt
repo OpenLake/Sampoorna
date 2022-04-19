@@ -1,8 +1,11 @@
 package org.openlake.sampoorna.presentation.features.contacts
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,6 +50,12 @@ class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
                 return@setOnClickListener
             }
             addContactsFragment.show(parentFragmentManager,"addContactBottomSheet")
+        }
+
+        if(ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS),0)
         }
         return view
     }
