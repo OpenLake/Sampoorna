@@ -6,17 +6,10 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.Log
 import android.util.Patterns
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.SimpleCursorAdapter
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.loader.app.LoaderManager
@@ -24,14 +17,14 @@ import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.sources.entities.Contact
-import org.openlake.sampoorna.presentation.MainActivity
 
 class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCallbacks<Cursor> {
     private val contactSharedViewModel: ContactsViewModel by activityViewModels()
-    private lateinit var cursorAdapter : SimpleCursorAdapter
+    private lateinit var contactAdapter : SimpleAdapter
+    private lateinit var contactName : AutoCompleteTextView
+    private lateinit var contactPhoneNumber : AutoCompleteTextView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,51 +35,53 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val btn_save_contact: MaterialButton = view.findViewById(R.id.btn_add_contact)
-        val contact_first_name: AutoCompleteTextView = view.findViewById(R.id.first_name_input)
-        val contact_last_name: TextInputEditText = view.findViewById(R.id.last_name_input)
-        val contact_phone_number: TextInputEditText = view.findViewById(R.id.contact_number_add)
-
+        val btnSaveContact: MaterialButton = view.findViewById(R.id.btn_add_contact)
+        contactName = view.findViewById(R.id.name_input)
+        contactPhoneNumber = view.findViewById(R.id.contact_number_add)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         if(ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.READ_CONTACTS)==PackageManager.PERMISSION_GRANTED)
         {
             loaderManager.initLoader(0,null,this)
-            cursorAdapter = SimpleCursorAdapter(requireContext(),android.R.layout.simple_dropdown_item_1line,null,
-                FROM_COLUMNS,
-                TO_IDS,0)
-
-            contact_first_name.setAdapter(cursorAdapter)
         }
         //Hide Keyboard on Enter for contact_phone_number
-        contact_phone_number.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
+        contactPhoneNumber.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
+
+
+        val contactListener = AdapterView.OnItemClickListener { adapterView, _, position, _ ->
+            val inputMethodManager =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            val m : Map<String,String> = adapterView.getItemAtPosition(position) as Map<String, String>
+            val name = m["name"]
+            val number = m["number"]
+            contactName.setText(name)
+            contactPhoneNumber.setText(number)
+         }
+        contactName.onItemClickListener = contactListener
+        contactPhoneNumber.onItemClickListener = contactListener
 
         //Save button listens handle
-        btn_save_contact.setOnClickListener {
-            if (contact_first_name.text?.isEmpty()!!) {
-                contact_first_name.requestFocus()
-                contact_first_name.error = getString(R.string._enter_name_error)
+        btnSaveContact.setOnClickListener {
+            if (contactName.text?.isEmpty()!!) {
+                contactName.requestFocus()
+                contactName.error = getString(R.string._enter_name_error)
                 return@setOnClickListener
             }
-            if (contact_last_name.text?.isEmpty()!!) {
-                contact_last_name.setText("")
-
-            }
-            if (contact_phone_number.text?.isEmpty()!! or !Patterns.PHONE.matcher(
-                    contact_phone_number.text.toString()
+            if (contactPhoneNumber.text?.isEmpty()!! or !Patterns.PHONE.matcher(
+                    contactPhoneNumber.text.toString()
                 ).matches()
             ) {
-                contact_phone_number.requestFocus()
-                contact_phone_number.error = getString(R.string.enter_phone_number_error)
+                contactPhoneNumber.requestFocus()
+                contactPhoneNumber.error = getString(R.string.enter_phone_number_error)
                 return@setOnClickListener
             }
             val contact = Contact(
-                contact_first_name.text.toString() + " " + contact_last_name.text.toString(),
-                contact_phone_number.text.toString()
+                contactName.text.toString(),
+                contactPhoneNumber.text.toString()
             )
             contactSharedViewModel.insertContact(contact)
-            contact_first_name.setText("")
-            contact_last_name.setText("")
-            contact_phone_number.setText("")
+            contactName.setText("")
+            contactPhoneNumber.setText("")
             Toast.makeText(context, getString(R.string.contact_added_sucess), Toast.LENGTH_SHORT).show()
             dismiss()
         }
@@ -108,36 +103,67 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
-        return CursorLoader(requireContext(),ContactsContract.Contacts.CONTENT_URI, PROJECTION,null,
-            null,null)
+        return CursorLoader(
+            requireContext(),
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            PROJECTION,
+            ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER+" = 1",
+            null,
+            ContactsContract.CommonDataKinds.Phone.MIMETYPE
+        )
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>, cursor: Cursor?) {
+        val contacts = mutableListOf<Map<String,String>>()
         while(cursor?.moveToNext() == true)
         {
-            val id = cursor.getLong(CONTACT_ID_INDEX)
-            val key = cursor.getString(CONTACT_KEY_INDEX)
             val name = cursor.getString(CONTACT_NAME_INDEX)
-            val uri = ContactsContract.Contacts.getLookupUri(id,key)
-
-            Log.d("phone",cursor.getString(2))
+            val contact = cursor.getString(CONTACT_NUMBER_INDEX)
+            var number = ""
+            for(i in contact.indices)
+            {
+                if(contact[i]!=' ') number += contact[i]
+            }
+            if(number[0]=='+')
+            {
+                number = number.substring(3)
+            }
+            var found = false
+            for(i in contacts.indices)
+            {
+                if(contacts[i]["number"]==number)
+                {
+                    found = true
+                    break
+                }
+            }
+            if(!found)
+            {
+                val m = mapOf(Pair("name",name), Pair("number",number))
+                contacts.add(m)
+            }
         }
-        cursorAdapter.swapCursor(cursor)
+        contactAdapter = SimpleAdapter(
+            requireContext(),
+            contacts,
+            R.layout.contact_dropdown_item,
+            arrayOf("name","number"),
+            intArrayOf(R.id.contact_dropdown_name,R.id.contact_dropdown_number)
+        )
+        contactName.setAdapter(contactAdapter)
+        contactPhoneNumber.setAdapter(contactAdapter)
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        cursorAdapter.swapCursor(null)
+
     }
     companion object{
-        private val FROM_COLUMNS = arrayOf(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY)
-        private val TO_IDS = intArrayOf(android.R.id.text1)
         private val PROJECTION = arrayOf(
-            ContactsContract.Contacts._ID,
-            ContactsContract.Contacts.LOOKUP_KEY,
-            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY
+            ContactsContract.CommonDataKinds.Phone._ID,
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY,
+            ContactsContract.CommonDataKinds.Phone.NUMBER
         )
-        private const val CONTACT_ID_INDEX = 0
-        private const val CONTACT_KEY_INDEX = 1
-        private const val CONTACT_NAME_INDEX = 2
+        private const val CONTACT_NAME_INDEX = 1
+        private const val CONTACT_NUMBER_INDEX = 2
     }
 }

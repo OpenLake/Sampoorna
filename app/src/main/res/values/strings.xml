@@ -12,8 +12,7 @@
     <string name="Date_Selection">Choose the Last Date</string>
     <string name="Countdown">Days Left</string>
     <string name="add_contact">Add Contact</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
+    <string name="first_name">Name</string>
     <string name="phone">Phone</string>
     <string name="save">Save</string>
     <string name="go_back_to_alert_menu">Go back to Alert Menu</string>
