@@ -1,9 +1,12 @@
 package org.openlake.sampoorna.presentation.features.contacts
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Patterns
@@ -17,14 +20,16 @@ import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.sources.entities.Contact
 
 class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCallbacks<Cursor> {
     private val contactSharedViewModel: ContactsViewModel by activityViewModels()
     private lateinit var contactAdapter : SimpleAdapter
-    private lateinit var contactName : AutoCompleteTextView
-    private lateinit var contactPhoneNumber : AutoCompleteTextView
+    private lateinit var contactName : TextInputEditText
+    private lateinit var contactPhoneNumber : TextInputEditText
+    private var contactUri : Uri? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,13 +41,11 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val btnSaveContact: MaterialButton = view.findViewById(R.id.btn_add_contact)
+        val btnGetContact: MaterialButton = view.findViewById(R.id.btn_get_contact)
+
         contactName = view.findViewById(R.id.name_input)
         contactPhoneNumber = view.findViewById(R.id.contact_number_add)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        if(ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.READ_CONTACTS)==PackageManager.PERMISSION_GRANTED)
-        {
-            loaderManager.initLoader(0,null,this)
-        }
         //Hide Keyboard on Enter for contact_phone_number
         contactPhoneNumber.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
 
@@ -57,8 +60,6 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
             contactName.setText(name)
             contactPhoneNumber.setText(number)
          }
-        contactName.onItemClickListener = contactListener
-        contactPhoneNumber.onItemClickListener = contactListener
 
         //Save button listens handle
         btnSaveContact.setOnClickListener {
@@ -85,6 +86,24 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
             Toast.makeText(context, getString(R.string.contact_added_sucess), Toast.LENGTH_SHORT).show()
             dismiss()
         }
+
+        btnGetContact.setOnClickListener {
+            if(ContextCompat.checkSelfPermission(requireContext(),
+                    Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
+            {
+                requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), CONTACT_REQUEST)
+            }
+            else
+            {
+                getContact()
+            }
+        }
+    }
+
+    private fun getContact()
+    {
+        val intent = Intent(Intent.ACTION_PICK,ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
+        startActivityForResult(intent, CONTACT_REQUEST)
     }
 
     private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
@@ -98,14 +117,38 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
         return false
     }
 
-    override fun getTheme(): Int {
-        return R.style.CustomBottomSheetDialog
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode==CONTACT_REQUEST)
+        {
+            if(grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED)
+            {
+                getContact()
+            }
+            else
+            {
+                Toast.makeText(requireContext(),"Permissions not granted",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode==Activity.RESULT_OK && requestCode== CONTACT_REQUEST && data!=null)
+        {
+            contactUri = data.data
+            loaderManager.initLoader(0,null,this)
+        }
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         return CursorLoader(
             requireContext(),
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            contactUri!!,
             PROJECTION,
             ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER+" = 1",
             null,
@@ -115,7 +158,7 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
 
     override fun onLoadFinished(loader: Loader<Cursor>, cursor: Cursor?) {
         val contacts = mutableListOf<Map<String,String>>()
-        while(cursor?.moveToNext() == true)
+        if(cursor?.moveToNext() == true)
         {
             val name = cursor.getString(CONTACT_NAME_INDEX)
             val contact = cursor.getString(CONTACT_NUMBER_INDEX)
@@ -142,6 +185,9 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
                 val m = mapOf(Pair("name",name), Pair("number",number))
                 contacts.add(m)
             }
+            contactName.setText(name)
+            contactPhoneNumber.setText(number)
+            cursor.close()
         }
         contactAdapter = SimpleAdapter(
             requireContext(),
@@ -150,8 +196,6 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
             arrayOf("name","number"),
             intArrayOf(R.id.contact_dropdown_name,R.id.contact_dropdown_number)
         )
-        contactName.setAdapter(contactAdapter)
-        contactPhoneNumber.setAdapter(contactAdapter)
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
@@ -165,5 +209,7 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
         )
         private const val CONTACT_NAME_INDEX = 1
         private const val CONTACT_NUMBER_INDEX = 2
+
+        private const val CONTACT_REQUEST = 999
     }
 }

@@ -26,13 +26,13 @@
         android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_30sdp"
-        android:hint="@string/first_name"
+        android:hint="@string/name"
         app:endIconMode="clear_text"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/materialTextView"
         app:startIconDrawable="@drawable/ic_person_outline">
 
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/name_input_layout"
         app:startIconDrawable="@drawable/ic_contact_phone">
 
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/contact_number_add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -76,11 +76,23 @@
         android:id="@+id/btn_add_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
         android:backgroundTint="@color/secondary"
         android:text="@string/save"
         android:textColor="@color/text_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/contact_number_add_layout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_get_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:backgroundTint="@color/secondary"
+        android:text="@string/select_from_phone_contacts"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_contact" />
 </androidx.constraintlayout.widget.ConstraintLayout>

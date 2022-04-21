@@ -34,14 +34,14 @@ class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
 
         //ViewModel instantiating
         viewModel = ViewModelProvider(this)[ContactsViewModel::class.java]
-        viewModel.allContacts.observe(viewLifecycleOwner, {
+        viewModel.allContacts.observe(viewLifecycleOwner
+        ) {
             //This is problematic:
             Log.d("it", "$it")
             if (it != null) {
                 adapter.updateContacts(it as ArrayList<Contact>)
             }
         }
-        )
         //fab actions
         val addContactsFragment= AddContactBottomSheet()
         val addContactBtn = view.findViewById<FloatingActionButton>(R.id.contacts_add)
@@ -50,12 +50,6 @@ class ContactFragment : Fragment(R.layout.fragment_contact), Listeners {
                 return@setOnClickListener
             }
             addContactsFragment.show(parentFragmentManager,"addContactBottomSheet")
-        }
-
-        if(ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS),0)
         }
         return view
     }
