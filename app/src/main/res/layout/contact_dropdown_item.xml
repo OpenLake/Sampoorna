@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="@dimen/_2sdp"
+    app:cardElevation="@dimen/_5sdp"
+    android:elevation="@dimen/_10sdp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Some guy"
+            android:layout_margin="@dimen/_2sdp"
+            android:textAlignment="center"
+            android:id="@+id/contact_dropdown_name"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="999999999"
+            android:textAlignment="center"
+            android:layout_margin="@dimen/_2sdp"
+            android:id="@+id/contact_dropdown_number"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

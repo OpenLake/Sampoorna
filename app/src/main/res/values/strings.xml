@@ -12,8 +12,7 @@
     <string name="Date_Selection">Choose the Last Date</string>
     <string name="Countdown">Days Left</string>
     <string name="add_contact">Add Contact</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
+    <string name="name">Name</string>
     <string name="phone">Phone</string>
     <string name="save">Save</string>
     <string name="go_back_to_alert_menu">Go back to Alert Menu</string>
@@ -53,5 +52,6 @@
     <string name="you_are_protected">You are protected</string>
     <string name="blogs">Blogs</string>
     <string name="self_care">Self Care</string>
+    <string name="select_from_phone_contacts">Select from phone contacts</string>
 </resources>
 
