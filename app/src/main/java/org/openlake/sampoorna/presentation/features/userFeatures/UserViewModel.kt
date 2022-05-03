@@ -1,6 +1,7 @@
 package org.openlake.sampoorna.presentation.features.userFeatures
 
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(private val userRepository: UserRepository, contactsRepository: ContactsRepository):ViewModel(){
+    val userInfoSubmitted : MutableLiveData<Boolean> = MutableLiveData(false)
     fun insertUser(user: User)=viewModelScope.launch(Dispatchers.IO) {
         userRepository.insertUser(user)
     }
