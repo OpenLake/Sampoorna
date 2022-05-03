@@ -44,6 +44,7 @@ class OnboardingActivity : AppCompatActivity() {
         userViewModel.userDetails.observe(this) {
             //viewpager fab button listening..
             binding.goNextButton.setOnClickListener {
+                if(onBoardingViewPager.currentItem==3) userViewModel.userInfoSubmitted.postValue(true)
                 onBoardingViewPager.currentItem += 1
                 if (sharedPreferences.contains("username")) {
                     startActivity(Intent(this, MainActivity::class.java))

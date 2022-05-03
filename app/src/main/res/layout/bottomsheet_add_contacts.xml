@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_30sdp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:gravity="center"
         android:text="@string/add_contact"
         android:textSize="@dimen/_30sdp"
