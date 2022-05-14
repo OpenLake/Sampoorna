@@ -53,5 +53,6 @@
     <string name="blogs">Blogs</string>
     <string name="self_care">Self Care</string>
     <string name="select_from_phone_contacts">Select from phone contacts</string>
+    <string name="profile">Profile</string>
 </resources>
 
