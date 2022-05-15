@@ -22,7 +22,11 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater,container,false)
         val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         profileViewModel.userDetails.observe(viewLifecycleOwner){ user->
-            Toast.makeText(requireContext(),user.name,Toast.LENGTH_SHORT).show()
+            binding.userName.text = user.name
+            binding.userAge.text = user.age.toString()+" years"
+            binding.userEmail.text = user.email
+            binding.userAddress.text = user.address
+            binding.userBgrp.text = user.bloodGroup
         }
         return binding.root
     }
