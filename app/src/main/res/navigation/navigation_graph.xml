@@ -46,4 +46,9 @@
         android:name="org.openlake.sampoorna.presentation.features.self_care.SelfCareFragment"
         android:label="@string/self_care"
         tools:layout="@layout/fragment_self_care" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="org.openlake.sampoorna.presentation.features.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
