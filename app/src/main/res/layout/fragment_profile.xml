@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/background_primary"
@@ -7,118 +7,242 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.features.profile.ProfileFragment">
 
-    <ImageView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_210sdp"
-        android:id="@+id/user_header_bg"
-        android:src="@drawable/profile_header_background"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:layout_marginVertical="@dimen/_25sdp"
-        app:cardCornerRadius="@dimen/_50sdp"
-        app:cardElevation="@dimen/_5sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/user_image"
+        android:layout_height="match_parent"
+        android:id="@+id/profile_scroll_view">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/ic_womenlogo_background"
-            android:src="@drawable/womenlogo" />
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_235sdp"
+                android:id="@+id/user_header_bg"
+                android:src="@drawable/profile_header_background"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_marginVertical="@dimen/_25sdp"
+                app:cardCornerRadius="@dimen/_50sdp"
+                app:cardElevation="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
-        android:layout_width="@dimen/_175sdp"
-        android:layout_height="@dimen/_150sdp"
-        android:elevation="@dimen/_10sdp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/botanical_wreath" />
+                <ImageView
+                    android:id="@+id/user_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/ic_womenlogo_background"
+                    android:src="@drawable/womenlogo" />
 
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="match_parent"
+            </androidx.cardview.widget.CardView>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView"
+                android:layout_width="@dimen/_175sdp"
+                android:layout_height="@dimen/_150sdp"
+                android:elevation="@dimen/_10sdp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/botanical_wreath" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold"
+                tools:visibility="invisible"
+                tools:text="Anya Forger"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user_name_edit_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                app:hintEnabled="false"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/user_name_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_19sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:textStyle="bold"
+                    tools:text="Anya Forger"
+                    android:textAlignment="center" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/user_age"
+                tools:text="6 years"
+                tools:visibility="gone"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_name"
+                android:textSize="@dimen/_15sdp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user_age_edit_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                tools:visibility="visible"
+                android:visibility="gone"
+                app:hintEnabled="false"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_name_edit_layout">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/user_age_edit"
+                    android:inputType="number"
+                    tools:text="6 years"
+                    android:padding="@dimen/_8sdp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_14sdp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/user_content_layout"
+                app:layout_constraintTop_toBottomOf="@id/user_header_bg"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/e_mail"
+                    android:id="@+id/user_email_head"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_16sdp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/user_email"
+                    android:textSize="@dimen/_15sdp"
+                    tools:text="anyabestgirl@spyfamily.com"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/user_email_edit_layout"
+                    android:layout_width="match_parent"
+                    app:hintEnabled="false"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/user_email_edit"
+                        android:inputType="textEmailAddress"
+                        android:padding="@dimen/_8sdp"
+                        tools:text="6 years"
+                        android:textSize="@dimen/_14sdp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:id="@+id/user_address_head"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_16sdp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/user_address"
+                    android:textSize="@dimen/_15sdp"
+                    tools:text="Anya's house"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/user_address_edit_layout"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    app:hintEnabled="false"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/user_address_edit"
+                        tools:text="6 years"
+                        android:padding="@dimen/_8sdp"
+                        android:textSize="@dimen/_14sdp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blood_group"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:id="@+id/user_bgrp_head"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_16sdp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/user_bgrp"
+                    android:textSize="@dimen/_15sdp"
+                    tools:text="A++"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/user_bgrp_edit_layout"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    app:hintEnabled="false"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/user_bgrp_edit"
+                        android:padding="@dimen/_8sdp"
+                        tools:text="6 years"
+                        android:textSize="@dimen/_14sdp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/_20sdp"
+        android:id="@+id/profile_edit_fab"
+        android:text="@string/edit"
+        android:textSize="@dimen/_13sdp"
         android:textStyle="bold"
-        tools:text="Anya Forger"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/user_age"
-        tools:text="6 years"
-        android:textAlignment="center"
-        android:layout_marginBottom="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/user_name"
-        android:textSize="@dimen/_15sdp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/user_content_layout"
-        app:layout_constraintTop_toBottomOf="@id/user_header_bg"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="E-Mail"
-            android:id="@+id/user_email_head"
-            android:textStyle="bold"
-            android:textSize="@dimen/_16sdp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/user_email"
-            android:textSize="@dimen/_15sdp"
-            tools:text="anyabestgirl@spyfamily.com"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Address"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:textStyle="bold"
-            android:textSize="@dimen/_16sdp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/user_address"
-            android:textSize="@dimen/_15sdp"
-            tools:text="Anya's house"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Blood Group"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:textStyle="bold"
-            android:textSize="@dimen/_16sdp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/user_bgrp"
-            android:textSize="@dimen/_15sdp"
-            tools:text="A++"/>
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/_20sdp"
+        app:icon="@drawable/ic_edit"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Sampoorna</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="track_menstrual_cycle">Track Menstrual Cycle</string>
     <string name="safety_sos">Safety SOS</string>
@@ -41,7 +40,7 @@
     <string name="sos_service_started">SOS Service Started</string>
     <string name="no_contacted_added">No contacts added yet.</string>
     <string name="turn_on_location_message">Please turn on location service</string>
-    <string name="hello">Hello, </string>
+    <string name="hello">Hello,&#160;</string>
     <string name="enter_mensuration_last_date">Please enter the last date of \nthe menstrual period</string>
     <string name="days_left">Days Left"</string>
     <string name="enter_valid_date">Please enter a valid Date</string>
@@ -54,5 +53,10 @@
     <string name="self_care">Self Care</string>
     <string name="select_from_phone_contacts">Select from phone contacts</string>
     <string name="profile">Profile</string>
+    <string name="e_mail">E-Mail</string>
+    <string name="address">Address</string>
+    <string name="blood_group">Blood Group</string>
+    <string name="edit">Edit</string>
+    <string name="years">&#160;years</string>
 </resources>
 
