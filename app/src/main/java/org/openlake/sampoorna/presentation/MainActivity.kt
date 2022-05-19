@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
 
         // Implementing bottom navigation view
         val navController = findNavController(R.id.fragmentContainerView)
@@ -90,5 +93,17 @@ class MainActivity : AppCompatActivity() {
             this.sendBroadcast(broadcastIntent)
         }
         super.onDestroy()
+    }
+
+    override fun onBackPressed() {
+        val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
+        val fragment = navHost?.childFragmentManager?.primaryNavigationFragment
+
+        if(fragment is ProfileFragment && fragment.isEditing) {
+            fragment.closeEditingViews()
+        }
+        else {
+            super.onBackPressed()
+        }
     }
 }

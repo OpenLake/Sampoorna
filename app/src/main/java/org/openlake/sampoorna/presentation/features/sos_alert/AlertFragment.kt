@@ -62,14 +62,17 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         val sosButton = binding.sosbutton
         val addSOSMessage = SosMessageBottomSheet()
         val helloUser = binding.hellouser
-        //Using SharedPreferences to get username
-        sharedPreferences = requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE)
-        helloUser.text = getString(R.string.hello) + sharedPreferences.getString("username", "")
+
         //Shared preferences to get contacts list
         contactsListPreferences =
             requireActivity().getSharedPreferences("sosContacts", Context.MODE_PRIVATE)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+
+        userViewModel.userDetails.observe(viewLifecycleOwner){
+            val user = it[0]
+            helloUser.text = getString(R.string.hello) + user.name
+        }
         userViewModel.allContacts.observe(viewLifecycleOwner
         ) { listOfContacts ->
 
