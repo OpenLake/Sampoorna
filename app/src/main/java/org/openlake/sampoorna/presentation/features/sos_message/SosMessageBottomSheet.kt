@@ -9,39 +9,47 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
+import org.openlake.sampoorna.databinding.FragmentSosMessageBottomSheetBinding
 import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
 
 @AndroidEntryPoint
 class SosMessageBottomSheet : BottomSheetDialogFragment() {
     private lateinit var sosSharedPreferences : SharedPreferences
     private lateinit var viewModel: UserViewModel
+    private var _binding : FragmentSosMessageBottomSheetBinding? = null
+    private val binding  get() = _binding!!
     private var sosMessageString = " "
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_sos_message_bottom_sheet, container, false)
+    ): View {
+        _binding = FragmentSosMessageBottomSheetBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sosMessage = view.findViewById<TextInputEditText>(R.id.message)
-        val saveMessage = view.findViewById<MaterialButton>(R.id.save_sos_message)
+
         viewModel = ViewModelProvider(this)[UserViewModel::class.java]
         sosSharedPreferences = requireActivity().getSharedPreferences("sosMessage",Context.MODE_PRIVATE)
-        saveMessage.setOnClickListener {
-            sosMessageString = sosMessage.text.toString()
-            if (!sosMessage.text.isNullOrBlank()){
-            viewModel.updateSOSMessage(sosMessageString)
-            val editor = sosSharedPreferences.edit()
+
+        viewModel.userDetails.observe(viewLifecycleOwner){
+            val user = it[0]
+            binding.message.setText(user.sosMessage)
+            binding.message.setSelection(binding.message.text.toString().length)
+        }
+
+        binding.saveSosMessage.setOnClickListener {
+            sosMessageString = binding.message.text.toString()
+            if (!binding.message.text.isNullOrBlank()){
+                viewModel.updateSOSMessage(sosMessageString)
+                val editor = sosSharedPreferences.edit()
                 editor.putString("sosMessage",sosMessageString)
                 editor.apply()
                 dismiss()
-        }
+            }
             else{
                 Toast.makeText(context, getString(R.string.please_enter_sos_message), Toast.LENGTH_SHORT).show()
             }
@@ -49,5 +57,10 @@ class SosMessageBottomSheet : BottomSheetDialogFragment() {
     }
     override fun getTheme(): Int {
         return R.style.CustomBottomSheetDialog
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }
