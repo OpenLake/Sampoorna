@@ -7,14 +7,15 @@ import org.openlake.sampoorna.R
 
 class OnboardingViewPagerAdapter (fragmentActivity: FragmentActivity):
     FragmentStateAdapter(fragmentActivity) {
-    private val layouts = arrayOf(R.layout.onboarding_welcome,R.layout.onboarding_period_tracking_info,R.layout.onboarding_sos_info,R.layout.onboarding_user_info)
+    private val size = 4
     private val welcomeFragment = OnboardingWelcomeFragment()
     private val userInfoFragment = OnboardingUserInfoFragment()
     private val periodTrackingInfoFragment = OnboardingPeriodTrackingInfoFragment()
     private val sosInfoFragment = OnboardingSosInfoFragment()
+    private val authFragment = OnboardingAuthFragment()
 
     override fun getItemCount(): Int {
-        return layouts.size
+        return size
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -29,12 +30,12 @@ class OnboardingViewPagerAdapter (fragmentActivity: FragmentActivity):
                 sosInfoFragment
             }
             3 -> {
-                userInfoFragment
+                authFragment
             }
             else ->{
                 welcomeFragment
             }
         }
-        }
+    }
 
 }
