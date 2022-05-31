@@ -78,4 +78,9 @@ class OnboardingUserInfoFragment : Fragment(R.layout.onboarding_user_info) {
             .show()
         return binding.root
     }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 }
