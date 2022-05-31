@@ -12,7 +12,10 @@ class AuthRepositoryImpl(
     ) : AuthRepository {
     override suspend fun signIn(username: String, password: String): AuthResult {
         return try{
-            api.signIn(AuthRequest(username,password))
+            val response = api.signIn(AuthRequest(username,password))
+            preferences.edit()
+                .putString("jwtToken",response.token)
+                .apply()
             AuthResult.Authorized()
         }catch (e : HttpException){
             when(e.code()){

@@ -30,7 +30,7 @@ class OnboardingViewPagerAdapter (fragmentActivity: FragmentActivity):
                 sosInfoFragment
             }
             3 -> {
-                authFragment
+                userInfoFragment
             }
             else ->{
                 welcomeFragment

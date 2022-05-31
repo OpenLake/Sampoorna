@@ -43,7 +43,7 @@ object AuthRepositoryModule {
             }
             .build()
         return Retrofit.Builder()
-            .baseUrl("/")
+            .baseUrl("https://sampoorna-backend.herokuapp.com/") //TODO
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -63,7 +63,7 @@ object AuthRepositoryModule {
     }
 
     private fun hasNetwork(app : Application): Boolean? {
-        var isConnected: Boolean? = false // Initial Value
+        var isConnected: Boolean? = false
         val connectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
         if (activeNetwork != null && activeNetwork.isConnected)

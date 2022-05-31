@@ -54,7 +54,7 @@ class OnboardingActivity : AppCompatActivity() {
             binding.goNextButton.setOnClickListener {
                 if(binding.slider.currentItem==3){
                     userViewModel.userInfoSubmitted.postValue(true)
-                    authViewModel.signIn()
+//                    authViewModel.signUp()
                 }
                 binding.slider.currentItem += 1
                 if (sharedPreferences.contains("username")) {
