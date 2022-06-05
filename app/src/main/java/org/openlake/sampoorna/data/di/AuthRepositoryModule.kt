@@ -43,7 +43,7 @@ object AuthRepositoryModule {
             }
             .build()
         return Retrofit.Builder()
-            .baseUrl("https://sampoorna-backend.herokuapp.com/") //TODO
+            .baseUrl("https://sampoorna-backend.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
