@@ -1,6 +1,7 @@
 package org.openlake.sampoorna.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import org.openlake.sampoorna.data.auth.AuthApi
 import org.openlake.sampoorna.data.auth.AuthRequest
 import org.openlake.sampoorna.data.auth.AuthResult
@@ -15,14 +16,17 @@ class AuthRepositoryImpl(
             val response = api.signIn(AuthRequest(username,password))
             preferences.edit()
                 .putString("jwtToken",response.token)
+                .putString("username",username)
                 .apply()
             AuthResult.Authorized()
         }catch (e : HttpException){
+            e.printStackTrace()
             when(e.code()){
                 401 -> AuthResult.Unauthorized()
                 else -> AuthResult.UnknownError()
             }
         }catch(e : Exception){
+            e.printStackTrace()
             AuthResult.UnknownError()
         }
     }
@@ -32,11 +36,13 @@ class AuthRepositoryImpl(
             api.signUp(AuthRequest(username,password))
             signIn(username,password)
         }catch (e : HttpException){
+            e.printStackTrace()
             when(e.code()){
                 401 -> AuthResult.Unauthorized()
                 else -> AuthResult.UnknownError()
             }
         }catch(e : Exception){
+            e.printStackTrace()
             AuthResult.UnknownError()
         }
     }
@@ -47,11 +53,13 @@ class AuthRepositoryImpl(
             api.authenticate(token)
             AuthResult.Authorized()
         }catch (e : HttpException){
+            e.printStackTrace()
             when(e.code()){
                 401 -> AuthResult.Unauthorized()
                 else -> AuthResult.UnknownError()
             }
         }catch(e : Exception){
+            e.printStackTrace()
             AuthResult.UnknownError()
         }
     }

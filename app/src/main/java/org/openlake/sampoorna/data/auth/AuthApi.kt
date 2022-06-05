@@ -6,20 +6,19 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthApi {
-    // TODO
-    @POST("")
+    @POST("signup")
     suspend fun signUp(
         @Body
         request : AuthRequest
     )
 
-    @POST("")
+    @POST("signin")
     suspend fun signIn(
         @Body
         request: AuthRequest
     ) : TokenResponse
 
-    @GET("")
+    @GET("authenticate")
     suspend fun authenticate(
         @Header("Authorization")
         token : String
