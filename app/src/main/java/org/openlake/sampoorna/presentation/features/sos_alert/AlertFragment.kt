@@ -69,13 +69,10 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
-        userViewModel.userDetails.observe(viewLifecycleOwner){
-            val user = it[0]
+        userViewModel.getUser()
+        userViewModel.user.observe(viewLifecycleOwner){ user->
             helloUser.text = getString(R.string.hello) + user.name
         }
-
-        val preferences = requireActivity().getSharedPreferences("jwt",Context.MODE_PRIVATE)
-        helloUser.text = getString(R.string.hello) + preferences.getString("username",null)
 
         userViewModel.allContacts.observe(viewLifecycleOwner
         ) { listOfContacts ->

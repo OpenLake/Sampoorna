@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome"
-        android:layout_marginTop="@dimen/_30ssp"
+        android:layout_marginTop="@dimen/_20ssp"
         android:textSize="@dimen/_34ssp"
         android:fontFamily="@font/dongle"
         android:textStyle="bold"
@@ -22,11 +22,52 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="@dimen/_250sdp"
         android:layout_height="wrap_content"
-        android:id="@+id/username_layout"
+        android:id="@+id/name_layout"
         app:layout_constraintTop_toBottomOf="@id/auth_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_30sdp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:hint="Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_input"
+            android:inputType="textPersonName"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="wrap_content"
+        android:id="@+id/email_layout"
+        app:layout_constraintTop_toBottomOf="@id/name_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:hint="Email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/email_input"
+            android:inputType="textEmailAddress"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="wrap_content"
+        android:id="@+id/username_layout"
+        app:layout_constraintTop_toBottomOf="@id/email_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="@dimen/_20sdp"
         android:hint="Username">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -45,7 +86,8 @@
         app:layout_constraintTop_toBottomOf="@id/username_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:hint="Password"
         app:passwordToggleEnabled="true">
 
@@ -58,25 +100,105 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+
+
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30ssp"
-        android:fontFamily="@font/dongle"
-        android:text="Already have an account?"
-        android:textSize="@dimen/_25ssp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_layout" />
+        app:layout_constraintTop_toBottomOf="@id/password_layout"
+        android:layout_marginTop="@dimen/_20ssp"
+        android:orientation="horizontal">
+        <Space
+            android:layout_width="@dimen/constrained_height_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/login_support_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dongle"
+            android:text="Already have an account?"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+             />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="login" />
+        <Space
+            android:layout_width="@dimen/constrained_height_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/register_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/password_layout"
+        android:layout_marginTop="@dimen/_20ssp"
+        android:orientation="horizontal">
+        <Space
+            android:layout_width="@dimen/constrained_height_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/register_support_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dongle"
+            android:text="Don't have an account?"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="register" />
+        <Space
+            android:layout_width="@dimen/constrained_height_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/auth_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="login"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textSize="@dimen/_30ssp"
+        android:fontFamily="@font/dongle"
+        android:layout_marginTop="@dimen/_10ssp"
+        android:text="login"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/auth_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/login_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        android:textSize="@dimen/_30ssp"
+        android:fontFamily="@font/dongle"
+        android:layout_marginTop="@dimen/_10ssp"
+        android:text="register"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

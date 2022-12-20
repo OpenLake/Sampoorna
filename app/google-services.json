@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "942233783691",
+    "project_id": "sampoorna-b9781",
+    "storage_bucket": "sampoorna-b9781.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942233783691:android:d3e1a21c108bd74431f38e",
+        "android_client_info": {
+          "package_name": "org.openlake.sampoorna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "942233783691-7rkdkmaimmtf238l8p1lm2er672lpjgk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.openlake.sampoorna",
+            "certificate_hash": "ebd59f5c1e7313ffd6f881cfdcbf5136bbf3e184"
+          }
+        },
+        {
+          "client_id": "942233783691-s25rlu7839hi2djtghv1ln4vj9123ssf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGM2H2UlqGX4v_fDa_Q9bWuK2WLrw5q7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "942233783691-s25rlu7839hi2djtghv1ln4vj9123ssf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
