@@ -10,5 +10,6 @@ data class User(
     var username: String = "",
     var email: String = "",
     var photoUrl: String? = null,
-    var sosMessage: String = ""
+    var about: String = "",
+    var age: Int? = null
 ):Parcelable

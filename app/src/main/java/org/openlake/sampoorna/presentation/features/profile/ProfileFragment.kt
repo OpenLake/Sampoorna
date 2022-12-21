@@ -30,10 +30,12 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.user.observe(viewLifecycleOwner){ user->
             binding.userName.text = user.name
-            binding.userAge.text = null
+            user.age?.let {
+                binding.userAge.text = it.toString()
+            }
             binding.userEmail.text = user.email
-            binding.userAddress.text = null
-            binding.userBgrp.text = null
+            binding.userAbout.text = user.about
+            binding.userUsername.text = user.username
         }
 
         binding.profileEditFab.setOnClickListener {
@@ -47,9 +49,7 @@ class ProfileFragment : Fragment() {
 
                 binding.userEmail.text = binding.userEmailEdit.text
 
-                binding.userAddress.text = binding.userAddressEdit.text
-
-                binding.userBgrp.text = binding.userBgrpEdit.text
+                binding.userAbout.text = binding.userAboutEdit.text
 
                 Toast.makeText(requireContext(),"Changes saved",Toast.LENGTH_SHORT).show()
 
@@ -92,11 +92,10 @@ class ProfileFragment : Fragment() {
         binding.userEmail.visibility = View.VISIBLE
         binding.userEmailEditLayout.visibility = View.GONE
 
-        binding.userAddress.visibility = View.VISIBLE
-        binding.userAddressEditLayout.visibility = View.GONE
+        binding.userAbout.visibility = View.VISIBLE
+        binding.userAboutEditLayout.visibility = View.GONE
 
-        binding.userBgrp.visibility = View.VISIBLE
-        binding.userBgrpEditLayout.visibility = View.GONE
+        binding.userUsername.visibility = View.VISIBLE
     }
 
     private fun openEditingViews()
@@ -109,7 +108,11 @@ class ProfileFragment : Fragment() {
         binding.userName.visibility = View.GONE
         binding.userNameEditLayout.visibility = View.VISIBLE
 
-        binding.userAgeEdit.setText(binding.userAge.text.toString().slice(0..(binding.userAge.text.toString().length-7)))
+        val age = binding.userAge.text.toString().slice(0..(binding.userAge.text.toString().length-7))
+        binding.userAgeEdit.setText(when(age){
+            "?" -> ""
+            else -> age
+        })
         binding.userAge.visibility = View.GONE
         binding.userAgeEditLayout.visibility = View.VISIBLE
 
@@ -117,13 +120,11 @@ class ProfileFragment : Fragment() {
         binding.userEmail.visibility = View.GONE
         binding.userEmailEditLayout.visibility = View.VISIBLE
 
-        binding.userAddressEdit.setText(binding.userAddress.text)
-        binding.userAddress.visibility = View.GONE
-        binding.userAddressEditLayout.visibility = View.VISIBLE
+        binding.userAboutEdit.setText(binding.userAbout.text)
+        binding.userAbout.visibility = View.GONE
+        binding.userAboutEditLayout.visibility = View.VISIBLE
 
-        binding.userBgrpEdit.setText(binding.userBgrp.text)
-        binding.userBgrp.visibility = View.GONE
-        binding.userBgrpEditLayout.visibility = View.VISIBLE
+        binding.userUsername.visibility = View.GONE
     }
 
 }

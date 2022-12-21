@@ -37,13 +37,14 @@ class SosMessageBottomSheet : BottomSheetDialogFragment() {
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         sharedPreferences = requireActivity().getSharedPreferences(Constants.Sampoorna,Context.MODE_PRIVATE)
 
+        binding.message.setText(sharedPreferences.getString(Constants.SOSMessage, ""))
+
         binding.saveSosMessage.setOnClickListener {
             if (!binding.message.text.isNullOrBlank()){
-//                viewModel.updateSOSMessage(sosMessageString)
-//                val editor = sosSharedPreferences.edit()
-//                editor.putString("sosMessage",sosMessageString)
-//                editor.apply()
-//                dismiss()
+                sharedPreferences.edit()
+                    .putString(Constants.SOSMessage, binding.message.text.toString())
+                    .apply()
+                dismiss()
             }
             else{
                 Toast.makeText(context, getString(R.string.please_enter_sos_message), Toast.LENGTH_SHORT).show()

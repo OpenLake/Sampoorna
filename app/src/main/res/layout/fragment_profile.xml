@@ -91,16 +91,27 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/user_username"
+                android:layout_margin="@dimen/_10sdp"
+                tools:text="kenny"
+                app:layout_constraintTop_toBottomOf="@id/user_name"
+                app:layout_constraintStart_toStartOf="@id/user_name"
+                app:layout_constraintEnd_toEndOf="@id/user_name"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/user_age"
-                tools:text="6 years"
+                android:text="\? years"
                 tools:visibility="gone"
                 android:textAlignment="center"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/user_name"
-                android:textSize="@dimen/_15sdp"/>
+                app:layout_constraintTop_toBottomOf="@id/user_username"
+                android:textSize="@dimen/_15ssp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/user_age_edit_layout"
@@ -170,21 +181,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/address"
+                    android:text="About"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:id="@+id/user_address_head"
+                    android:id="@+id/user_about_head"
                     android:textStyle="bold"
                     android:textSize="@dimen/_16sdp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/user_address"
+                    android:id="@+id/user_about"
                     android:textSize="@dimen/_15sdp"
                     tools:text="Anya's house"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/user_address_edit_layout"
+                    android:id="@+id/user_about_edit_layout"
                     android:layout_width="match_parent"
                     android:visibility="gone"
                     app:hintEnabled="false"
@@ -193,42 +204,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/user_address_edit"
+                        android:id="@+id/user_about_edit"
                         tools:text="6 years"
                         android:padding="@dimen/_8sdp"
-                        android:textSize="@dimen/_14sdp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/blood_group"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:id="@+id/user_bgrp_head"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_16sdp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/user_bgrp"
-                    android:textSize="@dimen/_15sdp"
-                    tools:text="A++"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/user_bgrp_edit_layout"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="@dimen/_20sdp"
-                    app:hintEnabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/user_bgrp_edit"
-                        android:padding="@dimen/_8sdp"
-                        tools:text="6 years"
                         android:textSize="@dimen/_14sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
