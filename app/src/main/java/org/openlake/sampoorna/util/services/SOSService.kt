@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.openlake.sampoorna.R
+import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.presentation.MainActivity
 
 class SOSService : LifecycleService() {
@@ -40,7 +41,7 @@ class SOSService : LifecycleService() {
         }
         canSend.postValue(false)
         contactsListPreferences = this.getSharedPreferences("sosContacts", Context.MODE_PRIVATE)
-        sosMessagePreferences = this.getSharedPreferences("sosMessage", Context.MODE_PRIVATE)
+        sosMessagePreferences = this.getSharedPreferences(Constants.Sampoorna, Context.MODE_PRIVATE)
         if (contactsListPreferences.contains("contacts")) {
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
@@ -48,9 +49,7 @@ class SOSService : LifecycleService() {
                 val long = location.longitude.toString()
                 this.latlong = "\nMy location is:\nhttp://maps.google.com/?q=$lat,$long"
             }
-            if (sosMessagePreferences.contains("sosMessage")) {
-                sosMessage = sosMessagePreferences.getString("sosMessage", "Hello , I am in danger")
-            }
+            sosMessage = sosMessagePreferences.getString(Constants.SOSMessage, "Hello , I am in danger")
             canSend.observe(this) {
                 if (it) {
                     val contactSet: MutableSet<String>? =

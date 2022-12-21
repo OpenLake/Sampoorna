@@ -26,7 +26,9 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater,container,false)
 
         val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
-        profileViewModel.userDetails.observe(viewLifecycleOwner){ user->
+        profileViewModel.getUser()
+
+        profileViewModel.user.observe(viewLifecycleOwner){ user->
             binding.userName.text = user.name
             binding.userAge.text = null
             binding.userEmail.text = user.email
@@ -38,21 +40,16 @@ class ProfileFragment : Fragment() {
             if(isEditing)
             {
                 binding.userName.text = binding.userNameEdit.text
-                profileViewModel.updateName(binding.userNameEdit.text.toString())
 
                 if(binding.userAgeEdit.text.toString().isNotEmpty()){
                     binding.userAge.text = binding.userAgeEdit.text.toString() + getString(R.string.years)
-                    profileViewModel.updateAge(Integer.parseInt(binding.userAgeEdit.text.toString()))
                 }
 
                 binding.userEmail.text = binding.userEmailEdit.text
-                profileViewModel.updateEmail(binding.userEmailEdit.text.toString())
 
                 binding.userAddress.text = binding.userAddressEdit.text
-                profileViewModel.updateAddress(binding.userAddressEdit.text.toString())
 
                 binding.userBgrp.text = binding.userBgrpEdit.text
-                profileViewModel.updateBloodGroup(binding.userBgrpEdit.text.toString())
 
                 Toast.makeText(requireContext(),"Changes saved",Toast.LENGTH_SHORT).show()
 
