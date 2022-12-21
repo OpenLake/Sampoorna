@@ -1,5 +1,7 @@
 package org.openlake.sampoorna.presentation.features.profile
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,12 +12,15 @@ import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
+import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.databinding.FragmentProfileBinding
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     var isEditing : Boolean = false
 
@@ -25,35 +30,61 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater,container,false)
 
+        sharedPreferences = requireActivity().getSharedPreferences(Constants.Sampoorna, Context.MODE_PRIVATE)
+
         val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         profileViewModel.getUser()
+
+        binding.userName.text = sharedPreferences.getString(Constants.Name, "")
+        binding.userUsername.text = sharedPreferences.getString(Constants.Username, "")
+        sharedPreferences.getInt(Constants.Age, -1).let {
+            if(it != -1) {
+                binding.userAge.text = "$it years"
+            }
+        }
+        binding.userEmail.text = sharedPreferences.getString(Constants.Email, "")
+        binding.userAbout.text = sharedPreferences.getString(Constants.About, "")
 
         profileViewModel.user.observe(viewLifecycleOwner){ user->
             binding.userName.text = user.name
             user.age?.let {
-                binding.userAge.text = it.toString()
+                binding.userAge.text = "$it years"
             }
             binding.userEmail.text = user.email
             binding.userAbout.text = user.about
             binding.userUsername.text = user.username
+
+            sharedPreferences.edit()
+                .putString(Constants.Name, user.name)
+                .putString(Constants.Username, user.username)
+                .putInt(Constants.Age, user.age ?: -1)
+                .putString(Constants.Email, user.email)
+                .putString(Constants.About, user.about)
+                .apply()
         }
 
         binding.profileEditFab.setOnClickListener {
             if(isEditing)
             {
-                binding.userName.text = binding.userNameEdit.text
+                val name = binding.userNameEdit.text.toString()
+                val age = binding.userAgeEdit.text.toString()
+                val about = binding.userAboutEdit.text.toString()
 
-                if(binding.userAgeEdit.text.toString().isNotEmpty()){
-                    binding.userAge.text = binding.userAgeEdit.text.toString() + getString(R.string.years)
+                if(name.isEmpty() || age.isEmpty()) {
+                    Toast.makeText(requireContext(),"One or more fields are empty",Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
                 }
 
-                binding.userEmail.text = binding.userEmailEdit.text
-
-                binding.userAbout.text = binding.userAboutEdit.text
-
-                Toast.makeText(requireContext(),"Changes saved",Toast.LENGTH_SHORT).show()
-
-                closeEditingViews()
+                profileViewModel.updateUser(name, if(age.isEmpty()) null else age.toInt(), about) {
+                    if(it.isSuccessful) {
+                        Toast.makeText(requireContext(),"Changes saved",Toast.LENGTH_SHORT).show()
+                        closeEditingViews()
+                    }
+                    else {
+                        it.exception?.printStackTrace()
+                        Toast.makeText(requireContext(),it.exception?.message ?: "",Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
             else
             {
@@ -89,9 +120,6 @@ class ProfileFragment : Fragment() {
         binding.userAge.visibility = View.VISIBLE
         binding.userAgeEditLayout.visibility = View.GONE
 
-        binding.userEmail.visibility = View.VISIBLE
-        binding.userEmailEditLayout.visibility = View.GONE
-
         binding.userAbout.visibility = View.VISIBLE
         binding.userAboutEditLayout.visibility = View.GONE
 
@@ -115,10 +143,6 @@ class ProfileFragment : Fragment() {
         })
         binding.userAge.visibility = View.GONE
         binding.userAgeEditLayout.visibility = View.VISIBLE
-
-        binding.userEmailEdit.setText(binding.userEmail.text)
-        binding.userEmail.visibility = View.GONE
-        binding.userEmailEditLayout.visibility = View.VISIBLE
 
         binding.userAboutEdit.setText(binding.userAbout.text)
         binding.userAbout.visibility = View.GONE

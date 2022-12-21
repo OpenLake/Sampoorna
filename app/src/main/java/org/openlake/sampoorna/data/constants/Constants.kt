@@ -12,5 +12,10 @@ object Constants {
      */
     const val Sampoorna = "sampoorna"
     const val SOSMessage = "sosmessage"
+    const val Name = "name"
+    const val Username = "username"
+    const val Age = "age"
+    const val Email = "email"
+    const val About = "about"
 
 }
