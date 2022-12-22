@@ -32,24 +32,22 @@ object Transformer {
     fun convertUserModelToUserEntity(user: User):UserEntity{
         return UserEntity(
             name = user.name,
-            address = user.address,
-            id = user.id,
-            bloodGroup =  user.bloodGroup,
+            address = null,
+            id = 0,
+            bloodGroup =  null,
             sosMessage = user.sosMessage,
-            age = user.age,
+            age = null,
             email = user.email
         )
     }
 
     fun convertUserEntityToUserModel(userEntity: UserEntity):User{
         return User(
-            name = userEntity.name,
-            address = userEntity.address,
-            id = userEntity.id,
-            bloodGroup = userEntity.bloodGroup,
-            sosMessage = userEntity.sosMessage,
-            age = userEntity.age,
-            email = userEntity.email
+            name = userEntity.name ?: "",
+            sosMessage = userEntity.sosMessage ?: "",
+            email = userEntity.email ?: "",
+            uid = "",
+            username = ""
         )
     }
 }

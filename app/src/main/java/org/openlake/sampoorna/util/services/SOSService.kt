@@ -16,6 +16,7 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.presentation.MainActivity
 
@@ -41,7 +42,7 @@ class SOSService : LifecycleService() {
         contactsListPreferences = this.getSharedPreferences("sosContacts", Context.MODE_PRIVATE)
         sosMessagePreferences = this.getSharedPreferences("sosMessage", Context.MODE_PRIVATE)
         if (contactsListPreferences.contains("contacts")) {
-            fusedLocationProviderClient = FusedLocationProviderClient(this)
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
                 val lat = location.latitude.toString()
                 val long = location.longitude.toString()

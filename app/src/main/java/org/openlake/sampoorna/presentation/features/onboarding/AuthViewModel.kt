@@ -3,52 +3,66 @@ package org.openlake.sampoorna.presentation.features.onboarding
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
-import org.openlake.sampoorna.data.auth.AuthResult
-import org.openlake.sampoorna.data.repository.AuthRepository
-import javax.inject.Inject
+import org.openlake.sampoorna.data.constants.Constants
+import org.openlake.sampoorna.data.sources.entities.User
 
-@HiltViewModel
-class AuthViewModel @Inject constructor(
-    private val authRepository : AuthRepository
-) : ViewModel() {
-    val authResult : MutableLiveData<AuthResult> = MutableLiveData()
-    val isLoading : MutableLiveData<Boolean> = MutableLiveData(false)
+class AuthViewModel: ViewModel() {
+
+    val db = FirebaseFirestore.getInstance()
+    val auth = FirebaseAuth.getInstance()
+
     private val username : MutableLiveData<String> = MutableLiveData("")
+    private val email: MutableLiveData<String> = MutableLiveData("")
+    private val name: MutableLiveData<String> = MutableLiveData("")
     private val password : MutableLiveData<String> = MutableLiveData("")
 
-    init{
-        authenticate()
+    fun updateName(name: String) {
+        this.name.postValue(name)
+    }
+
+    fun updateEmail(email: String) {
+        this.email.postValue(email)
     }
 
     fun updateUsername(username: String){
-        this.username.value = username
+        this.username.postValue(username)
     }
 
     fun updatePassword(password: String){
-        this.password.value = password
+        this.password.postValue(password)
     }
 
-    fun signIn() {
+    fun signIn(onComplete: (Task<AuthResult>) -> Unit) {
         viewModelScope.launch {
-            isLoading.value = true
-            authResult.value = authRepository.signIn(username.value!!,password.value!!)
-            isLoading.value = false
+            auth.signInWithEmailAndPassword(email.value!!, password.value!!)
+                .addOnCompleteListener(onComplete)
         }
     }
 
-    fun signUp() {
+    fun register(onComplete: (Task<AuthResult>) -> Unit) {
         viewModelScope.launch {
-            isLoading.value = true
-            authResult.value = authRepository.signUp(username.value!!,password.value!!)
-            isLoading.value = false
+            auth.createUserWithEmailAndPassword(email.value!!, password.value!!)
+                .addOnCompleteListener(onComplete)
         }
     }
-    fun authenticate(){
+
+    fun addUser(onComplete: (Task<Void>) -> Unit) {
         viewModelScope.launch {
-            val result = authRepository.authenticate()
-            if(result is AuthResult.Authorized) authResult.value = result
+            val user = User(
+                uid = auth.uid!!,
+                name = name.value!!,
+                email = email.value!!,
+                username = username.value!!
+            )
+            db.collection(Constants.Users)
+                .document(auth.uid!!)
+                .set(user)
+                .addOnCompleteListener(onComplete)
         }
     }
 }

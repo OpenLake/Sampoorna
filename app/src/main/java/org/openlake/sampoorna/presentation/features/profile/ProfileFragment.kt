@@ -28,10 +28,10 @@ class ProfileFragment : Fragment() {
         val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         profileViewModel.userDetails.observe(viewLifecycleOwner){ user->
             binding.userName.text = user.name
-            binding.userAge.text = user.age.toString()+getString(R.string.years)
+            binding.userAge.text = null
             binding.userEmail.text = user.email
-            binding.userAddress.text = user.address
-            binding.userBgrp.text = user.bloodGroup
+            binding.userAddress.text = null
+            binding.userBgrp.text = null
         }
 
         binding.profileEditFab.setOnClickListener {
