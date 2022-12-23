@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.features.blogs.BlogsFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blog_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/blog_list"
-        tools:listitem="@layout/blog_item"/>
+        tools:visibility="gone">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/blog_list"
+            tools:listitem="@layout/blog_item"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/no_internet_layout"
+        tools:visibility="visible"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/no_internet_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/dongle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/no_internet_anim"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="@dimen/_30ssp"
+            android:text="You are not connected to the internet..."/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/nointernet"
+            android:id="@+id/no_internet_anim"
+            app:layout_constraintTop_toBottomOf="@id/no_internet_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/retry_button"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/retry_button"
+            android:text="Retry"
+            android:textSize="@dimen/_25ssp"
+            android:fontFamily="@font/dongle"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/no_internet_anim"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

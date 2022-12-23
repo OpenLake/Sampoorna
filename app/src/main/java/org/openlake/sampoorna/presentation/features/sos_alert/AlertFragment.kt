@@ -23,6 +23,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
+import org.openlake.sampoorna.App
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentAlertBinding
 import org.openlake.sampoorna.presentation.MainActivity.Companion.SOSSwitch
@@ -93,7 +94,7 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         userViewModel.user.observe(viewLifecycleOwner){ user->
             helloUser.text = getString(R.string.hello) + user.name
 
-            if(user.age == null || user.about.isEmpty()) {
+            if((user.age == null || user.about.isEmpty()) && App.isOnline(requireActivity())) {
                 if(!completeDialog.isShowing) {
                     completeDialog.show()
                 }
