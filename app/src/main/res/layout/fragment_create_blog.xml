@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="@dimen/_10sdp">
 
             <TextView
@@ -24,6 +24,148 @@
                 android:textStyle="bold"
                 android:fontFamily="@font/dongle"
                 android:textSize="@dimen/_25ssp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/blog_title"
+                    android:textSize="@dimen/_25ssp"
+                    android:fontFamily="@font/dongle"
+                    android:padding="@dimen/_5sdp"
+                    tools:text="I am sad"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textStyle="bold"
+                android:fontFamily="@font/dongle"
+                android:textSize="@dimen/_25ssp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:id="@+id/blog_content"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="@dimen/_20ssp"
+                    android:gravity="start"
+                    android:inputType="text|textLongMessage|textMultiLine"
+                    android:fontFamily="@font/dongle"
+                    tools:text="I am sad"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tags"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textStyle="bold"
+                android:fontFamily="@font/dongle"
+                android:textSize="@dimen/_25ssp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/blog_tag"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/_20ssp"
+                        android:fontFamily="@font/dongle"
+                        android:padding="@dimen/_5sdp"
+                        android:maxLines="1"
+                        tools:text="I am sad"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_add"
+                    android:id="@+id/add_tag"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:scaleX="1.35"
+                    android:scaleY="1.35"/>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/tag_card"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:id="@+id/tag_list"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Post Anonymously"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/dongle"
+                        android:textSize="@dimen/_25ssp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="0.6"
+                        android:text="Your username and other details won't be shared. You can avoid worrying about your identity being revealed while posting a blog :)"
+                        android:fontFamily="@font/dongle"
+                        android:textSize="@dimen/_18ssp" />
+
+                </LinearLayout>
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/anonymous_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"/>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_90sdp"/>
 
         </LinearLayout>
 
@@ -39,6 +181,6 @@
         android:textSize="@dimen/_20ssp"
         android:text="POST"
         app:icon="@drawable/ic_done"
-        android:layout_margin="@dimen/_20sdp"/>
+        android:layout_margin="@dimen/_15sdp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

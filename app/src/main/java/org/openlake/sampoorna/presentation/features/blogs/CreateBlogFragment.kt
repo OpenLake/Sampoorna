@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.openlake.sampoorna.databinding.FragmentCreateBlogBinding
 
 class CreateBlogFragment : Fragment() {
@@ -14,6 +16,7 @@ class CreateBlogFragment : Fragment() {
     private var _binding: FragmentCreateBlogBinding? = null
     private val binding: FragmentCreateBlogBinding get() = _binding!!
     private lateinit var blogViewModel: BlogViewModel
+    private lateinit var tagListAdapter: BlogTagAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +33,20 @@ class CreateBlogFragment : Fragment() {
                 binding.postBlogButton.extend()
             }
         })
+
+        tagListAdapter = BlogTagAdapter(requireContext(), true)
+        binding.tagList.adapter = tagListAdapter
+        binding.tagList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        binding.addTag.setOnClickListener {
+            val tag = binding.blogTag.text.toString()
+            if(tag.isEmpty()) {
+                Toast.makeText(requireContext(), "Tag can't be empty", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                tagListAdapter.addTag(tag.trim().lowercase())
+            }
+        }
 
         return binding.root
     }
