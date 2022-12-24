@@ -1,13 +1,15 @@
 package org.openlake.sampoorna.presentation.features.blogs
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.openlake.sampoorna.App
+import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentBlogsBinding
 
 
@@ -38,6 +40,10 @@ class BlogsFragment : Fragment() {
             else {
                 Toast.makeText(requireContext(), "Couldn't connect to the internet", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.addBlog.setOnClickListener {
+            findNavController().navigate(R.id.createBlogFragment)
         }
 
         return binding.root

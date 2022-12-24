@@ -10,8 +10,10 @@
         <item name="colorSecondaryVariant">@color/background_secondary</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondary</item>
+        <item name="android:statusBarColor" >?attr/colorSecondary</item>
         <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/dongle</item>
+        <item name="android:textSize">@dimen/_20ssp</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">

@@ -9,21 +9,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/blog_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:visibility="gone">
+        android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/blog_list"
             tools:listitem="@layout/blog_item"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_blog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:icon="@drawable/ic_edit"
+            android:text="Create"
+            android:layout_margin="@dimen/_10sdp"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/no_internet_layout"
-        tools:visibility="visible"
         android:visibility="gone">
         <TextView
             android:layout_width="wrap_content"

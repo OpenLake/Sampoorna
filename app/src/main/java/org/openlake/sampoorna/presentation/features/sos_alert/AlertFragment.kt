@@ -1,7 +1,6 @@
 package org.openlake.sampoorna.presentation.features.sos_alert
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -18,7 +17,6 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.android.material.transition.MaterialFadeThrough
@@ -76,6 +74,7 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         val completeDialog = AlertDialog.Builder(requireActivity())
             .setView(dialogView)
             .create()
+
         completeDialog.setOnShowListener { dialogInterface->
             val completeButton = dialogView.findViewById<Button>(R.id.complete_positive)
             val rejectButton = dialogView.findViewById<Button>(R.id.complete_negative)
