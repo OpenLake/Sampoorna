@@ -12,7 +12,12 @@ import org.openlake.sampoorna.R
 
 class BlogTagAdapter(val context: Context, val editing: Boolean = false): RecyclerView.Adapter<BlogTagAdapter.BlogTagViewHolder>() {
 
-    private var tagList: MutableList<String> = mutableListOf()
+    var tagList: MutableList<String> = mutableListOf()
+
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
 
     inner class BlogTagViewHolder(val itemView: View): ViewHolder(itemView) {
         val tagText: TextView = itemView.findViewById(R.id.tag_text)
@@ -36,11 +41,6 @@ class BlogTagAdapter(val context: Context, val editing: Boolean = false): Recycl
             tagList.removeAt(position)
             notifyDataSetChanged()
         }
-    }
-
-    fun setTagList(newTagList: List<String>) {
-        tagList = newTagList.toMutableList()
-        notifyDataSetChanged()
     }
 
     fun addTag(tag: String) {
