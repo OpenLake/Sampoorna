@@ -3,6 +3,7 @@ package org.openlake.sampoorna.presentation.features.sos_alert
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,11 +13,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
@@ -29,7 +33,6 @@ import org.openlake.sampoorna.util.services.ReactivateService
 @AndroidEntryPoint
 class AlertFragment : Fragment(R.layout.fragment_alert) {
     private lateinit var userViewModel: UserViewModel
-    lateinit var sharedPreferences: SharedPreferences
     lateinit var contactsListPreferences: SharedPreferences
     private val PERMISSIONS = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -37,7 +40,6 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         Manifest.permission.SEND_SMS
     )
     private val REQUEST_CODE = 101
-    val user: String = "User"
 
     //enabling data binding
     private var _binding: FragmentAlertBinding? = null
@@ -49,7 +51,6 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         enterTransition = MaterialFadeThrough()
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,6 +58,7 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
     ): View {
         _binding = FragmentAlertBinding.inflate(inflater, container, false)
         val view = binding.root
+
         val gotoContacts = binding.icContacts
         val sosMessage = binding.icMessage
         val sosButton = binding.sosbutton
@@ -69,24 +71,48 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
+        val dialogView = inflater.inflate(R.layout.complete_profile_dialog, container, false)
+        val completeDialog = AlertDialog.Builder(requireActivity())
+            .setView(dialogView)
+            .create()
+        completeDialog.setOnShowListener { dialogInterface->
+            val completeButton = dialogView.findViewById<Button>(R.id.complete_positive)
+            val rejectButton = dialogView.findViewById<Button>(R.id.complete_negative)
+
+            completeButton.setOnClickListener {
+                view.findNavController().navigate(R.id.profileFragment)
+                dialogInterface.cancel()
+            }
+
+            rejectButton.setOnClickListener {
+                dialogInterface.cancel()
+            }
+        }
+
         userViewModel.getUser()
         userViewModel.user.observe(viewLifecycleOwner){ user->
             helloUser.text = getString(R.string.hello) + user.name
+
+            if(user.age == null || user.about.isEmpty()) {
+                if(!completeDialog.isShowing) {
+                    completeDialog.show()
+                }
+            }
         }
 
-        userViewModel.allContacts.observe(viewLifecycleOwner
-        ) { listOfContacts ->
+        userViewModel.allContacts.observe(viewLifecycleOwner) { listOfContacts ->
 
             val setContacts = mutableSetOf<String>()
 
             for (contact in listOfContacts) {
                 contact.contact?.let { setContacts.add(it) }
             }
+
             val editor: SharedPreferences.Editor = contactsListPreferences.edit()
             editor.putStringSet("contacts", setContacts)
                 .apply()
-            //SOS Button click handling
 
+            //SOS Button click handling
             SOSSwitch.observe(requireActivity()) { bool ->
                 sosButton.setOnClickListener {
                     askForPermissions(requireActivity())
@@ -134,6 +160,7 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
                 }
             }
         }
+
         // Edit SOS Message Click Handling
         sosMessage.setOnClickListener {
             if (addSOSMessage.isAdded) {
@@ -141,11 +168,13 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
             }
             addSOSMessage.show(parentFragmentManager, "addSOSMessage")
         }
+
         //Navigating to Contacts List
         gotoContacts.setOnClickListener {
             Navigation.findNavController(view)
                 .navigate(R.id.action_alertFragment_to_contactFragment)
         }
+
         return view
     }
 
@@ -170,5 +199,10 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
             )
         }
         return true
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

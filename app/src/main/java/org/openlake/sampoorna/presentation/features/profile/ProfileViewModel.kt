@@ -1,56 +1,43 @@
 package org.openlake.sampoorna.presentation.features.profile
 
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
-import org.openlake.sampoorna.data.di.Transformer
-import org.openlake.sampoorna.data.repository.UserRepository
-import javax.inject.Inject
+import org.openlake.sampoorna.data.constants.Constants
+import org.openlake.sampoorna.data.sources.entities.User
 
-@HiltViewModel
-class ProfileViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
-    val userDetails = Transformations.map(userRepository.getUserDetails()){ map->
-        val user = map.map {
-            Transformer.convertUserEntityToUserModel(it)
-        }
-        user[0]
-    }
+class ProfileViewModel: ViewModel() {
+    val auth = FirebaseAuth.getInstance()
+    val db = FirebaseFirestore.getInstance()
 
-    fun updateName(name : String)
-    {
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.updateName(name)
-        }
-    }
+    val user: MutableLiveData<User> = MutableLiveData()
 
-    fun updateAge(age : Int)
-    {
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.updateAge(age)
+    fun getUser() {
+        viewModelScope.launch {
+            db.collection(Constants.Users)
+                .document(auth.uid!!)
+                .addSnapshotListener { value, error ->
+                    value?.let {
+                        user.postValue(it.toObject(User::class.java))
+                    }
+                }
         }
     }
 
-    fun updateEmail(email : String)
-    {
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.updateEmail(email)
-        }
-    }
-
-    fun updateAddress(address : String)
-    {
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.updateAddress(address)
-        }
-    }
-
-    fun updateBloodGroup(bgrp : String)
-    {
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.updateBloodGroup(bgrp)
+    fun updateUser(name: String, age: Int?, about: String, onComplete: (Task<Void>) -> Unit) {
+        viewModelScope.launch {
+            db.collection(Constants.Users)
+                .document(auth.uid!!)
+                .update(mapOf(
+                    Constants.Name to name,
+                    Constants.Age to age,
+                    Constants.About to about
+                ))
+                .addOnCompleteListener(onComplete)
         }
     }
 }
