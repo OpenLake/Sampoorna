@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.openlake.sampoorna.App
@@ -19,6 +20,7 @@ class BlogsFragment : Fragment() {
     private val binding : FragmentBlogsBinding get() = _binding!!
     private lateinit var blogList : RecyclerView
     private lateinit var blogAdapter: BlogAdapter
+    private lateinit var blogViewModel: BlogViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +29,18 @@ class BlogsFragment : Fragment() {
         _binding = FragmentBlogsBinding.inflate(inflater, container, false)
         blogList = binding.blogList
 
+        blogViewModel = ViewModelProvider(this)[BlogViewModel::class.java]
+
         if(!App.isOnline(requireActivity())) {
             showNoInternet()
+        }
+
+        blogAdapter = BlogAdapter(requireContext())
+        binding.blogList.adapter = blogAdapter
+
+        blogViewModel.getBlogs()
+        blogViewModel.blogList.observe(viewLifecycleOwner) {
+            blogAdapter.setBlogs(it)
         }
 
         binding.noInternetAnim.imageAssetsFolder = "images"
