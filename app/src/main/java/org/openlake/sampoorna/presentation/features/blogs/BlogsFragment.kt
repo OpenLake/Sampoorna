@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -39,8 +41,33 @@ class BlogsFragment : Fragment() {
         binding.blogList.adapter = blogAdapter
 
         blogViewModel.getBlogs()
-        blogViewModel.blogList.observe(viewLifecycleOwner) {
+
+        blogViewModel.searchResults.observe(viewLifecycleOwner) {
             blogAdapter.setBlogs(it)
+            if(it.isEmpty()) {
+                if(blogViewModel.searchQuery.value.isNullOrEmpty()) {
+                    showSearching()
+                }
+                else {
+                    showNoResult()
+                }
+            }
+            else {
+                hideAnimations()
+            }
+        }
+
+        binding.blogSearch.doOnTextChanged { text, start, before, count ->
+            blogViewModel.searchQuery.postValue(text.toString())
+        }
+
+        blogViewModel.searchQuery.observe(viewLifecycleOwner) { query ->
+            showSearching()
+            blogViewModel.blogList.observe(viewLifecycleOwner) { blogs ->
+                blogViewModel.searchResults.postValue(blogs.filter {
+                    it.content.lowercase().contains(query.lowercase()) || it.title.lowercase().contains(query.lowercase())
+                }.toMutableList())
+            }
         }
 
         binding.noInternetAnim.imageAssetsFolder = "images"
@@ -69,6 +96,27 @@ class BlogsFragment : Fragment() {
     fun hideNoInternet() {
         binding.blogLayout.visibility = View.VISIBLE
         binding.noInternetLayout.visibility = View.GONE
+    }
+
+    fun showSearching() {
+        binding.animation.setAnimation(R.raw.search)
+        binding.animText.text = "Searching..."
+
+        binding.animLayout.visibility = View.VISIBLE
+        binding.blogList.visibility = View.GONE
+    }
+
+    fun showNoResult() {
+        binding.animation.setAnimation(R.raw.emptybox)
+        binding.animText.text = "No results found :("
+
+        binding.animLayout.visibility = View.VISIBLE
+        binding.blogList.visibility = View.GONE
+    }
+
+    fun hideAnimations() {
+        binding.animLayout.visibility = View.GONE
+        binding.blogList.visibility = View.VISIBLE
     }
 
     override fun onStart() {

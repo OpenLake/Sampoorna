@@ -12,6 +12,8 @@ class BlogViewModel: ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
     val blogList: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
+    val searchResults: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
+    val searchQuery: MutableLiveData<String> = MutableLiveData("")
 
     fun addBlog(blog: Blog, onComplete: (Task<Void>) -> Unit) {
         db.collection(Constants.Blogs)
@@ -35,6 +37,9 @@ class BlogViewModel: ViewModel() {
             .addOnCompleteListener {
                 if(it.isSuccessful) {
                     blogList.postValue(it.result.toObjects(Blog::class.java))
+                    if(searchQuery.value.isNullOrEmpty()) {
+                        searchResults.postValue(it.result.toObjects(Blog::class.java))
+                    }
                 }
                 else {
                     it.exception?.printStackTrace()
