@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/_10sdp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dongle"
+        android:textSize="@dimen/_30ssp"
+        android:text="Filters"
+        android:layout_gravity="center"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tags"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textStyle="bold"
+        android:fontFamily="@font/dongle"
+        android:textSize="@dimen/_25ssp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/filter_tag"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_20ssp"
+                android:fontFamily="@font/dongle"
+                android:padding="@dimen/_5sdp"
+                android:maxLines="1"
+                tools:text="I am sad"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_add"
+            android:id="@+id/add_tag"
+            android:backgroundTint="@color/background_primary"
+            android:scaleType="centerCrop"
+            android:layout_marginHorizontal="@dimen/_5sdp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/tag_card"
+        android:minHeight="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/tag_list"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/dongle"
+        android:text="Apply"
+        android:id="@+id/apply_filter"
+        android:textSize="@dimen/_23ssp" />
+
+</LinearLayout>

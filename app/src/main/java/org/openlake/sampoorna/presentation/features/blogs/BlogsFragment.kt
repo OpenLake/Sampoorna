@@ -45,7 +45,7 @@ class BlogsFragment : Fragment() {
         blogViewModel.searchResults.observe(viewLifecycleOwner) {
             blogAdapter.setBlogs(it)
             if(it.isEmpty()) {
-                if(blogViewModel.searchQuery.value.isNullOrEmpty()) {
+                if(blogViewModel.searchQuery.value.isNullOrEmpty() && blogViewModel.filterTags.value.isNullOrEmpty()) {
                     showSearching()
                 }
                 else {
@@ -64,10 +64,27 @@ class BlogsFragment : Fragment() {
         blogViewModel.searchQuery.observe(viewLifecycleOwner) { query ->
             showSearching()
             blogViewModel.blogList.observe(viewLifecycleOwner) { blogs ->
-                blogViewModel.searchResults.postValue(blogs.filter {
-                    it.content.lowercase().contains(query.lowercase()) || it.title.lowercase().contains(query.lowercase())
-                }.toMutableList())
+                blogViewModel.filterTags.observe(viewLifecycleOwner) {tags ->
+                    blogViewModel.searchResults.postValue(blogs.filter { blog ->
+                        (blog.content.lowercase().contains(query.lowercase()) || blog.title.lowercase().contains(query.lowercase())) && (tags.isEmpty() || tags.any { it in blog.tags })
+                    }.toMutableList())
+                }
             }
+        }
+
+        blogViewModel.filterTags.observe(viewLifecycleOwner) {
+            if(it.isEmpty()) {
+                binding.filterCountCard.visibility = View.GONE
+            }
+            else {
+                binding.filterCountCard.visibility = View.VISIBLE
+                binding.filterCount.text = it.size.toString()
+            }
+        }
+
+        binding.blogFilter.setOnClickListener {
+            val filterFragment = FilterBottomSheetFragment(blogViewModel)
+            filterFragment.show(parentFragmentManager, null)
         }
 
         binding.noInternetAnim.imageAssetsFolder = "images"

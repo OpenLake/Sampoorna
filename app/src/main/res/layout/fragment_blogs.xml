@@ -28,6 +28,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:backgroundTint="@color/background_secondary"
                 >
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -37,17 +38,53 @@
                     android:id="@+id/blog_search"
                     android:paddingVertical="@dimen/_7sdp"
                     android:maxLines="1" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageButton
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_filter"
-                android:id="@+id/blog_filter"
-                android:backgroundTint="@color/background_primary"
-                android:scaleType="centerCrop"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
                 android:layout_gravity="center"
-                />
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_filter"
+                    android:id="@+id/blog_filter"
+                    android:backgroundTint="@color/background_primary"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:backgroundTint="@color/secondary"
+                    app:cardCornerRadius="@dimen/_7sdp"
+                    android:id="@+id/filter_count_card"
+                    app:cardElevation="@dimen/_10sdp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:text="2"
+                        android:id="@+id/filter_count"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/dongle"
+                        android:textSize="@dimen/_15ssp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </LinearLayout>
 
@@ -85,6 +122,8 @@
                 android:text="No results found :("
                 android:id="@+id/anim_text"
                 android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 android:fontFamily="@font/dongle"
                 android:textSize="@dimen/_25ssp" />
 

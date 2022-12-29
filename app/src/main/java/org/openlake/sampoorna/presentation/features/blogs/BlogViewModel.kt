@@ -14,6 +14,7 @@ class BlogViewModel: ViewModel() {
     val blogList: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
     val searchResults: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
     val searchQuery: MutableLiveData<String> = MutableLiveData("")
+    val filterTags: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
 
     fun addBlog(blog: Blog, onComplete: (Task<Void>) -> Unit) {
         db.collection(Constants.Blogs)

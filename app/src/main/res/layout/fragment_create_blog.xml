@@ -103,14 +103,14 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_add"
                     android:id="@+id/add_tag"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:scaleX="1.35"
-                    android:scaleY="1.35"/>
+                    android:backgroundTint="@color/background_primary"
+                    android:scaleType="centerCrop"
+                    android:layout_marginHorizontal="@dimen/_5sdp" />
 
             </LinearLayout>
 
