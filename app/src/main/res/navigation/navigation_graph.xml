@@ -51,4 +51,9 @@
         android:name="org.openlake.sampoorna.presentation.features.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/createBlogFragment"
+        android:name="org.openlake.sampoorna.presentation.features.blogs.CreateBlogFragment"
+        android:label="Create Blog"
+        tools:layout="@layout/fragment_create_blog" />
 </navigation>

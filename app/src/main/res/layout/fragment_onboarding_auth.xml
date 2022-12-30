@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome"
-        android:layout_marginTop="@dimen/_20ssp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:textSize="@dimen/_34ssp"
         android:fontFamily="@font/dongle"
         android:textStyle="bold"
@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:hint="Name">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/name_input"
             android:inputType="textPersonName"
+            android:textSize="@dimen/_18ssp"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -47,7 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:hint="Email">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -55,6 +56,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/email_input"
             android:inputType="textEmailAddress"
+            android:textSize="@dimen/_18ssp"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -67,7 +69,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:hint="Username">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -75,6 +77,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/username_input"
             android:inputType="text"
+            android:textSize="@dimen/_18ssp"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -86,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@id/username_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:hint="Password"
         app:passwordToggleEnabled="true">
@@ -96,6 +99,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/password_input"
             android:inputType="textPassword"
+            android:textSize="@dimen/_18ssp"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -107,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/password_layout"
-        android:layout_marginTop="@dimen/_20ssp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="horizontal">
         <Space
             android:layout_width="@dimen/constrained_height_0dp"
@@ -131,6 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textSize="@dimen/_18ssp"
             android:text="login" />
         <Space
             android:layout_width="@dimen/constrained_height_0dp"
@@ -168,7 +173,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="register" />
+            android:text="register"
+            android:textSize="@dimen/_18ssp"/>
         <Space
             android:layout_width="@dimen/constrained_height_0dp"
             android:layout_height="wrap_content"
@@ -197,8 +203,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textStyle="bold"
-        android:textSize="@dimen/_30ssp"
+        android:textSize="@dimen/_28ssp"
         android:fontFamily="@font/dongle"
-        android:layout_marginTop="@dimen/_10ssp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:text="register"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

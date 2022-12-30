@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
+import org.openlake.sampoorna.App
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.databinding.FragmentProfileBinding
@@ -64,7 +65,10 @@ class ProfileFragment : Fragment() {
         }
 
         binding.profileEditFab.setOnClickListener {
-            if(isEditing)
+            if(!App.isOnline(requireActivity())) {
+                Toast.makeText(requireContext(),"Please connect to the internet to perform any edits",Toast.LENGTH_SHORT).show()
+            }
+            else if(isEditing)
             {
                 val name = binding.userNameEdit.text.toString()
                 val age = binding.userAgeEdit.text.toString()

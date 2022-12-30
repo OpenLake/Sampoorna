@@ -1,7 +1,6 @@
 package org.openlake.sampoorna.presentation.features.sos_alert
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -18,12 +17,13 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
+import org.openlake.sampoorna.App
 import org.openlake.sampoorna.R
+import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.databinding.FragmentAlertBinding
 import org.openlake.sampoorna.presentation.MainActivity.Companion.SOSSwitch
 import org.openlake.sampoorna.presentation.features.sos_message.SosMessageBottomSheet
@@ -34,6 +34,7 @@ import org.openlake.sampoorna.util.services.ReactivateService
 class AlertFragment : Fragment(R.layout.fragment_alert) {
     private lateinit var userViewModel: UserViewModel
     lateinit var contactsListPreferences: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private val PERMISSIONS = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -66,8 +67,8 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         val helloUser = binding.hellouser
 
         //Shared preferences to get contacts list
-        contactsListPreferences =
-            requireActivity().getSharedPreferences("sosContacts", Context.MODE_PRIVATE)
+        contactsListPreferences = requireActivity().getSharedPreferences("sosContacts", Context.MODE_PRIVATE)
+        sharedPreferences = requireActivity().getSharedPreferences(Constants.Sampoorna, Context.MODE_PRIVATE)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
@@ -75,6 +76,7 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         val completeDialog = AlertDialog.Builder(requireActivity())
             .setView(dialogView)
             .create()
+
         completeDialog.setOnShowListener { dialogInterface->
             val completeButton = dialogView.findViewById<Button>(R.id.complete_positive)
             val rejectButton = dialogView.findViewById<Button>(R.id.complete_negative)
@@ -93,7 +95,13 @@ class AlertFragment : Fragment(R.layout.fragment_alert) {
         userViewModel.user.observe(viewLifecycleOwner){ user->
             helloUser.text = getString(R.string.hello) + user.name
 
-            if(user.age == null || user.about.isEmpty()) {
+            if(sharedPreferences.getString(Constants.Username, "") != user.username) {
+                sharedPreferences.edit()
+                    .putString(Constants.Username, user.username)
+                    .apply()
+            }
+
+            if((user.age == null || user.about.isEmpty()) && App.isOnline(requireActivity())) {
                 if(!completeDialog.isShowing) {
                     completeDialog.show()
                 }

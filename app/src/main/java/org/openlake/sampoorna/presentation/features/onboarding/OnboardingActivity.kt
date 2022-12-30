@@ -1,11 +1,11 @@
 package org.openlake.sampoorna.presentation.features.onboarding
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,6 +49,18 @@ class OnboardingActivity : AppCompatActivity() {
 
             binding.slider.currentItem += 1
         }
+
+        binding.slider.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                if(position == 3) {
+                    binding.goNextButton.visibility = View.GONE
+                }
+                else {
+                    binding.goNextButton.visibility = View.VISIBLE
+                }
+                super.onPageSelected(position)
+            }
+        })
 
         authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
