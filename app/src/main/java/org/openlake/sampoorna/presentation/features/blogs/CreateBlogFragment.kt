@@ -48,9 +48,7 @@ class CreateBlogFragment : Fragment() {
 
         tagListAdapter = BlogTagAdapter(requireContext(), true)
         binding.tagList.adapter = tagListAdapter
-        binding.tagList.layoutManager = FlexboxLayoutManager(requireContext(), FlexDirection.ROW).also {
-            it.flexWrap = FlexWrap.WRAP
-        }
+        binding.tagList.layoutManager = FlexboxLayoutManager(requireContext(), FlexDirection.ROW, FlexWrap.WRAP)
 
         binding.addTag.setOnClickListener {
             val tag = binding.blogTag.text.toString().trim().lowercase()

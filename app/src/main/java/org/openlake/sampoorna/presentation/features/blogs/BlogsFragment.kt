@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.openlake.sampoorna.App
@@ -19,6 +22,7 @@ class BlogsFragment : Fragment() {
     private val binding : FragmentBlogsBinding get() = _binding!!
     private lateinit var blogList : RecyclerView
     private lateinit var blogAdapter: BlogAdapter
+    private lateinit var blogViewModel: BlogViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +31,60 @@ class BlogsFragment : Fragment() {
         _binding = FragmentBlogsBinding.inflate(inflater, container, false)
         blogList = binding.blogList
 
+        blogViewModel = ViewModelProvider(this)[BlogViewModel::class.java]
+
         if(!App.isOnline(requireActivity())) {
             showNoInternet()
+        }
+
+        blogAdapter = BlogAdapter(requireContext())
+        binding.blogList.adapter = blogAdapter
+
+        blogViewModel.getBlogs()
+
+        blogViewModel.searchResults.observe(viewLifecycleOwner) {
+            blogAdapter.setBlogs(it)
+            if(it.isEmpty()) {
+                if(blogViewModel.searchQuery.value.isNullOrEmpty() && blogViewModel.filterTags.value.isNullOrEmpty()) {
+                    showSearching()
+                }
+                else {
+                    showNoResult()
+                }
+            }
+            else {
+                hideAnimations()
+            }
+        }
+
+        binding.blogSearch.doOnTextChanged { text, start, before, count ->
+            blogViewModel.searchQuery.postValue(text.toString())
+        }
+
+        blogViewModel.searchQuery.observe(viewLifecycleOwner) { query ->
+            showSearching()
+            blogViewModel.blogList.observe(viewLifecycleOwner) { blogs ->
+                blogViewModel.filterTags.observe(viewLifecycleOwner) {tags ->
+                    blogViewModel.searchResults.postValue(blogs.filter { blog ->
+                        (blog.content.lowercase().contains(query.lowercase()) || blog.title.lowercase().contains(query.lowercase())) && (tags.isEmpty() || tags.any { it in blog.tags })
+                    }.toMutableList())
+                }
+            }
+        }
+
+        blogViewModel.filterTags.observe(viewLifecycleOwner) {
+            if(it.isEmpty()) {
+                binding.filterCountCard.visibility = View.GONE
+            }
+            else {
+                binding.filterCountCard.visibility = View.VISIBLE
+                binding.filterCount.text = it.size.toString()
+            }
+        }
+
+        binding.blogFilter.setOnClickListener {
+            val filterFragment = FilterBottomSheetFragment(blogViewModel)
+            filterFragment.show(parentFragmentManager, null)
         }
 
         binding.noInternetAnim.imageAssetsFolder = "images"
@@ -57,6 +113,27 @@ class BlogsFragment : Fragment() {
     fun hideNoInternet() {
         binding.blogLayout.visibility = View.VISIBLE
         binding.noInternetLayout.visibility = View.GONE
+    }
+
+    fun showSearching() {
+        binding.animation.setAnimation(R.raw.search)
+        binding.animText.text = "Searching..."
+
+        binding.animLayout.visibility = View.VISIBLE
+        binding.blogList.visibility = View.GONE
+    }
+
+    fun showNoResult() {
+        binding.animation.setAnimation(R.raw.emptybox)
+        binding.animText.text = "No results found :("
+
+        binding.animLayout.visibility = View.VISIBLE
+        binding.blogList.visibility = View.GONE
+    }
+
+    fun hideAnimations() {
+        binding.animLayout.visibility = View.GONE
+        binding.blogList.visibility = View.VISIBLE
     }
 
     override fun onStart() {
