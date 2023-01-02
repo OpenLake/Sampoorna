@@ -8,10 +8,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="@dimen/_10sdp"
     app:cardCornerRadius="@dimen/_20sdp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:textStyle="bold"
@@ -22,6 +24,7 @@
             android:layout_height="wrap_content"
             tools:text="Work on your health or something"
             android:id="@+id/blog_title"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,6 +40,7 @@
             android:layout_gravity="start"
             tools:visibility="gone"
             tools:listitem="@layout/tag_card" />
+
         <TextView
             android:layout_gravity="center"
             android:id="@+id/blog_content"
@@ -50,20 +54,24 @@
             android:fontFamily="@font/dongle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"/>
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             app:cardElevation="@dimen/_10sdp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_5sdp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -72,23 +80,28 @@
                     android:fontFamily="@font/dongle"
                     android:textSize="@dimen/_15ssp"
                     android:id="@+id/blog_author" />
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="@dimen/_22sdp"
                     android:layout_height="@dimen/_22sdp"
                     app:cardCornerRadius="@dimen/_11sdp"
                     android:layout_marginStart="@dimen/_2sdp"
                     android:layout_gravity="center">
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
                         android:id="@+id/blog_author_img"
                         android:src="@drawable/womenlogo"/>
+
                 </com.google.android.material.card.MaterialCardView>
+
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,7 +110,11 @@
                     android:fontFamily="@font/dongle"
                     android:textSize="@dimen/_15ssp"
                     android:id="@+id/blog_time" />
+
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

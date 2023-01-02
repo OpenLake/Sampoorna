@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.features.blogs.BlogDetailFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/blog_content_layout"
+        tools:visibility="visible"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/blog_title"
+                tools:text="I am sad, and I need help...please help me"
+                android:fontFamily="@font/dongle"
+                android:layout_margin="@dimen/_5sdp"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:lineSpacingMultiplier="0.6"
+                android:textSize="@dimen/_35ssp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/blog_tags"
+                tools:listitem="@layout/tag_card" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    tools:text="By ken1000minus7"
+                    android:fontFamily="@font/dongle"
+                    android:textSize="@dimen/_15ssp"
+                    android:id="@+id/blog_author" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    app:cardCornerRadius="@dimen/_11sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/blog_author_img"
+                        android:src="@drawable/womenlogo"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    tools:text="14 Feb 2019"
+                    android:fontFamily="@font/dongle"
+                    android:textSize="@dimen/_15ssp"
+                    android:id="@+id/blog_time" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:id="@+id/blog_content"
+                android:textSize="@dimen/_20ssp"
+                android:lineSpacingMultiplier="0.5"
+                android:fontFamily="@font/dongle"
+                tools:text="I am sad adn want help so I am here" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:textSize="@dimen/_25ssp"
+                android:fontFamily="@font/dongle"
+                android:textStyle="bold"
+                android:text="Comments" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="COMMENT"
+        app:icon="@drawable/ic_comment"
+        android:id="@+id/comment_fab"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:id="@+id/loading_anim"
+        app:lottie_loop="true"
+        tools:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/loading"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

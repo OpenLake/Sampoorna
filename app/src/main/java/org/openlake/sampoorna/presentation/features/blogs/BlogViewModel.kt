@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObjects
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.sources.entities.Blog
 
@@ -12,9 +11,12 @@ class BlogViewModel: ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
     val blogList: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
+
     val searchResults: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
     val searchQuery: MutableLiveData<String> = MutableLiveData("")
     val filterTags: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
+
+    val blog: MutableLiveData<Blog> = MutableLiveData()
 
     fun addBlog(blog: Blog, onComplete: (Task<Void>) -> Unit) {
         db.collection(Constants.Blogs)
@@ -34,16 +36,28 @@ class BlogViewModel: ViewModel() {
 
     fun getBlogs() {
         db.collection(Constants.Blogs)
-            .get()
-            .addOnCompleteListener {
-                if(it.isSuccessful) {
-                    blogList.postValue(it.result.toObjects(Blog::class.java))
+            .addSnapshotListener { value, error ->
+                if(value != null) {
+                    blogList.postValue(value.toObjects(Blog::class.java))
                     if(searchQuery.value.isNullOrEmpty()) {
-                        searchResults.postValue(it.result.toObjects(Blog::class.java))
+                        searchResults.postValue(value.toObjects(Blog::class.java))
                     }
                 }
                 else {
-                    it.exception?.printStackTrace()
+                    error?.printStackTrace()
+                }
+            }
+    }
+
+    fun getBlog(blogId: String) {
+        db.collection(Constants.Blogs)
+            .document(blogId)
+            .addSnapshotListener { value, error ->
+                if(value != null) {
+                    blog.postValue(value.toObject(Blog::class.java))
+                }
+                else {
+                    error?.printStackTrace()
                 }
             }
     }
