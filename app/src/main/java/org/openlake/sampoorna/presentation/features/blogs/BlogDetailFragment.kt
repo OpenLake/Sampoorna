@@ -13,6 +13,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.databinding.FragmentBlogDetailBinding
+import org.openlake.sampoorna.presentation.features.blogs.comments.CommentBottomSheetFragment
 import java.util.*
 
 class BlogDetailFragment : Fragment() {
@@ -60,6 +61,11 @@ class BlogDetailFragment : Fragment() {
                 binding.commentFab.extend()
             }
         })
+
+        binding.commentFab.setOnClickListener {
+            val commentFragment = CommentBottomSheetFragment(blogViewModel)
+            commentFragment.show(parentFragmentManager, null)
+        }
 
         return binding.root
     }

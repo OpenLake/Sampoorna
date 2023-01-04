@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="org.openlake.sampoorna.presentation.features.blogs.comments.CommentBottomSheetFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Comment"
+        android:textStyle="bold"
+        android:fontFamily="@font/dongle"
+        android:textSize="@dimen/_30ssp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_margin="@dimen/_10sdp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="Hey, i can help you out, I faced the same problem few years back"
+            android:gravity="start"
+            android:padding="@dimen/_5sdp"
+            android:fontFamily="@font/dongle"
+            android:textSize="@dimen/_18ssp"
+            android:lineSpacingMultiplier="0.7" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="COMMENT"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textStyle="bold"
+        android:textSize="@dimen/_20ssp"
+        android:fontFamily="@font/dongle"
+        android:layout_gravity="center"
+        style="@style/ThemeOverlay.Material3.Button.ElevatedButton" />
+
+</LinearLayout>
