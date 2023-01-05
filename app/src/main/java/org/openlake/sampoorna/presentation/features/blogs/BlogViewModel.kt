@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.sources.entities.Blog
+import org.openlake.sampoorna.data.sources.entities.Comment
 
 class BlogViewModel: ViewModel() {
 
@@ -15,6 +16,8 @@ class BlogViewModel: ViewModel() {
     val searchResults: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
     val searchQuery: MutableLiveData<String> = MutableLiveData("")
     val filterTags: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
+
+    val comments: MutableLiveData<MutableList<Comment>> = MutableLiveData(mutableListOf())
 
     val blog: MutableLiveData<Blog> = MutableLiveData()
 
@@ -55,6 +58,33 @@ class BlogViewModel: ViewModel() {
             .addSnapshotListener { value, error ->
                 if(value != null) {
                     blog.postValue(value.toObject(Blog::class.java))
+                }
+                else {
+                    error?.printStackTrace()
+                }
+            }
+    }
+
+    fun addComment(comment: Comment, onComplete: (Task<Void>) -> Unit) {
+        db.collection(Constants.Comments)
+            .add(comment)
+            .addOnCompleteListener {
+                if(it.isSuccessful) {
+                    it.result.update("commentId", it.result.id)
+                        .addOnCompleteListener(onComplete)
+                }
+                else {
+                    it.exception?.printStackTrace()
+                }
+            }
+    }
+
+    fun getComments(postId: String) {
+        db.collection(Constants.Comments)
+            .whereEqualTo("commentedOnId", postId)
+            .addSnapshotListener { value, error ->
+                if(value != null) {
+                    comments.postValue(value.toObjects(Comment::class.java))
                 }
                 else {
                     error?.printStackTrace()

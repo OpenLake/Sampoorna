@@ -8,5 +8,6 @@ data class Blog(
     var authorUid: String = "",
     var tags: List<String> = mutableListOf(),
     var timestamp: Long = System.currentTimeMillis(),
-    val anonymous: Boolean = false
+    val anonymous: Boolean = false,
+    var authorPhotoUrl: String? = null
 )

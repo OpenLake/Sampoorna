@@ -63,7 +63,7 @@ class BlogDetailFragment : Fragment() {
         })
 
         binding.commentFab.setOnClickListener {
-            val commentFragment = CommentBottomSheetFragment(blogViewModel)
+            val commentFragment = CommentBottomSheetFragment(blogViewModel, args.blogId)
             commentFragment.show(parentFragmentManager, null)
         }
 

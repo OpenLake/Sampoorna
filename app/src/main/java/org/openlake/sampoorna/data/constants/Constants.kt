@@ -6,6 +6,7 @@ object Constants {
      */
     const val Users = "users"
     const val Blogs = "blogs"
+    const val Comments = "comments"
 
     /**
      * Shared preference constants
