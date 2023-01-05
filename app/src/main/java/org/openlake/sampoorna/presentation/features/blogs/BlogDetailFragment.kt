@@ -13,6 +13,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.databinding.FragmentBlogDetailBinding
+import org.openlake.sampoorna.presentation.features.blogs.comments.CommentAdapter
 import org.openlake.sampoorna.presentation.features.blogs.comments.CommentBottomSheetFragment
 import java.util.*
 
@@ -22,6 +23,7 @@ class BlogDetailFragment : Fragment() {
     private val binding: FragmentBlogDetailBinding get() = _binding!!
     private val args: BlogDetailFragmentArgs by navArgs()
     private lateinit var blogViewModel: BlogViewModel
+    private lateinit var commentAdapter: CommentAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,8 +65,15 @@ class BlogDetailFragment : Fragment() {
         })
 
         binding.commentFab.setOnClickListener {
-            val commentFragment = CommentBottomSheetFragment(blogViewModel, args.blogId)
+            val commentFragment = CommentBottomSheetFragment(blogViewModel, args.blogId, binding.blogAuthor.text.toString().replace("By ", ""))
             commentFragment.show(parentFragmentManager, null)
+        }
+
+        commentAdapter = CommentAdapter(requireContext(), blogViewModel, viewLifecycleOwner, parentFragmentManager)
+        binding.commentList.adapter = commentAdapter
+
+        blogViewModel.getComments(args.blogId).observe(viewLifecycleOwner) {
+            commentAdapter.commentList = it
         }
 
         return binding.root

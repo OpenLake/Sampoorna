@@ -13,8 +13,10 @@
         android:textAlignment="center"
         android:text="Comment"
         android:textStyle="bold"
+        android:id="@+id/comment_header"
         android:fontFamily="@font/dongle"
-        android:textSize="@dimen/_30ssp"
+        android:textSize="@dimen/_28ssp"
+        android:lineSpacingMultiplier="0.6"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_5sdp"/>

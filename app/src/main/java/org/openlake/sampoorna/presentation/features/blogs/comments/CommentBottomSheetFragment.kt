@@ -14,7 +14,7 @@ import org.openlake.sampoorna.data.sources.entities.Comment
 import org.openlake.sampoorna.databinding.FragmentCommentBottomSheetBinding
 import org.openlake.sampoorna.presentation.features.blogs.BlogViewModel
 
-class CommentBottomSheetFragment(private val blogViewModel: BlogViewModel, private val postId: String, val reply: Boolean = false): BottomSheetDialogFragment() {
+class CommentBottomSheetFragment(private val blogViewModel: BlogViewModel, private val postId: String, private val postUsername: String, val reply: Boolean = false): BottomSheetDialogFragment() {
 
     private var _binding: FragmentCommentBottomSheetBinding? = null
     private val binding: FragmentCommentBottomSheetBinding get() = _binding!!
@@ -29,6 +29,13 @@ class CommentBottomSheetFragment(private val blogViewModel: BlogViewModel, priva
         _binding = FragmentCommentBottomSheetBinding.inflate(inflater, container, false)
 
         sharedPreferences = requireContext().getSharedPreferences(Constants.Sampoorna, Context.MODE_PRIVATE)
+
+        if(reply) {
+            binding.commentHeader.text = "Reply to $postUsername's comment"
+        }
+        else {
+            binding.commentHeader.text = "Comment on $postUsername's blog"
+        }
 
         binding.postComment.setOnClickListener {
             val commentContent = binding.commentContent.text.toString()
