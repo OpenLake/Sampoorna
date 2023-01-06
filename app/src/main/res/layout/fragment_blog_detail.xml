@@ -96,12 +96,23 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_25ssp"
                 android:fontFamily="@font/dongle"
                 android:textStyle="bold"
                 android:text="Comments" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/comment_list"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/comment_item" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp" />
 
         </LinearLayout>
 

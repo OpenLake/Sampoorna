@@ -13,8 +13,10 @@
         android:textAlignment="center"
         android:text="Comment"
         android:textStyle="bold"
+        android:id="@+id/comment_header"
         android:fontFamily="@font/dongle"
-        android:textSize="@dimen/_30ssp"
+        android:textSize="@dimen/_28ssp"
+        android:lineSpacingMultiplier="0.6"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_5sdp"/>
@@ -33,18 +35,62 @@
             android:padding="@dimen/_5sdp"
             android:fontFamily="@font/dongle"
             android:textSize="@dimen/_18ssp"
+            android:id="@+id/comment_content"
             android:lineSpacingMultiplier="0.7" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Post Anonymously"
+                android:textStyle="bold"
+                android:fontFamily="@font/dongle"
+                android:textSize="@dimen/_25ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="0.6"
+                android:text="Your username and other details won't be shared."
+                android:fontFamily="@font/dongle"
+                android:textSize="@dimen/_18ssp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/anonymous_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"/>
+
+    </LinearLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="COMMENT"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="POST"
+        android:layout_margin="@dimen/_10sdp"
         android:textStyle="bold"
         android:textSize="@dimen/_20ssp"
         android:fontFamily="@font/dongle"
+        android:id="@+id/post_comment"
         android:layout_gravity="center"
         style="@style/ThemeOverlay.Material3.Button.ElevatedButton" />
 
