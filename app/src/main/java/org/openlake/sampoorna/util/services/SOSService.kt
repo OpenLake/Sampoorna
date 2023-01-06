@@ -55,7 +55,7 @@ class SOSService : LifecycleService() {
                     val contactSet: MutableSet<String>? =
                         contactsListPreferences.getStringSet("contacts", mutableSetOf())
                     val smsManager = SmsManager.getDefault()
-                    contactSet?.forEach { contact ->
+                    contactSet?.iterator()?.forEach { contact ->
                         smsManager.sendTextMessage(
                             contact,
                             null,
