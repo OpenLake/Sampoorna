@@ -10,50 +10,76 @@
         android:name="org.openlake.sampoorna.presentation.features.sos_alert.AlertFragment"
         android:label="@string/safety_sos"
         tools:layout="@layout/fragment_alert" >
+
         <action
             android:id="@+id/action_alertFragment_to_contactFragment"
             app:destination="@id/contactFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/trackingFragment"
         android:name="org.openlake.sampoorna.presentation.features.periodtracker.TrackingFragment"
         android:label="@string/track_menstrual_cycle"
         tools:layout="@layout/fragment_tracking" />
+
     <fragment
         android:id="@+id/blogsFragment"
         android:name="org.openlake.sampoorna.presentation.features.blogs.BlogsFragment"
         android:label="Blogs"
         tools:layout="@layout/fragment_blogs" />
+
     <fragment
         android:id="@+id/contactFragment"
         android:name="org.openlake.sampoorna.presentation.features.contacts.ContactFragment"
         android:label="@string/contacts"
         tools:layout="@layout/fragment_contact" >
+
         <action
             android:id="@+id/action_contactFragment_to_alertFragment"
             app:destination="@id/alertFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/addContactBottomSheet2"
         android:name="org.openlake.sampoorna.presentation.features.contacts.AddContactBottomSheet"
         android:label="AddContactBottomSheet" >
+
         <action
             android:id="@+id/action_addContactBottomSheet2_to_contactFragment"
             app:destination="@id/contactFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/selfCareFragment"
         android:name="org.openlake.sampoorna.presentation.features.self_care.SelfCareFragment"
         android:label="@string/self_care"
         tools:layout="@layout/fragment_self_care" />
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="org.openlake.sampoorna.presentation.features.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/createBlogFragment"
         android:name="org.openlake.sampoorna.presentation.features.blogs.CreateBlogFragment"
         android:label="Create Blog"
         tools:layout="@layout/fragment_create_blog" />
+
+    <fragment
+        android:id="@+id/blogDetailFragment"
+        android:name="org.openlake.sampoorna.presentation.features.blogs.BlogDetailFragment"
+        android:label="Blog"
+        tools:layout="@layout/fragment_blog_detail">
+
+        <argument
+            android:name="blogId"
+            app:argType="string"/>
+
+    </fragment>
+
 </navigation>

@@ -18,4 +18,8 @@ object Constants {
     const val Email = "email"
     const val About = "about"
 
+    /**
+     * Other useful constants
+     */
+    val months = listOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
 }
