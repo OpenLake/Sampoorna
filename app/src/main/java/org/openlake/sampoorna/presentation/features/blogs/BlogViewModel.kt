@@ -24,7 +24,8 @@ class BlogViewModel: ViewModel() {
     val filterTags: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
 
     val blog: MutableLiveData<Blog> = MutableLiveData()
-    val savedBlogs: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
+    val savedBlogIds: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
+    val savedBlogs: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
 
     fun addBlog(blog: Blog, onComplete: (Task<Void>) -> Unit) {
         viewModelScope.launch {
@@ -115,7 +116,26 @@ class BlogViewModel: ViewModel() {
                 .document(auth.uid!!)
                 .addSnapshotListener { value, error ->
                     if(value != null) {
-                        savedBlogs.postValue(value.toObject(User::class.java)?.savedBlogs)
+                        savedBlogIds.postValue(value.toObject(User::class.java)?.savedBlogs)
+                    }
+                    else {
+                        error?.printStackTrace()
+                    }
+                }
+        }
+    }
+
+    fun getSavedBlogs(ids: MutableList<String>) {
+        if(ids.isEmpty()) {
+            savedBlogs.postValue(mutableListOf())
+            return
+        }
+        viewModelScope.launch {
+            db.collection(Constants.Blogs)
+                .whereIn("blogId", ids)
+                .addSnapshotListener { value, error ->
+                    if(value != null) {
+                        savedBlogs.postValue(value.toObjects(Blog::class.java))
                     }
                     else {
                         error?.printStackTrace()

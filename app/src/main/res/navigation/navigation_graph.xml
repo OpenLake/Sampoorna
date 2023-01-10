@@ -82,4 +82,10 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/savedBlogsFragment"
+        android:name="org.openlake.sampoorna.presentation.features.blogs.SavedBlogsFragment"
+        android:label="Saved Blogs"
+        tools:layout="@layout/fragment_saved_blogs" />
+
 </navigation>

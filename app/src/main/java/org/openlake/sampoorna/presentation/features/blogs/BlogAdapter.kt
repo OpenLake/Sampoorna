@@ -20,6 +20,10 @@ import java.util.*
 class BlogAdapter(val context: Context) : RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
 
     var blogList: MutableList<Blog> = mutableListOf()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.blog_item, parent, false)
@@ -55,11 +59,6 @@ class BlogAdapter(val context: Context) : RecyclerView.Adapter<BlogAdapter.BlogV
 
     override fun getItemCount(): Int {
         return blogList.size
-    }
-
-    fun setBlogs(newBlogs: MutableList<Blog>) {
-        blogList = newBlogs
-        notifyDataSetChanged()
     }
 
     class BlogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

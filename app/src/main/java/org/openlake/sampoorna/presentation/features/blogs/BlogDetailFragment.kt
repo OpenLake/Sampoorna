@@ -35,7 +35,7 @@ class BlogDetailFragment : Fragment() {
         menuProvider = object : MenuProvider {
             override fun onCreateMenu(m: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.blog_detail_menu, m)
-                blogViewModel.savedBlogs.observe(viewLifecycleOwner) { savedBlogs ->
+                blogViewModel.savedBlogIds.observe(viewLifecycleOwner) { savedBlogs ->
                     if(args.blogId in savedBlogs) {
                         m.findItem(R.id.save_blog).isVisible = false
                         m.findItem(R.id.not_save_blog).isVisible = true
