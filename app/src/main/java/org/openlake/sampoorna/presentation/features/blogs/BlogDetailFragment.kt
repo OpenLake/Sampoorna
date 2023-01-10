@@ -88,15 +88,6 @@ class BlogDetailFragment : Fragment() {
         }
 
         blogViewModel.getSavedBlogIds()
-//        blogViewModel.savedBlogs.observe(viewLifecycleOwner) { savedBlogs ->
-//            if(args.blogId in savedBlogs) {
-//
-//                menu[0].setIcon(R.drawable.ic_saved)
-//            }
-//            else {
-//                menu[0].setIcon(R.drawable.ic_not_saved)
-//            }
-//        }
 
         binding.blogContentLayout.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if(scrollY>oldScrollY) {
