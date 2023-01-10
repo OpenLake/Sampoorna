@@ -11,5 +11,6 @@ data class User(
     var email: String = "",
     var photoUrl: String? = null,
     var about: String = "",
-    var age: Int? = null
+    var age: Int? = null,
+    var savedBlogs: MutableList<String> = mutableListOf()
 ):Parcelable

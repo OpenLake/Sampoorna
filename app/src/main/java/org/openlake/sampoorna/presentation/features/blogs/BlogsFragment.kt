@@ -1,10 +1,9 @@
 package org.openlake.sampoorna.presentation.features.blogs
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -23,6 +22,7 @@ class BlogsFragment : Fragment() {
     private lateinit var blogList : RecyclerView
     private lateinit var blogAdapter: BlogAdapter
     private lateinit var blogViewModel: BlogViewModel
+    private lateinit var menuProvider: MenuProvider
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,13 +37,33 @@ class BlogsFragment : Fragment() {
             showNoInternet()
         }
 
+        menuProvider = object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                if(App.isOnline(requireActivity())) {
+                    menuInflater.inflate(R.menu.blogs_menu, menu)
+                }
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when(menuItem.itemId) {
+                    R.id.saved_blogs -> {
+                        findNavController().navigate(R.id.savedBlogsFragment)
+                    }
+                }
+                return true
+            }
+
+        }
+
+        requireActivity().addMenuProvider(menuProvider)
+
         blogAdapter = BlogAdapter(requireContext())
         binding.blogList.adapter = blogAdapter
 
         blogViewModel.getBlogs()
 
         blogViewModel.searchResults.observe(viewLifecycleOwner) {
-            blogAdapter.setBlogs(it)
+            blogAdapter.blogList = it.toMutableList()
             if(it.isEmpty()) {
                 if(blogViewModel.searchQuery.value.isNullOrEmpty() && blogViewModel.filterTags.value.isNullOrEmpty()) {
                     showSearching()
@@ -144,6 +164,7 @@ class BlogsFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
+        requireActivity().removeMenuProvider(menuProvider)
         super.onDestroyView()
     }
 }
