@@ -4,15 +4,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.sources.entities.Blog
 import org.openlake.sampoorna.data.sources.entities.Comment
+import org.openlake.sampoorna.data.sources.entities.User
 
 class BlogViewModel: ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
     val blogList: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
 
     val searchResults: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
@@ -20,6 +24,7 @@ class BlogViewModel: ViewModel() {
     val filterTags: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
 
     val blog: MutableLiveData<Blog> = MutableLiveData()
+    val savedBlogs: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
 
     fun addBlog(blog: Blog, onComplete: (Task<Void>) -> Unit) {
         viewModelScope.launch {
@@ -102,5 +107,38 @@ class BlogViewModel: ViewModel() {
                 }
         }
         return comments
+    }
+
+    fun getSavedBlogIds() {
+        viewModelScope.launch {
+            db.collection(Constants.Users)
+                .document(auth.uid!!)
+                .addSnapshotListener { value, error ->
+                    if(value != null) {
+                        savedBlogs.postValue(value.toObject(User::class.java)?.savedBlogs)
+                    }
+                    else {
+                        error?.printStackTrace()
+                    }
+                }
+        }
+    }
+
+    fun saveBlog(blogId: String, onComplete: (Task<Void>) -> Unit = {}) {
+        viewModelScope.launch {
+            db.collection(Constants.Users)
+                .document(auth.uid!!)
+                .update("savedBlogs", FieldValue.arrayUnion(blogId))
+                .addOnCompleteListener(onComplete)
+        }
+    }
+
+    fun deleteSavedBlog(blogId: String, onComplete: (Task<Void>) -> Unit = {}) {
+        viewModelScope.launch {
+            db.collection(Constants.Users)
+                .document(auth.uid!!)
+                .update("savedBlogs", FieldValue.arrayRemove(blogId))
+                .addOnCompleteListener(onComplete)
+        }
     }
 }
