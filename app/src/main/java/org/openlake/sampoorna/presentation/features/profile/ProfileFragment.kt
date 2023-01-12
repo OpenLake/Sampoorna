@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.App
 import org.openlake.sampoorna.R
@@ -23,6 +25,9 @@ class ProfileFragment : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
 
+    private val args: ProfileFragmentArgs by navArgs()
+    private val auth = FirebaseAuth.getInstance()
+
     var isEditing : Boolean = false
 
     override fun onCreateView(
@@ -34,17 +39,22 @@ class ProfileFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences(Constants.Sampoorna, Context.MODE_PRIVATE)
 
         val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
-        profileViewModel.getUser()
+        profileViewModel.getUser(args.uid)
 
-        binding.userName.text = sharedPreferences.getString(Constants.Name, "")
-        binding.userUsername.text = sharedPreferences.getString(Constants.Username, "")
-        sharedPreferences.getInt(Constants.Age, -1).let {
-            if(it != -1) {
-                binding.userAge.text = "$it years"
-            }
+        if(args.uid != auth.uid) {
+            binding.profileEditFab.visibility = View.GONE
         }
-        binding.userEmail.text = sharedPreferences.getString(Constants.Email, "")
-        binding.userAbout.text = sharedPreferences.getString(Constants.About, "")
+        else {
+            binding.userName.text = sharedPreferences.getString(Constants.Name, "")
+            binding.userUsername.text = sharedPreferences.getString(Constants.Username, "")
+            sharedPreferences.getInt(Constants.Age, -1).let {
+                if(it != -1) {
+                    binding.userAge.text = "$it years"
+                }
+            }
+            binding.userEmail.text = sharedPreferences.getString(Constants.Email, "")
+            binding.userAbout.text = sharedPreferences.getString(Constants.About, "")
+        }
 
         profileViewModel.user.observe(viewLifecycleOwner){ user->
             binding.userName.text = user.name
@@ -55,13 +65,15 @@ class ProfileFragment : Fragment() {
             binding.userAbout.text = user.about
             binding.userUsername.text = user.username
 
-            sharedPreferences.edit()
-                .putString(Constants.Name, user.name)
-                .putString(Constants.Username, user.username)
-                .putInt(Constants.Age, user.age ?: -1)
-                .putString(Constants.Email, user.email)
-                .putString(Constants.About, user.about)
-                .apply()
+            if(user.uid == auth.uid) {
+                sharedPreferences.edit()
+                    .putString(Constants.Name, user.name)
+                    .putString(Constants.Username, user.username)
+                    .putInt(Constants.Age, user.age ?: -1)
+                    .putString(Constants.Email, user.email)
+                    .putString(Constants.About, user.about)
+                    .apply()
+            }
         }
 
         binding.profileEditFab.setOnClickListener {

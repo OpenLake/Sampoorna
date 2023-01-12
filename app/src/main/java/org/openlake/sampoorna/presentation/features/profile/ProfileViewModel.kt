@@ -16,10 +16,10 @@ class ProfileViewModel: ViewModel() {
 
     val user: MutableLiveData<User> = MutableLiveData()
 
-    fun getUser() {
+    fun getUser(uid: String) {
         viewModelScope.launch {
             db.collection(Constants.Users)
-                .document(auth.uid!!)
+                .document(uid)
                 .addSnapshotListener { value, error ->
                     value?.let {
                         user.postValue(it.toObject(User::class.java))

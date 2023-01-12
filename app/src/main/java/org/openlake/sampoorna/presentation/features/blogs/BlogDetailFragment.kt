@@ -2,10 +2,12 @@ package org.openlake.sampoorna.presentation.features.blogs
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -72,6 +74,12 @@ class BlogDetailFragment : Fragment() {
             binding.blogTitle.text = blog.title
             binding.blogContent.text = blog.content
             binding.blogTags.layoutManager = FlexboxLayoutManager(context, FlexDirection.ROW, FlexWrap.WRAP)
+
+            if(!blog.anonymous) {
+                binding.blogAuthor.setOnClickListener {
+                    findNavController().navigate(R.id.profileFragment, bundleOf("uid" to blog.authorUid))
+                }
+            }
 
             val tagAdapter = BlogTagAdapter(requireContext())
             tagAdapter.tagList = blog.tags.toMutableList()

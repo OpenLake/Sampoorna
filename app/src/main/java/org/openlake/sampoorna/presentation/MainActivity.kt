@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
@@ -13,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.ActivityMainBinding
@@ -28,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         SOSSwitch.postValue(false)
     }
     private lateinit var binding: ActivityMainBinding
+    private val auth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -65,9 +69,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.navigationDrawer.setNavigationItemSelectedListener { item->
-            navController.navigate(when(item.itemId){
-                else -> R.id.profileFragment
-            })
+            when(item.itemId){
+                R.id.profileFragment -> {
+                    navController.navigate(R.id.profileFragment, bundleOf("uid" to auth.uid!!))
+                }
+            }
             return@setNavigationItemSelectedListener true
         }
     }
