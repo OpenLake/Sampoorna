@@ -116,6 +116,8 @@ class ProfileFragment : Fragment() {
             }
         })
 
+
+
         return binding.root
     }
 
@@ -132,6 +134,8 @@ class ProfileFragment : Fragment() {
 
         binding.userName.visibility = View.VISIBLE
         binding.userNameEditLayout.visibility = View.GONE
+
+        binding.editImageCard.visibility = View.GONE
 
         binding.userAge.visibility = View.VISIBLE
         binding.userAgeEditLayout.visibility = View.GONE
@@ -151,6 +155,8 @@ class ProfileFragment : Fragment() {
         binding.userNameEdit.setText(binding.userName.text)
         binding.userName.visibility = View.GONE
         binding.userNameEditLayout.visibility = View.VISIBLE
+
+        binding.editImageCard.visibility = View.VISIBLE
 
         val age = binding.userAge.text.toString().slice(0..(binding.userAge.text.toString().length-7))
         binding.userAgeEdit.setText(when(age){
