@@ -65,7 +65,7 @@ class ProfileFragment : Fragment() {
     private var galleryLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if(result.resultCode == Activity.RESULT_OK && result.data != null) {
             val uri = result.data!!.data as Uri
-            val bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireActivity().contentResolver, uri))
+            val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
             profileViewModel.tempProfileBitmap.postValue(bitmap)
         }
     }
