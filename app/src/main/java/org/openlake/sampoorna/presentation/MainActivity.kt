@@ -3,6 +3,7 @@ package org.openlake.sampoorna.presentation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -70,11 +71,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.navigationDrawer.setNavigationItemSelectedListener { item->
             when(item.itemId){
-                R.id.profileFragment -> {
+                R.id.profile -> {
                     navController.navigate(R.id.profileFragment, bundleOf("uid" to auth.uid!!))
                 }
             }
-            return@setNavigationItemSelectedListener true
+            true
         }
     }
 
@@ -101,15 +102,4 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    override fun onBackPressed() {
-        val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
-        val fragment = navHost?.childFragmentManager?.primaryNavigationFragment
-
-        if(fragment is ProfileFragment && fragment.isEditing) {
-            fragment.closeEditingViews()
-        }
-        else {
-            super.onBackPressed()
-        }
-    }
 }

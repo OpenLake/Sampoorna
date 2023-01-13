@@ -55,8 +55,6 @@ class BlogAdapter(val context: Context) : RecyclerView.Adapter<BlogAdapter.BlogV
         }
     }
 
-
-
     override fun getItemCount(): Int {
         return blogList.size
     }

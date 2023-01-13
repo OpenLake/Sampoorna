@@ -1,22 +1,41 @@
 package org.openlake.sampoorna.presentation.features.profile
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.MediaStore
+import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.App
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.databinding.FragmentProfileBinding
+
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -28,7 +47,27 @@ class ProfileFragment : Fragment() {
     private val args: ProfileFragmentArgs by navArgs()
     private val auth = FirebaseAuth.getInstance()
 
+    private lateinit var profileViewModel: ProfileViewModel
+
+    private val IMAGE_PICK_REQUEST = 1
+    private val IMAGE_CAPTURE_REQUEST = 2
+
     var isEditing : Boolean = false
+
+    private var cameraLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if(result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val bitmap = result.data!!.extras?.get("data") as Bitmap
+            profileViewModel.tempProfileBitmap.postValue(bitmap)
+        }
+    }
+
+    private var galleryLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if(result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val uri = result.data!!.data as Uri
+            val bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireActivity().contentResolver, uri))
+            profileViewModel.tempProfileBitmap.postValue(bitmap)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +77,7 @@ class ProfileFragment : Fragment() {
 
         sharedPreferences = requireActivity().getSharedPreferences(Constants.Sampoorna, Context.MODE_PRIVATE)
 
-        val profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         profileViewModel.getUser(args.uid)
 
         if(args.uid != auth.uid) {
@@ -64,6 +103,11 @@ class ProfileFragment : Fragment() {
             binding.userEmail.text = user.email
             binding.userAbout.text = user.about
             binding.userUsername.text = user.username
+            Glide.with(requireContext())
+                .load(user.photoUrl)
+                .placeholder(R.drawable.womenlogo)
+                .centerCrop()
+                .into(binding.userImage)
 
             if(user.uid == auth.uid) {
                 sharedPreferences.edit()
@@ -101,11 +145,67 @@ class ProfileFragment : Fragment() {
                         Toast.makeText(requireContext(),it.exception?.message ?: "",Toast.LENGTH_SHORT).show()
                     }
                 }
+
+                profileViewModel.tempProfileBitmap.observe(viewLifecycleOwner) { profileBitmap ->
+                    profileBitmap?.let { bitmap ->
+                        profileViewModel.uploadProfileImage(bitmap) {
+                            if(it.isSuccessful) {
+                                Toast.makeText(requireContext(), "Profile image updated", Toast.LENGTH_SHORT).show()
+                            }
+                            else {
+                                it.exception?.printStackTrace()
+                            }
+                            profileViewModel.tempProfileBitmap.postValue(null)
+                        }
+                    }
+                }
             }
             else
             {
                 openEditingViews()
             }
+        }
+
+        val imageDialog = AlertDialog.Builder(requireContext()).setTitle("Change profile image").setItems(arrayOf("Upload from gallery", "Take a new picture")) { dialogInterface, i ->
+            val (intent, requestCode) = when (i) {
+                0 -> {
+                    Pair(Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).also { it.type = "image/*" }, IMAGE_PICK_REQUEST)
+                }
+                else -> {
+                    Pair(Intent(MediaStore.ACTION_IMAGE_CAPTURE), IMAGE_CAPTURE_REQUEST)
+                }
+            }
+            Log.d("reqout", requestCode.toString())
+            if(requestCode == IMAGE_PICK_REQUEST) {
+                galleryLauncher.launch(intent)
+            }
+            else {
+                cameraLauncher.launch(intent)
+            }
+        }.create()
+
+        profileViewModel.tempProfileBitmap.observe(viewLifecycleOwner) {
+            if(it == null) {
+                profileViewModel.user.observe(viewLifecycleOwner) { user ->
+                    Glide.with(requireContext())
+                        .load(user.photoUrl)
+                        .placeholder(R.drawable.womenlogo)
+                        .centerCrop()
+                        .into(binding.userImage)
+                }
+            }
+            else {
+                binding.userImage.setImageBitmap(it)
+            }
+        }
+
+        binding.editImage.setOnClickListener {
+            imageDialog.show()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            closeEditingViews()
+            profileViewModel.tempProfileBitmap.postValue(null)
         }
 
         binding.profileScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
@@ -115,8 +215,6 @@ class ProfileFragment : Fragment() {
                 binding.profileEditFab.extend()
             }
         })
-
-
 
         return binding.root
     }
