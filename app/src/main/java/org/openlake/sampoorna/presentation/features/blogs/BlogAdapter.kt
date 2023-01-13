@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -17,7 +19,7 @@ import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.sources.entities.Blog
 import java.util.*
 
-class BlogAdapter(val context: Context) : RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
+class BlogAdapter(val context: Context, val blogViewModel: BlogViewModel, val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
 
     var blogList: MutableList<Blog> = mutableListOf()
     set(value) {
@@ -41,6 +43,16 @@ class BlogAdapter(val context: Context) : RecyclerView.Adapter<BlogAdapter.BlogV
         tagAdapter.tagList = blog.tags.toMutableList()
         holder.blogTags.adapter = tagAdapter
         holder.blogAuthor.text = "By ${if(blog.anonymous) "Anonymous" else blog.authorUsername}"
+
+        if(!blog.anonymous) {
+            blogViewModel.getUser(blog.authorUid).observe(viewLifecycleOwner) {
+                Glide.with(context)
+                    .load(it.photoUrl)
+                    .placeholder(R.drawable.womenlogo)
+                    .centerCrop()
+                    .into(holder.blogAuthorImage)
+            }
+        }
 
         val blogDate = Date(blog.timestamp)
 

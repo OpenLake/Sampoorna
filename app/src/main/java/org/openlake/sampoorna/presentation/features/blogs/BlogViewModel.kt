@@ -161,4 +161,21 @@ class BlogViewModel: ViewModel() {
                 .addOnCompleteListener(onComplete)
         }
     }
+
+    fun getUser(uid: String): MutableLiveData<User> {
+        val user: MutableLiveData<User> = MutableLiveData()
+        viewModelScope.launch {
+            db.collection(Constants.Users)
+                .document(uid)
+                .addSnapshotListener { value, error ->
+                    if(value != null) {
+                        user.postValue(value.toObject(User::class.java))
+                    }
+                    else {
+                        error?.printStackTrace()
+                    }
+                }
+        }
+        return user
+    }
 }

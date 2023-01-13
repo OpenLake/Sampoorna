@@ -57,7 +57,7 @@ class BlogsFragment : Fragment() {
 
         requireActivity().addMenuProvider(menuProvider)
 
-        blogAdapter = BlogAdapter(requireContext())
+        blogAdapter = BlogAdapter(requireContext(), blogViewModel, viewLifecycleOwner)
         binding.blogList.adapter = blogAdapter
 
         blogViewModel.getBlogs()
@@ -158,7 +158,7 @@ class BlogsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        blogAdapter = BlogAdapter(requireContext())
+        blogAdapter = BlogAdapter(requireContext(), blogViewModel, viewLifecycleOwner)
         blogList.adapter = blogAdapter
     }
 

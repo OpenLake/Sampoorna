@@ -38,6 +38,7 @@
                     android:id="@+id/user_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     android:background="@color/ic_womenlogo_background"
                     android:src="@drawable/womenlogo" />
 
@@ -48,7 +49,7 @@
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 app:cardCornerRadius="@dimen/_15sdp"
-                app:cardElevation="@dimen/_5sdp"
+                app:cardElevation="@dimen/_15sdp"
                 android:layout_margin="@dimen/_5sdp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView2"

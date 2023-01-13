@@ -34,7 +34,7 @@ class SavedBlogsFragment : Fragment() {
             }
         }
 
-        blogAdapter = BlogAdapter(requireContext())
+        blogAdapter = BlogAdapter(requireContext(), blogViewModel, viewLifecycleOwner)
         binding.savedBlogsList.adapter = blogAdapter
 
         blogViewModel.savedBlogs.observe(viewLifecycleOwner) {

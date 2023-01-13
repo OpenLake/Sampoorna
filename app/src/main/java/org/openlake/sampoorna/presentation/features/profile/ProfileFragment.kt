@@ -27,6 +27,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -204,8 +205,13 @@ class ProfileFragment : Fragment() {
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            closeEditingViews()
-            profileViewModel.tempProfileBitmap.postValue(null)
+            if(isEditing) {
+                closeEditingViews()
+                profileViewModel.tempProfileBitmap.postValue(null)
+            }
+            else {
+                findNavController().popBackStack()
+            }
         }
 
         binding.profileScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->

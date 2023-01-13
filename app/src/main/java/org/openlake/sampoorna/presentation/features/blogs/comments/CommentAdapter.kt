@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.sources.entities.Comment
@@ -59,6 +60,14 @@ class CommentAdapter(
         if(!comment.anonymous) {
             holder.authorImage.setOnClickListener {
                 it.findNavController().navigate(R.id.profileFragment, bundleOf("uid" to comment.authorUid))
+            }
+
+            blogViewModel.getUser(comment.authorUid).observe(viewLifecycleOwner) {
+                Glide.with(context)
+                    .load(it.photoUrl)
+                    .placeholder(R.drawable.womenlogo)
+                    .centerCrop()
+                    .into(holder.authorImage)
             }
         }
 
