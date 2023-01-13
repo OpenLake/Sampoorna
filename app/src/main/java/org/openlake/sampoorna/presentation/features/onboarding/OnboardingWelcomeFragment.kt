@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.OnboardingWelcomeBinding
 
-class OnboardingWelcomeFragment: Fragment(R.layout.onboarding_welcome) {
+class OnboardingWelcomeFragment: Fragment() {
+
     private var _binding:OnboardingWelcomeBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -19,4 +21,10 @@ class OnboardingWelcomeFragment: Fragment(R.layout.onboarding_welcome) {
         _binding = OnboardingWelcomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
-  }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
+}

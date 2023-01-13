@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.openlake.sampoorna.R
 
-class BlogTagAdapter(val context: Context, val editing: Boolean = false): RecyclerView.Adapter<BlogTagAdapter.BlogTagViewHolder>() {
+class BlogTagAdapter(val context: Context, private val editing: Boolean = false): RecyclerView.Adapter<BlogTagAdapter.BlogTagViewHolder>() {
 
     var tagList: MutableList<String> = mutableListOf()
 

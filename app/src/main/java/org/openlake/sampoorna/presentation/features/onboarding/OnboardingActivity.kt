@@ -17,7 +17,7 @@ import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
 @AndroidEntryPoint
 class OnboardingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingBinding
-    var onboardingViewPagerAdapter: OnboardingViewPagerAdapter? = null
+    private var onboardingViewPagerAdapter: OnboardingViewPagerAdapter? = null
     private lateinit var userViewModel: UserViewModel
     private lateinit var authViewModel: AuthViewModel
 

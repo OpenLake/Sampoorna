@@ -19,7 +19,7 @@ import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.sources.entities.Blog
 import java.util.*
 
-class BlogAdapter(val context: Context, val blogViewModel: BlogViewModel, val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
+class BlogAdapter(val context: Context, private val blogViewModel: BlogViewModel, private val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
 
     var blogList: MutableList<Blog> = mutableListOf()
     set(value) {

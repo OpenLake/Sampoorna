@@ -3,27 +3,19 @@ package org.openlake.sampoorna.presentation.features.profile
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +32,7 @@ import org.openlake.sampoorna.databinding.FragmentProfileBinding
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
+
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
@@ -53,7 +46,7 @@ class ProfileFragment : Fragment() {
     private val IMAGE_PICK_REQUEST = 1
     private val IMAGE_CAPTURE_REQUEST = 2
 
-    var isEditing : Boolean = false
+    private var isEditing : Boolean = false
 
     private var cameraLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if(result.resultCode == Activity.RESULT_OK && result.data != null) {
@@ -176,7 +169,7 @@ class ProfileFragment : Fragment() {
                     Pair(Intent(MediaStore.ACTION_IMAGE_CAPTURE), IMAGE_CAPTURE_REQUEST)
                 }
             }
-            Log.d("reqout", requestCode.toString())
+
             if(requestCode == IMAGE_PICK_REQUEST) {
                 galleryLauncher.launch(intent)
             }
@@ -230,7 +223,7 @@ class ProfileFragment : Fragment() {
         super.onDestroyView()
     }
 
-    fun closeEditingViews()
+    private fun closeEditingViews()
     {
         isEditing = false
         binding.profileEditFab.setIconResource(R.drawable.ic_edit)

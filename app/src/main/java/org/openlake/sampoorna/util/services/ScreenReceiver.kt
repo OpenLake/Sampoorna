@@ -7,20 +7,22 @@ import android.content.Intent
 import java.util.*
 
 class ScreenReceiver: BroadcastReceiver() {
-    var wasScreenOn = false
-    var count = 0
-    private var timebuffer :Long = 0
-    lateinit var currentTime: Date
+
+    private var wasScreenOn = false
+    private var count = 0
+    private var timebuffer = 0L
+    private lateinit var currentTime: Date
 
     @SuppressLint("NewApi")
     override fun onReceive(context: Context?, intent: Intent?) {
+
         if (intent != null && context != null) {
             if (intent.action == Intent.ACTION_SCREEN_OFF) {
                 wasScreenOn = false
                 currentTime = Calendar.getInstance().time
                 count++
             }
-            else if(intent.action==Intent.ACTION_SCREEN_ON){
+            else if(intent.action == Intent.ACTION_SCREEN_ON){
                 val newTime = Calendar.getInstance().time
                 val timediff = newTime.time - currentTime.time
                 if (timediff<800) {

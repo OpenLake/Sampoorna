@@ -5,4 +5,5 @@
         android:id="@+id/profile"
         android:title="@string/profile"
         android:icon="@drawable/ic_contact_profile"/>
+
 </menu>

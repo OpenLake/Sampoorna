@@ -32,9 +32,11 @@ import org.openlake.sampoorna.util.services.ReactivateService
 
 @AndroidEntryPoint
 class AlertFragment : Fragment(R.layout.fragment_alert) {
+
     private lateinit var userViewModel: UserViewModel
-    lateinit var contactsListPreferences: SharedPreferences
+    private lateinit var contactsListPreferences: SharedPreferences
     private lateinit var sharedPreferences: SharedPreferences
+
     private val PERMISSIONS = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,

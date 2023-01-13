@@ -2,27 +2,24 @@ package org.openlake.sampoorna.presentation.features.self_care
 
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridView
 import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import com.google.android.material.transition.MaterialFadeThrough
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentSelfCareBinding
-import org.openlake.sampoorna.databinding.FragmentTrackingBinding
-import java.util.*
-import kotlin.collections.ArrayList
 
 class SelfCareFragment : Fragment(R.layout.fragment_self_care){
 
     private var _binding: FragmentSelfCareBinding? = null
     private val binding get() = _binding!!
-    private var arrayList:ArrayList<SelfCareModel> ? = null
-    private var gridView:GridView? = null
-    private var selfCareAdapter:SelfCareAdapter ? = null
+
+    private var arrayList: ArrayList<SelfCareModel> ? = null
+    private var gridView: GridView? = null
+    private var selfCareAdapter: SelfCareAdapter ? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +31,7 @@ class SelfCareFragment : Fragment(R.layout.fragment_self_care){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         _binding = FragmentSelfCareBinding.inflate(inflater, container, false)
 
         //adding animation
@@ -49,7 +46,7 @@ class SelfCareFragment : Fragment(R.layout.fragment_self_care){
     }
 
     private fun setDataList() : ArrayList<SelfCareModel>{
-        var arrayList:ArrayList<SelfCareModel> = ArrayList()
+        val arrayList = ArrayList<SelfCareModel>()
 
         arrayList.add(SelfCareModel(R.drawable.womenlogo, "Music"))
         arrayList.add(SelfCareModel(R.drawable.womenlogo, "Exercise"))
@@ -66,4 +63,10 @@ class SelfCareFragment : Fragment(R.layout.fragment_self_care){
         animationDrawable.setExitFadeDuration(4000)
         animationDrawable.start()
     }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
 }

@@ -15,9 +15,10 @@ import org.openlake.sampoorna.data.sources.entities.User
 import java.io.ByteArrayOutputStream
 
 class ProfileViewModel: ViewModel() {
-    val auth = FirebaseAuth.getInstance()
-    val db = FirebaseFirestore.getInstance()
-    val storage = Firebase.storage
+
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
+    private val storage = Firebase.storage
 
     val user: MutableLiveData<User> = MutableLiveData()
 
@@ -28,8 +29,11 @@ class ProfileViewModel: ViewModel() {
             db.collection(Constants.Users)
                 .document(uid)
                 .addSnapshotListener { value, error ->
-                    value?.let {
-                        user.postValue(it.toObject(User::class.java))
+                    if(value != null) {
+                        user.postValue(value.toObject(User::class.java))
+                    }
+                    else {
+                        error?.printStackTrace()
                     }
                 }
         }

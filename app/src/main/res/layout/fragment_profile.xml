@@ -102,15 +102,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/user_name_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_19sdp"
+                    android:textSize="@dimen/_19ssp"
                     android:padding="@dimen/_8sdp"
                     android:textStyle="bold"
                     tools:text="Anya Forger"
                     android:textAlignment="center" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -151,6 +153,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_name_edit_layout">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -159,7 +162,8 @@
                     tools:text="6 years"
                     android:padding="@dimen/_8sdp"
                     android:textAlignment="center"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_14ssp" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -177,13 +181,13 @@
                     android:text="@string/e_mail"
                     android:id="@+id/user_email_head"
                     android:textStyle="bold"
-                    android:textSize="@dimen/_16sdp"/>
+                    android:textSize="@dimen/_16ssp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/user_email"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/_15ssp"
                     tools:text="anyabestgirl@spyfamily.com"/>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -207,16 +211,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="About"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20ssp"
                     android:id="@+id/user_about_head"
                     android:textStyle="bold"
-                    android:textSize="@dimen/_16sdp"/>
+                    android:textSize="@dimen/_16ssp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/user_about"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/_15ssp"
                     tools:text="Anya's house"/>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -243,7 +247,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/profile_edit_fab"
         android:text="@string/edit"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/_15ssp"
         android:textStyle="bold"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/_20sdp"

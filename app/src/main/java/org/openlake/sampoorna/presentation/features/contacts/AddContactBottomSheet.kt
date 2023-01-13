@@ -47,7 +47,7 @@ class AddContactBottomSheet : BottomSheetDialogFragment(),LoaderManager.LoaderCa
         contactPhoneNumber = view.findViewById(R.id.contact_number_add)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         //Hide Keyboard on Enter for contact_phone_number
-        contactPhoneNumber.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
+        contactPhoneNumber.setOnKeyListener { v, keyCode, _ -> handleKeyEvent(v, keyCode) }
 
 
         val contactListener = AdapterView.OnItemClickListener { adapterView, _, position, _ ->

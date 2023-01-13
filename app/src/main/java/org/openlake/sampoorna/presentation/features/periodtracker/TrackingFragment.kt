@@ -19,14 +19,16 @@ import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentTrackingBinding
 import java.util.*
 
-class TrackingFragment : Fragment(R.layout.fragment_tracking) {
+class TrackingFragment : Fragment() {
     private val menstrualCycle: Int = 28
+
     private var _binding: FragmentTrackingBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var dateText: TextView
     private lateinit var sharedPref: SharedPreferences
-    lateinit var calender: Calendar
-    lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
+    private lateinit var calender: Calendar
+    private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         exitTransition = MaterialFadeThrough()
@@ -37,7 +39,7 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         _binding = FragmentTrackingBinding.inflate(inflater, container, false)
 
         sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
@@ -109,7 +111,7 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
     private fun showDaysLeft(daysLeft: Long) {
 
         if (daysLeft > 0)
-            dateText.text = "$daysLeft ${getString(R.string.days_left)}";
+            dateText.text = "$daysLeft ${getString(R.string.days_left)}"
         else {
             this.dateText.text = getString(R.string.enter_valid_date)
         }
@@ -127,9 +129,8 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
         val secondsLeft = timeLeft / 1000
         val minutesLeft = secondsLeft / 60
         val hoursLeft = minutesLeft / 60
-        val daysLeft = hoursLeft / 24
 
-        return daysLeft
+        return hoursLeft / 24
     }
 
     private fun showDatePickerDialog() {

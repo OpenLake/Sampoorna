@@ -17,7 +17,8 @@
             android:orientation="horizontal"
             android:id="@+id/blog_search_layout"
             android:layout_margin="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:baselineAligned="false">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
@@ -26,8 +27,7 @@
                 android:layout_gravity="center"
                 android:hint="Search blogs 😊..."
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:backgroundTint="@color/background_secondary"
-                >
+                android:backgroundTint="@color/background_secondary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -84,7 +84,6 @@
                 </com.google.android.material.card.MaterialCardView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </LinearLayout>
 

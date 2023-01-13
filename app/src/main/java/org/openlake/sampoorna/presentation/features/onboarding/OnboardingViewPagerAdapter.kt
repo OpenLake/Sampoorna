@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class OnboardingViewPagerAdapter (fragmentActivity: FragmentActivity):
-    FragmentStateAdapter(fragmentActivity) {
+class OnboardingViewPagerAdapter (fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+
     private val size = 4
 
     private val welcomeFragment = OnboardingWelcomeFragment()

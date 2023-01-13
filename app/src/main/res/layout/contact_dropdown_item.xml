@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
             android:layout_margin="@dimen/_2sdp"
             android:textAlignment="center"
             android:id="@+id/contact_dropdown_name"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,6 +28,7 @@
             android:textAlignment="center"
             android:layout_margin="@dimen/_2sdp"
             android:id="@+id/contact_dropdown_number"/>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/hellouser"
             android:layout_width="wrap_content"
@@ -61,6 +62,7 @@
             app:layout_constraintStart_toEndOf="@id/ic_contacts"
             app:layout_constraintTop_toBottomOf="@id/hellouser"
             app:layout_constraintEnd_toStartOf="@id/ic_message"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
