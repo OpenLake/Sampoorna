@@ -11,9 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/profile_scroll_view">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_235sdp"
@@ -36,10 +38,33 @@
                     android:id="@+id/user_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     android:background="@color/ic_womenlogo_background"
                     android:src="@drawable/womenlogo" />
 
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/edit_image_card"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                app:cardCornerRadius="@dimen/_15sdp"
+                app:cardElevation="@dimen/_15sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                app:layout_constraintEnd_toEndOf="@+id/cardView2">
+
+                <ImageView
+                    android:id="@+id/edit_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_2sdp"
+                    android:background="@color/ic_womenlogo_background"
+                    android:src="@drawable/ic_edit" />
+
+            </androidx.cardview.widget.CardView>
+
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieAnimationView"

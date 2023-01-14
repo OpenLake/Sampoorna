@@ -62,7 +62,13 @@
         android:id="@+id/profileFragment"
         android:name="org.openlake.sampoorna.presentation.features.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+
+        <argument
+            android:name="uid"
+            app:argType="string" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/createBlogFragment"

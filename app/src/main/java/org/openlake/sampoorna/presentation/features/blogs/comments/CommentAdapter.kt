@@ -7,11 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.sources.entities.Comment
@@ -52,6 +56,20 @@ class CommentAdapter(
         holder.authorUsername.text = if(comment.anonymous) "Anonymous" else comment.authorUsername
         holder.commentTime.text = Constants.getDateString(comment.timestamp)
         holder.commentContent.text = comment.content
+
+        if(!comment.anonymous) {
+            holder.authorImage.setOnClickListener {
+                it.findNavController().navigate(R.id.profileFragment, bundleOf("uid" to comment.authorUid))
+            }
+
+            blogViewModel.getUser(comment.authorUid).observe(viewLifecycleOwner) {
+                Glide.with(context)
+                    .load(it.photoUrl)
+                    .placeholder(R.drawable.womenlogo)
+                    .centerCrop()
+                    .into(holder.authorImage)
+            }
+        }
 
         holder.showReply.setOnClickListener {
             if(holder.replyList.visibility == View.VISIBLE) {
