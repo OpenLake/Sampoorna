@@ -1,34 +1,38 @@
 package org.openlake.sampoorna.presentation.features.periodtracker
 
-
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.transition.MaterialFadeThrough
 import org.openlake.sampoorna.R
+import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.databinding.FragmentTrackingBinding
+import org.openlake.sampoorna.util.services.PeriodReceiver
 import java.util.*
 
 class TrackingFragment : Fragment() {
-    private val menstrualCycle: Int = 28
+    private val menstrualCycle = 28
 
     private var _binding: FragmentTrackingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dateText: TextView
     private lateinit var sharedPref: SharedPreferences
     private lateinit var calender: Calendar
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         exitTransition = MaterialFadeThrough()
@@ -42,14 +46,13 @@ class TrackingFragment : Fragment() {
 
         _binding = FragmentTrackingBinding.inflate(inflater, container, false)
 
-        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-        dateText = binding.dateText
+        sharedPref = requireActivity().getSharedPreferences(Constants.Sampoorna, Context.MODE_PRIVATE)
         calender = Calendar.getInstance()
 
         //preparing the OnDateSetListener for the datePickerDialog.
         dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             //Selected Time
-            val selectedTime: Calendar = Calendar.getInstance()
+            val selectedTime = Calendar.getInstance()
             selectedTime.set(year, month, dayOfMonth)
 
             // adding menstrualCycle to selected time
@@ -65,12 +68,20 @@ class TrackingFragment : Fragment() {
             showDaysLeft(daysLeft)
 
             //saving the result
-            sharedPref.edit()?.putLong("expectedDate", futureDate.time)?.apply()
+            sharedPref.edit()
+                .putLong("expectedDate", futureDate.time)
+                .apply()
+
+            val intent = Intent(requireContext(), PeriodReceiver::class.java)
+            intent.putExtra("title", "Hey ${sharedPref.getString(Constants.Name,"")}!!")
+            intent.putExtra("content", "Your period is going to begin soon!")
+            val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT else PendingIntent.FLAG_UPDATE_CURRENT)
+            val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, futureDate.time + 5000, pendingIntent)
 
         }
 
-        val button: Button = binding.showDialog
-        button.setOnClickListener { showDatePickerDialog() }
+        binding.showDialog.setOnClickListener { showDatePickerDialog() }
 
         //checking expected
         checkExpectedDate()
@@ -88,7 +99,7 @@ class TrackingFragment : Fragment() {
             val daysLeft = calculateDaysLeft(futureDate)
             showDaysLeft(daysLeft)
         } else {
-            dateText.text = getString(R.string.enter_mensuration_last_date)
+            binding.dateText.text = getString(R.string.enter_mensuration_last_date)
         }
     }
 
@@ -111,18 +122,17 @@ class TrackingFragment : Fragment() {
     private fun showDaysLeft(daysLeft: Long) {
 
         if (daysLeft > 0)
-            dateText.text = "$daysLeft ${getString(R.string.days_left)}"
+            binding.dateText.text = "$daysLeft ${getString(R.string.days_left)}"
         else {
-            this.dateText.text = getString(R.string.enter_valid_date)
+            binding.dateText.text = getString(R.string.enter_valid_date)
         }
-
     }
 
     private fun calculateDaysLeft(futureDate: Long): Long {
 
         // Current Time and Date
-        val calendar: Calendar = Calendar.getInstance()
-        val today: Date = calendar.time
+        val calendar = Calendar.getInstance()
+        val today = calendar.time
 
         // Calculating left days
         val timeLeft = futureDate - today.time
@@ -134,7 +144,7 @@ class TrackingFragment : Fragment() {
     }
 
     private fun showDatePickerDialog() {
-        val datepickerDialog = DatePickerDialog(
+        val datePickerDialog = DatePickerDialog(
             requireContext(),
             dateSetListener,
             calender.get(Calendar.YEAR),
@@ -142,9 +152,8 @@ class TrackingFragment : Fragment() {
             calender.get(Calendar.DAY_OF_MONTH)
         )
         //constrained the datePickerDialog such that the user can select a date only before the current date.
-        datepickerDialog.datePicker.maxDate = System.currentTimeMillis()
-        datepickerDialog.show()
-
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+        datePickerDialog.show()
     }
 }
 

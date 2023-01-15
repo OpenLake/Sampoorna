@@ -25,7 +25,8 @@ object Constants {
      * Other useful constants
      */
     val months = listOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-    
+    const val NotificationChannel = "channel"
+
     fun getDateString(timestamp: Long): String {
         val date = Date(timestamp)
         val hours = date.hours

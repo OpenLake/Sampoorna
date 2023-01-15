@@ -1,5 +1,8 @@
 package org.openlake.sampoorna.presentation
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -15,6 +18,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import org.openlake.sampoorna.R
+import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.databinding.ActivityMainBinding
 import org.openlake.sampoorna.util.services.ReactivateService
 
@@ -55,7 +59,7 @@ class MainActivity: AppCompatActivity() {
             bottomNavDestinations,
             binding.drawerLayout
         )
-        binding.toolbar.setupWithNavController(navController,appBarConfiguration)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
@@ -76,6 +80,17 @@ class MainActivity: AppCompatActivity() {
                 }
             }
             true
+        }
+
+        val notificationChannel = NotificationChannel(Constants.NotificationChannel, Constants.Sampoorna, NotificationManager.IMPORTANCE_HIGH).apply {
+            description = Constants.Sampoorna
+        }
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(notificationChannel)
+
+        val fragmentId = intent.getIntExtra("fragment", -1)
+        if(fragmentId != -1) {
+            navController.navigate(fragmentId)
         }
     }
 
