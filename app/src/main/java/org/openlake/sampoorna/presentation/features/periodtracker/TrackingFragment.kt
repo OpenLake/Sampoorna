@@ -10,7 +10,6 @@ import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,7 +76,12 @@ class TrackingFragment : Fragment() {
             intent.putExtra("content", "Your period is going to begin soon!")
             val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT else PendingIntent.FLAG_UPDATE_CURRENT)
             val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, futureDate.time + 5000, pendingIntent)
+            if(Build.VERSION.SDK_INT >= 23) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, futureDate.time + 5000, pendingIntent)
+            }
+            else {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, futureDate.time, pendingIntent)
+            }
 
         }
 
