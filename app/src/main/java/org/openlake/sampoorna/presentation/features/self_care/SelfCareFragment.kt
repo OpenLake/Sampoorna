@@ -12,7 +12,7 @@ import com.google.android.material.transition.MaterialFadeThrough
 import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.FragmentSelfCareBinding
 
-class SelfCareFragment : Fragment(R.layout.fragment_self_care){
+class SelfCareFragment: Fragment() {
 
     private var _binding: FragmentSelfCareBinding? = null
     private val binding get() = _binding!!
@@ -45,7 +45,7 @@ class SelfCareFragment : Fragment(R.layout.fragment_self_care){
         return binding.root
     }
 
-    private fun setDataList() : ArrayList<SelfCareModel>{
+    private fun setDataList() : ArrayList<SelfCareModel> {
         val arrayList = ArrayList<SelfCareModel>()
 
         arrayList.add(SelfCareModel(R.drawable.womenlogo, "Music"))

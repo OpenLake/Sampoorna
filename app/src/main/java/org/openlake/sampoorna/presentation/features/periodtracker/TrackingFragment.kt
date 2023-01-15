@@ -77,7 +77,7 @@ class TrackingFragment : Fragment() {
             val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT else PendingIntent.FLAG_UPDATE_CURRENT)
             val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
             if(Build.VERSION.SDK_INT >= 23) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, futureDate.time + 5000, pendingIntent)
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, futureDate.time, pendingIntent)
             }
             else {
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, futureDate.time, pendingIntent)

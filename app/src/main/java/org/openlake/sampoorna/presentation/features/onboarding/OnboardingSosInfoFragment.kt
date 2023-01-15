@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.OnboardingSosInfoBinding
 
-class OnboardingSosInfoFragment : Fragment() {
+class OnboardingSosInfoFragment: Fragment() {
 
     private var _binding: OnboardingSosInfoBinding? = null
     private val binding get() = _binding!!

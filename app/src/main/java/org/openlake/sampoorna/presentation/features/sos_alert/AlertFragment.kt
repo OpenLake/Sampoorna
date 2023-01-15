@@ -31,7 +31,7 @@ import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
 import org.openlake.sampoorna.util.services.ReactivateService
 
 @AndroidEntryPoint
-class AlertFragment : Fragment(R.layout.fragment_alert) {
+class AlertFragment: Fragment() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var contactsListPreferences: SharedPreferences
