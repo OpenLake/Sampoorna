@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -82,11 +83,13 @@ class MainActivity: AppCompatActivity() {
             true
         }
 
-        val notificationChannel = NotificationChannel(Constants.NotificationChannel, Constants.Sampoorna, NotificationManager.IMPORTANCE_HIGH).apply {
-            description = Constants.Sampoorna
+        if(Build.VERSION.SDK_INT >= 26) {
+            val notificationChannel = NotificationChannel(Constants.NotificationChannel, Constants.Sampoorna, NotificationManager.IMPORTANCE_HIGH).apply {
+                description = Constants.Sampoorna
+            }
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(notificationChannel)
         }
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(notificationChannel)
 
         val fragmentId = intent.getIntExtra("fragment", -1)
         if(fragmentId != -1) {
