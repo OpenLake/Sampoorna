@@ -14,7 +14,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.openlake.sampoorna.R
@@ -22,6 +21,7 @@ import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.presentation.MainActivity
 
 class SOSService : LifecycleService() {
+
     private var latlong: String = ""
     private var sosMessage: String? = ""
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -30,7 +30,6 @@ class SOSService : LifecycleService() {
 
     companion object {
         var canSend = MutableLiveData<Boolean>()
-
     }
 
     @SuppressLint("MissingPermission", "VisibleForTests")

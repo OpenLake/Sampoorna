@@ -13,7 +13,7 @@ import org.openlake.sampoorna.data.sources.entities.User
 
 class AuthViewModel: ViewModel() {
 
-    val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseFirestore.getInstance()
     val auth = FirebaseAuth.getInstance()
 
     private val username : MutableLiveData<String> = MutableLiveData("")

@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.di.Transformer
@@ -16,11 +15,11 @@ import org.openlake.sampoorna.data.repository.ContactsRepository
 import org.openlake.sampoorna.data.sources.entities.User
 import javax.inject.Inject
 
-
 @HiltViewModel
-class UserViewModel @Inject constructor(contactsRepository: ContactsRepository):ViewModel(){
-    val auth = FirebaseAuth.getInstance()
-    val db = FirebaseFirestore.getInstance()
+class UserViewModel @Inject constructor(contactsRepository: ContactsRepository): ViewModel() {
+
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     val user: MutableLiveData<User> = MutableLiveData()
 
@@ -36,10 +35,14 @@ class UserViewModel @Inject constructor(contactsRepository: ContactsRepository):
             db.collection(Constants.Users)
                 .document(auth.uid!!)
                 .addSnapshotListener { value, error ->
-                    value?.let {
-                        user.postValue(it.toObject(User::class.java))
+                    if(value != null) {
+                        user.postValue(value.toObject(User::class.java))
+                    }
+                    else {
+                        error?.printStackTrace()
                     }
                 }
         }
     }
+
 }

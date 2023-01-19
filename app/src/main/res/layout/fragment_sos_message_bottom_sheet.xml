@@ -29,12 +29,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/save_sos_message"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/message"
             android:gravity="start|top"
             android:inputType="textMultiLine|textCapSentences"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -49,4 +51,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

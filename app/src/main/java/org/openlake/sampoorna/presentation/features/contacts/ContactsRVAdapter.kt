@@ -1,7 +1,6 @@
 package org.openlake.sampoorna.presentation.features.contacts
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,9 @@ import org.openlake.sampoorna.R
 import org.openlake.sampoorna.data.sources.entities.Contact
 import javax.inject.Inject
 
-class ContactsRVAdapter @Inject constructor(val context:Context, private val listener: Listeners):RecyclerView.Adapter<ContactsRVAdapter.ContactsViewHolder>() {
+class ContactsRVAdapter @Inject constructor(val context:Context, private val listener: Listeners): RecyclerView.Adapter<ContactsRVAdapter.ContactsViewHolder>() {
 
-    private var allContacts =ArrayList<Contact>()
+    private var allContacts = ArrayList<Contact>()
 
     inner class ContactsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val contactName: TextView = itemView.findViewById(R.id.contact_name)
@@ -43,13 +42,13 @@ class ContactsRVAdapter @Inject constructor(val context:Context, private val lis
         return allContacts.size
     }
 
-    fun updateContacts(listofContacts:ArrayList<Contact>){
+    fun updateContacts(contacts: ArrayList<Contact>){
         if (allContacts.isEmpty()){
-            allContacts.addAll(listofContacts)
+            allContacts.addAll(contacts)
         }
         allContacts.clear()
-        allContacts.addAll(listofContacts)
-        Log.d("ListofC","${allContacts.size}")
+        allContacts.addAll(contacts)
+
         notifyDataSetChanged()
     }
 }

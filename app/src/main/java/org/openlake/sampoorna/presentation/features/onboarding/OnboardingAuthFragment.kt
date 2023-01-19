@@ -16,9 +16,10 @@ import org.openlake.sampoorna.presentation.MainActivity
 
 @AndroidEntryPoint
 class OnboardingAuthFragment : Fragment() {
+
     private var _binding : FragmentOnboardingAuthBinding? = null
-    private val binding
-    get() = _binding!!
+    private val binding get() = _binding!!
+
     private lateinit var authViewModel: AuthViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

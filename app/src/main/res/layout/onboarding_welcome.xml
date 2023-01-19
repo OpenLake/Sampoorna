@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <ImageView
         android:id="@+id/sampoorna"
         android:layout_width="@dimen/_100sdp"
@@ -12,6 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
@@ -25,6 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sampoorna"
         app:layout_constraintBottom_toTopOf="@id/letsGetStarted"/>
+
     <TextView
         android:id="@+id/letsGetStarted"
         android:layout_width="wrap_content"

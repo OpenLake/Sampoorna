@@ -12,19 +12,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ContactsViewModel @Inject constructor(private val repository: ContactsRepository) : ViewModel() {
-    var allContacts = Transformations.map(repository.fetchAllContacts()) { list ->
 
-        val temp = list.map {
+    var allContacts = Transformations.map(repository.fetchAllContacts()) { list ->
+        list.map {
             Transformer.convertContactEntityToContactModel(it)
         }
-      temp
-    }
-    fun deleteContact(contact: Contact)=viewModelScope.launch(Dispatchers.IO) {
-        repository.delete(contact)
-        Log.d("deleteVM Coroutine","$contact")
     }
 
-    fun insertContact(contact: Contact)=viewModelScope.launch(Dispatchers.IO) {
+    fun deleteContact(contact: Contact) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(contact)
+    }
+
+    fun insertContact(contact: Contact) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(contact)
     }
 

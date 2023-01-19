@@ -6,17 +6,22 @@ import android.content.Intent
 import android.os.Build
 import org.openlake.sampoorna.presentation.MainActivity
 
-class ReactivateService : BroadcastReceiver() {
+class ReactivateService: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (MainActivity.SOSSwitch.value==true) {
+
+        if (MainActivity.SOSSwitch.value == true) {
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context?.startForegroundService(Intent(context, SOSService::class.java))
             } else {
                 context?.startService(Intent(context, SOSService::class.java))
             }
+
         }
-        else{
+        else {
             context?.stopService(Intent(context,SOSService::class.java))
         }
+
     }
+
 }

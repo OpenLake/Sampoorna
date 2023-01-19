@@ -26,7 +26,7 @@ class CreateBlogFragment : Fragment() {
     private lateinit var blogViewModel: BlogViewModel
     private lateinit var tagListAdapter: BlogTagAdapter
     private lateinit var sharedPreferences: SharedPreferences
-    val auth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

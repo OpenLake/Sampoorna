@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import org.openlake.sampoorna.R
 import org.openlake.sampoorna.databinding.OnboardingPeriodTrackingInfoBinding
 
-class OnboardingPeriodTrackingInfoFragment: Fragment(R.layout.onboarding_period_tracking_info){
+class OnboardingPeriodTrackingInfoFragment: Fragment(){
+
     private var _binding : OnboardingPeriodTrackingInfoBinding? = null
     private val binding get() = _binding!!
 
@@ -19,5 +19,10 @@ class OnboardingPeriodTrackingInfoFragment: Fragment(R.layout.onboarding_period_
     ): View {
         _binding = OnboardingPeriodTrackingInfoBinding.inflate(inflater,container,false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

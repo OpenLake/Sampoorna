@@ -14,6 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:cardBackgroundColor="@color/background_secondary"
         app:cardCornerRadius="@dimen/_20sdp">
+
         <ImageView
             android:id="@+id/contact_pfp"
             android:src="@drawable/ic_contact_profile"
@@ -21,6 +22,7 @@
             android:layout_height="@dimen/_48sdp"
             android:layout_gravity="start|center"
             android:padding="@dimen/_10sdp" />
+
         <TextView
             android:id="@+id/contact_name"
             android:layout_width="wrap_content"
@@ -44,7 +46,7 @@
             android:layout_height="@dimen/_32sdp"
             android:src="@drawable/ic_delete"
             android:layout_gravity="end|center"
-            android:paddingEnd="@dimen/_8sdp"/>
+            android:layout_marginEnd="@dimen/_8sdp"/>
 
     </androidx.cardview.widget.CardView>
 

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.MenuProvider
-import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -125,17 +124,17 @@ class BlogsFragment : Fragment() {
         return binding.root
     }
 
-    fun showNoInternet() {
+    private fun showNoInternet() {
         binding.blogLayout.visibility = View.GONE
         binding.noInternetLayout.visibility = View.VISIBLE
     }
 
-    fun hideNoInternet() {
+    private fun hideNoInternet() {
         binding.blogLayout.visibility = View.VISIBLE
         binding.noInternetLayout.visibility = View.GONE
     }
 
-    fun showSearching() {
+    private fun showSearching() {
         binding.animation.setAnimation(R.raw.search)
         binding.animText.text = "Searching..."
 
@@ -143,7 +142,7 @@ class BlogsFragment : Fragment() {
         binding.blogList.visibility = View.GONE
     }
 
-    fun showNoResult() {
+    private fun showNoResult() {
         binding.animation.setAnimation(R.raw.emptybox)
         binding.animText.text = "No results found :("
 
@@ -151,7 +150,7 @@ class BlogsFragment : Fragment() {
         binding.blogList.visibility = View.GONE
     }
 
-    fun hideAnimations() {
+    private fun hideAnimations() {
         binding.animLayout.visibility = View.GONE
         binding.blogList.visibility = View.VISIBLE
     }

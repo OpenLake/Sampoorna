@@ -1,6 +1,5 @@
 package org.openlake.sampoorna.presentation.features.blogs
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater

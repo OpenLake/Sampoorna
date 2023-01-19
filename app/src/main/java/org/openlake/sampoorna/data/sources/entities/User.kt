@@ -13,4 +13,4 @@ data class User(
     var about: String = "",
     var age: Int? = null,
     var savedBlogs: MutableList<String> = mutableListOf()
-):Parcelable
+): Parcelable

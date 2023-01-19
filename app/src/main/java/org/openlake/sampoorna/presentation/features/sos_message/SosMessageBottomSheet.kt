@@ -17,6 +17,7 @@ import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
 
 @AndroidEntryPoint
 class SosMessageBottomSheet : BottomSheetDialogFragment() {
+
     private lateinit var sharedPreferences : SharedPreferences
     private lateinit var userViewModel: UserViewModel
 

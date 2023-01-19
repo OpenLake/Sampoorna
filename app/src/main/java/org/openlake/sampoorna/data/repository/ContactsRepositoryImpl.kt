@@ -9,9 +9,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ContactsRepositoryImpl @Inject constructor(private val appDatabase: ContactDatabase): ContactsRepository{
+class ContactsRepositoryImpl @Inject constructor(private val appDatabase: ContactDatabase): ContactsRepository {
 
-    override fun fetchAllContacts(): LiveData<List<ContactEntity>>{
+    override fun fetchAllContacts(): LiveData<List<ContactEntity>> {
         return appDatabase.contactsDao().getAllContacts()
     }
 
