@@ -29,6 +29,7 @@ import org.openlake.sampoorna.presentation.MainActivity.Companion.SOSSwitch
 import org.openlake.sampoorna.presentation.features.sos_message.SosMessageBottomSheet
 import org.openlake.sampoorna.presentation.features.userFeatures.UserViewModel
 import org.openlake.sampoorna.util.services.ReactivateService
+import org.openlake.sampoorna.util.services.SOSService
 
 @AndroidEntryPoint
 class AlertFragment: Fragment() {
@@ -136,6 +137,7 @@ class AlertFragment: Fragment() {
                             ReactivateService::class.java
                         )
                         requireActivity().sendBroadcast(broadcastIntent)
+//                        SOSService.canSend.postValue(true)
 
                     } else {
                         SOSSwitch.postValue(true)
@@ -151,6 +153,8 @@ class AlertFragment: Fragment() {
                                 ReactivateService::class.java
                             )
                             requireActivity().sendBroadcast(broadcastIntent)
+                            SOSService.canSend.postValue(true)
+
                             if (listOfContacts.isNullOrEmpty()) {
                                 Toast.makeText(
                                     context,
