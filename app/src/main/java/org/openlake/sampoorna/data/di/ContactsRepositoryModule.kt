@@ -10,6 +10,7 @@ import org.openlake.sampoorna.data.repository.ContactsRepositoryImpl
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 abstract class ContactsRepositoryModule {
+
     @Binds
     abstract fun bindsContactsRepository(repository: ContactsRepositoryImpl?): ContactsRepository?
 }

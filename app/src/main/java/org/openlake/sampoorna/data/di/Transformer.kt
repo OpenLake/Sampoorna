@@ -1,5 +1,8 @@
 package org.openlake.sampoorna.data.di
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import org.openlake.sampoorna.data.repository.CryptoManager
 import org.openlake.sampoorna.data.sources.entities.Contact
 import org.openlake.sampoorna.data.sources.entities.ContactEntity
 
@@ -11,19 +14,21 @@ import org.openlake.sampoorna.data.sources.entities.ContactEntity
 */
 object Transformer {
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun convertContactModelToContactEntity(contact: Contact): ContactEntity {
         return ContactEntity(
-            name = contact.name,
-            contact = contact.contact,
-            id = contact.id
+            id = contact.id,
+            name = contact.name?.let { CryptoManager.encrypt(it) },
+            contact = contact.contact?.let { CryptoManager.encrypt(it) }
         )
     }
 
-    fun convertContactEntityToContactModel(contactEntity: ContactEntity): Contact {
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun convertContactEntityToContactModel(entity: ContactEntity): Contact {
         return Contact(
-            name = contactEntity.name,
-            contact = contactEntity.contact,
-            id = contactEntity.id
+            id = entity.id,
+            name = entity.name?.let { CryptoManager.decrypt(it) },
+            contact = entity.contact?.let { CryptoManager.decrypt(it) }
         )
     }
 }
