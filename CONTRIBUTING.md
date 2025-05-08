@@ -92,7 +92,7 @@ Congratulations :tada::tada: The Sampoorna team thanks you :sparkles:.
 
 Once your PR is merged, your contributions will be publicly visible on the [Sampoorna App](https://github.com/OpenLake/Sampoorna)
 
-# Past Contributors
+# Contributors
 ## 2025-26 Tenure
 - ([@Saurav1375](https://github.com/Saurav1375))
 
