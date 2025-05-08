@@ -92,3 +92,23 @@ Congratulations :tada::tada: The Sampoorna team thanks you :sparkles:.
 
 Once your PR is merged, your contributions will be publicly visible on the [Sampoorna App](https://github.com/OpenLake/Sampoorna)
 
+# Contributors
+## 2025-26 Tenure
+- [@Saurav1375](https://github.com/Saurav1375)
+
+## 2021-22 Tenure
+- [@akshaaatt](https://github.com/akshaaatt)
+- [@SunitRoy2703](https://github.com/SunitRoy2703)
+- [@yellowHatpro](https://github.com/yellowHatpro)
+- [@aastha01chauhan](https://github.com/aastha01chauhan)
+- [@ken1000minus7](https://github.com/ken1000minus7)
+- [@MohitGupta121](https://github.com/MohitGupta121)
+- [@Rupangkan](https://github.com/Rupangkan)
+- [@sdcode001](https://github.com/sdcode001)
+- [@shashwatj07](https://github.com/shashwatj07)
+- [@logicgupta](https://github.com/logicgupta)
+- [@IamRaja007](https://github.com/IamRaja007)
+- [@its-me-debk007)](https://github.com/its-me-debk007)
+- [@Chitrakshi2531](https://github.com/Chitrakshi2531)
+
+

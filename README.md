@@ -18,12 +18,8 @@ We came up with an Android app solution named **Sampoorna** especially designed 
 
 If you want to contribute to Sampoorna, be sure to review the [contribution guidelines](.CONTRIBUTING.md). This project adheres to [code of conduct](.CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
-## Contributors
-
-- **Akshat Tiwari** ([@akshaaatt](https://github.com/akshaaatt))
-- **Sunit Roy** ([@SunitRoy2703](https://github.com/SunitRoy2703))
-- **Ashutosh Aswal** ([@yellowHatpro](https://github.com/yellowHatpro))
-- **Aastha Chauhan** ([@aastha01chauhan](https://github.com/aastha01chauhan))
+# Contributors
+- Saurav Gupta([@Saurav1375](https://github.com/Saurav1375))
  
 ## License
  
