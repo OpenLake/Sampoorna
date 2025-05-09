@@ -3,6 +3,7 @@ package org.openlake.sampoorna.presentation.features.blogs
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +11,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.sources.entities.Blog
 import org.openlake.sampoorna.databinding.FragmentCreateBlogBinding
@@ -64,10 +71,13 @@ class CreateBlogFragment : Fragment() {
         }
 
         binding.postBlogButton.setOnClickListener {
+            Log.d("BLOGS", "Post button clicked")
+
             if(binding.blogTitle.text.isNullOrEmpty() || binding.blogContent.text.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), "One or more required fields are empty", Toast.LENGTH_SHORT).show()
             }
             else {
+                Log.d("BLOGS", "Creating blog object")
                 val blog = Blog(
                     title = binding.blogTitle.text.toString(),
                     content = binding.blogContent.text.toString(),
@@ -76,18 +86,48 @@ class CreateBlogFragment : Fragment() {
                     tags = tagListAdapter.tagList,
                     anonymous = binding.anonymousSwitch.isChecked
                 )
-                blogViewModel.addBlog(blog) {
-                    if(it.isSuccessful) {
-                        Toast.makeText(requireContext(), "Blog posted", Toast.LENGTH_SHORT).show()
-                        findNavController().popBackStack()
-                    }
-                    else {
-                        Toast.makeText(requireContext(), it.exception?.message, Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(requireContext(), "Posting blog...", Toast.LENGTH_SHORT).show()
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    Log.d("BLOGS", "Inside coroutine before addBlog")
+
+                    try {
+                        val success = blogViewModel.addBlog(blog)
+                        Log.d("BLOGS", "addBlog returned: $success")
+
+                        if (!isAdded) {
+                            Log.e("BLOGS", "Fragment no longer attached, cannot show UI feedback")
+                            return@launch
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            Log.d("BLOGS", "On Main thread, showing result")
+                            if (success) {
+                                Toast.makeText(requireActivity(), "Blog posted successfully!", Toast.LENGTH_LONG).show()
+                                Log.d("BLOGS", "Toast shown, now navigating back")
+                            } else {
+                                Toast.makeText(requireActivity(), "Failed to post blog", Toast.LENGTH_LONG).show()
+                            }
+                        }
+
+                        // Navigate back after feedback
+                        withContext(Dispatchers.Main) {
+                            delay(1000)
+                            Log.d("BLOGS", "Navigating back now")
+                        }
+                    } catch (e: Exception) {
+                        Log.e("BLOGS", "Exception in coroutine: ${e.message}", e)
+                        if (isAdded) {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(requireActivity(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                            }
+                        }
                     }
                 }
+                findNavController().popBackStack()
             }
         }
-
         return binding.root
     }
 
