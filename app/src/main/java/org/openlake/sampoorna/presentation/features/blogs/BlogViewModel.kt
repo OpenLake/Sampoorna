@@ -1,5 +1,6 @@
 package org.openlake.sampoorna.presentation.features.blogs
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,11 +8,15 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import org.openlake.sampoorna.data.constants.Constants
 import org.openlake.sampoorna.data.sources.entities.Blog
 import org.openlake.sampoorna.data.sources.entities.Comment
 import org.openlake.sampoorna.data.sources.entities.User
+import java.util.UUID
 
 class BlogViewModel: ViewModel() {
 
@@ -27,21 +32,20 @@ class BlogViewModel: ViewModel() {
     val savedBlogIds: MutableLiveData<MutableList<String>> = MutableLiveData(mutableListOf())
     val savedBlogs: MutableLiveData<MutableList<Blog>> = MutableLiveData(mutableListOf())
 
-    fun addBlog(blog: Blog, onComplete: (Task<Void>) -> Unit) {
-        viewModelScope.launch {
-            db.collection(Constants.Blogs)
-                .add(blog)
-                .addOnCompleteListener {
-                    if(it.isSuccessful) {
-                        db.collection(Constants.Blogs)
-                            .document(it.result.id)
-                            .update("blogId", it.result.id)
-                            .addOnCompleteListener(onComplete)
-                    }
-                    else {
-                        it.exception?.printStackTrace()
-                    }
-                }
+    //updated add blog to handle blog Id properly and returning boolean instead of task
+    suspend fun addBlog(blog: Blog): Boolean  {
+        return try {
+            val blogId = UUID.randomUUID().toString()
+            val blogWithId = blog.copy(blogId = blogId)
+
+            val result = db.collection(Constants.Blogs)
+                .document(blogId)
+                .set(blogWithId)
+                .await()
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
         }
     }
 
@@ -54,6 +58,7 @@ class BlogViewModel: ViewModel() {
                         if(searchQuery.value.isNullOrEmpty()) {
                             searchResults.postValue(value.toObjects(Blog::class.java))
                         }
+                        Log.d("BLOGS", value.toObjects(Blog::class.java).toString())
                     }
                     else {
                         error?.printStackTrace()
@@ -145,13 +150,12 @@ class BlogViewModel: ViewModel() {
     }
 
     fun saveBlog(blogId: String, onComplete: (Task<Void>) -> Unit = {}) {
-        viewModelScope.launch {
-            db.collection(Constants.Users)
-                .document(auth.uid!!)
-                .update("savedBlogs", FieldValue.arrayUnion(blogId))
-                .addOnCompleteListener(onComplete)
-        }
+        db.collection(Constants.Users)
+            .document(auth.uid!!)
+            .update("savedBlogs", FieldValue.arrayUnion(blogId))
+            .addOnCompleteListener(onComplete)
     }
+
 
     fun deleteSavedBlog(blogId: String, onComplete: (Task<Void>) -> Unit = {}) {
         viewModelScope.launch {

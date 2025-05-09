@@ -1,5 +1,6 @@
 package org.openlake.sampoorna.presentation.features.blogs
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ class BlogAdapter(val context: Context, private val blogViewModel: BlogViewModel
         return BlogViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BlogViewHolder, position: Int) {
         val blog = blogList[position]
 
@@ -45,13 +47,17 @@ class BlogAdapter(val context: Context, private val blogViewModel: BlogViewModel
         holder.blogAuthor.text = "By ${if(blog.anonymous) "Anonymous" else blog.authorUsername}"
 
         if(!blog.anonymous) {
-            blogViewModel.getUser(blog.authorUid).observe(viewLifecycleOwner) {
-                Glide.with(context)
-                    .load(it.photoUrl)
-                    .placeholder(R.drawable.womenlogo)
-                    .centerCrop()
-                    .into(holder.blogAuthorImage)
+            //added  null check to avoid crashes
+            blogViewModel.getUser(blog.authorUid).observe(viewLifecycleOwner) { user ->
+                user?.let {
+                    Glide.with(context)
+                        .load(it.photoUrl ?: "")
+                        .placeholder(R.drawable.womenlogo)
+                        .centerCrop()
+                        .into(holder.blogAuthorImage)
+                }
             }
+
         }
 
         val blogDate = Date(blog.timestamp)
