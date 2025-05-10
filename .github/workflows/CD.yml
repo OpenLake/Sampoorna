@@ -1,11 +1,12 @@
 name: CD
+
 on:
   workflow_run:
-    workflows: ["Sampoorna CI"]  # Make sure this matches your CI workflow name exactly
+    workflows: ["Sampoorna CI"]
     types:
       - completed
     branches:
-      - main  # Only run CD on main branch completions
+      - main
 
 jobs:
   check-workflow-success:
@@ -17,11 +18,13 @@ jobs:
         run: echo "CI workflow completed successfully. Proceeding with CD workflow."
 
   apk:
-    name: Build Release signed APK
+    name: Build and Sign APK
     runs-on: ubuntu-latest
     needs: [check-workflow-success]
+    outputs:
+      apk_path: ${{ steps.sign_app.outputs.signedReleaseFile }}
     steps:
-      - name: Checkout the code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -43,7 +46,7 @@ jobs:
       - name: Build Release APK
         run: ./gradlew assembleRelease
 
-      - name: Install Android SDK Build Tools
+      - name: Install Android Build Tools
         run: yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.1"
 
       - name: Sign APK
@@ -58,7 +61,6 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "33.0.1"
 
-
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
         with:
@@ -69,8 +71,10 @@ jobs:
     name: Build and Sign AAB
     runs-on: ubuntu-latest
     needs: [check-workflow-success]
+    outputs:
+      aab_path: ${{ steps.sign_aab.outputs.signedReleaseFile }}
     steps:
-      - name: Checkout the code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -92,6 +96,9 @@ jobs:
       - name: Build Release Bundle
         run: ./gradlew bundleRelease
 
+      - name: Install Android Build Tools
+        run: yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.1"
+
       - name: Sign AAB
         uses: r0adkll/sign-android-release@v1
         id: sign_aab
@@ -110,3 +117,35 @@ jobs:
           name: sampoorna-app-bundle
           path: ${{ steps.sign_aab.outputs.signedReleaseFile }}
 
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [apk, bundle]
+    steps:
+      - name: Download Signed APK
+        uses: actions/download-artifact@v4
+        with:
+          name: sampoorna-app-signed
+          path: ./release-artifacts/apk
+
+      - name: Download Signed AAB
+        uses: actions/download-artifact@v4
+        with:
+          name: sampoorna-app-bundle
+          path: ./release-artifacts/aab
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Sampoorna Release v1.0.${{ github.run_number }}
+          body: |
+            Automated release from CI/CD pipeline.
+            - Signed APK
+            - Signed AAB
+            - Source code (.zip, .tar.gz)
+          files: |
+            ./release-artifacts/apk/*.apk
+            ./release-artifacts/aab/*.aab
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
