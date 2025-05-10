@@ -103,7 +103,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run espresso tests
-        uses: reactivecircus/android-emulator-runner@v3 # 3rd party tool
+        uses: reactivecircus/android-emulator-runner@v2 # 3rd party tool
         with:
           api-level: 29
           script: ./gradlew connectedCheck
