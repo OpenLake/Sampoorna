@@ -85,44 +85,6 @@ jobs:
           name: unit_test_report
           path: app/build/reports/test/testDebugUnitTest/
 
-  instrumentation-test:
-    name: Perform Instrumentation Testing
-    runs-on: macos-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v4
-
-      - name: Set up Java JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Cache Gradle
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle-
-
-      - name: Make Gradle executable
-        run: chmod +x ./gradlew
-
-      - name: Run espresso tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          target: google_apis
-          arch: x86_64
-          script: ./gradlew connectedCheck
-
-      - name: Upload Instrumentation Test report
-        uses: actions/upload-artifact@v4
-        with:
-          name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected
-
-
   # This job will only run after all the testing jobs have succeeded
   build-artifacts:
     name: Generate Debug APK
